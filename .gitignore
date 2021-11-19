@@ -58,3 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+Project Ford/.vscode/
+
+Project Ford/Library/
+
+Project Ford/Logs/
+
+Project Ford/Temp/
