@@ -24,17 +24,17 @@ public class AnimalManager : MonoBehaviour
 		// Seed Unity rng with the clock time.
 		UnityEngine.Random.InitState(((int)System.DateTime.Now.Ticks));
 
-		// Select 3 random shapes.
+		// Select 3 random animals.
 		for(int i = 0; i < 3; ++i)
 		{
 			int randomSelect = UnityEngine.Random.Range(0, 3);
-			Animal randomShape = _possibleAnimals[randomSelect];
+			Animal randomAnimal = _possibleAnimals[randomSelect];
 
-			_selectedAnimals.Add(randomShape);
+			_selectedAnimals.Add(randomAnimal);
 			_animalImages[i].sprite = _selectedAnimals[i].GetSprite();
 		}
 
-		// Get the sum of the sides of the different shapes.
+		// Get the sum of the sides of the different animals.
 		foreach(Animal animal in _selectedAnimals)
 			_weightSum += animal.GetWeight();
 	}
