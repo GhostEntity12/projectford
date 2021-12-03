@@ -2,6 +2,15 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
+[Flags]
+public enum Direction
+{
+	North = 1,
+	East = 2,
+	South = 4,
+	West = 8
+}
+
 public class MazeReadWriter
 {
 #if UNITY_EDITOR
@@ -53,7 +62,7 @@ public class MazeReadWriter
 						// Set flag if wall was found
 						if (map.GetPixel(cellCoords.x, cellCoords.y) == Color.black)
 						{
-							cell.walls |= (MazeCell.Walls)Mathf.Pow(2, edge);
+							cell.walls |= (Direction)Mathf.Pow(2, edge);
 						}
 					}
 					// Save to location in 2D array
@@ -104,14 +113,5 @@ public class MazeReadWriter
 [Serializable]
 public class MazeCell
 {
-	[Flags]
-	public enum Walls
-	{
-		North = 1,
-		East = 2,
-		South = 4,
-		West = 8
-	}
-
-	public Walls walls;
+	public Direction walls;
 }

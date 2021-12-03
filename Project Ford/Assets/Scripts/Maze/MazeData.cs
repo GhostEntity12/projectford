@@ -19,7 +19,7 @@ public class MazeData : ScriptableObject
 			{
 				for (int j = 0; j < dimensions.y; j++)
 				{
-					returnArray[i, j] = cells[i * dimensions.x + j];
+					returnArray[j, i] = cells[i * dimensions.x + j];
 				}
 			}
 			return returnArray;
