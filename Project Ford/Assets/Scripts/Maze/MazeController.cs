@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class MazeController : MonoBehaviour
 {
+	[Header("Car Data")]
 	public GameObject carObject;
+	public GameObject[] arrows;
+	public float moveSpeed = 1f;
+
+	[Header("Maze Data")]
 	public GameObject mazeObject;
 	MazeData[] mazes;
 	Material mazeMaterial;
 	MazeData maze;
+
+	// Movement stuff
+	// Position doesn't denote the actual current position,
+	// it instead refers to the position the car will be in after moving
+	// Check currentDestination for that instead
 	Vector2Int position = new Vector2Int(9, 20);
+	// Previous position used to iterate through corridors.
+	// Similarly to position, does not store the actual cell the car was previously in
 	Vector2Int previousPosition;
+	Queue<Vector2Int> path = new Queue<Vector2Int>();
+	Vector2 currentDestination;
+	bool isMoving;
+
 	bool[] queryStates = new bool[16]
 	{
 		false,	// 00 - never happens
@@ -39,14 +55,45 @@ public class MazeController : MonoBehaviour
 		new Vector2Int(-1, 0)
 	};
 
-	public GameObject[] arrows;
-
 	// Start is called before the first frame update
 	void Start()
 	{
 		mazes = Resources.LoadAll<MazeData>("MapData");
 		mazeMaterial = mazeObject.GetComponent<Renderer>().material;
 		LoadMaze();
+	}
+
+	private void Update()
+	{
+		// Handling the start when the car is outside of the maze
+		if (position.y >= maze.dimensions.y)
+			return;
+
+		// Queue is empty and car is no longer moving, show arrows for tile
+		if (path.Count == 0 && !isMoving)
+		{
+			SetActiveArrows();
+		}
+		else
+		{
+			// Set the next new destination
+			if (!isMoving)
+			{
+				Vector2Int cell = path.Dequeue();
+				currentDestination = new Vector2(cell.x * 0.5f + 0.25f, cell.y * 0.5f + 0.25f);
+				isMoving = true;
+			}
+			// Move the car
+			else
+			{
+				// Put rotation code here?
+				carObject.transform.position = Vector2.MoveTowards(carObject.transform.position, currentDestination, moveSpeed * Time.deltaTime);
+				if ((Vector2)carObject.transform.position == currentDestination)
+				{
+					isMoving = false;
+				}
+			}
+		}
 	}
 
 	void LoadMaze()
@@ -62,20 +109,20 @@ public class MazeController : MonoBehaviour
 		Vector2Int newPosition = position + cardinals[index];
 
 		if (newPosition.y < maze.dimensions.x)
-		{   
-
-			MoveTile(newPosition);
-			SetActiveArrows();
+		{
+			SetPath(newPosition);
+			SetActiveArrows(0);
 		}
 	}
 
-	void MoveTile(Vector2Int newTile)
+	void SetPath(Vector2Int nextTile)
 	{
 		previousPosition = position;
-		position = newTile;
+		position = nextTile;
+		path.Enqueue(nextTile);
 
 		// This line is temp, car needs to be animated moving through the maze
-		carObject.transform.position = new Vector2(newTile.x * 0.5f + 0.25f, newTile.y * 0.5f + 0.25f);
+		//carObject.transform.position = new Vector2(nextTile.x * 0.5f + 0.25f, nextTile.y * 0.5f + 0.25f);
 
 		// Stuff below here needs to happen after the car finishes moving
 		MazeCell cell = maze.Cells2D[position.x, position.y];
@@ -100,7 +147,7 @@ public class MazeController : MonoBehaviour
 				Vector2Int _position = position + cardinals[i];
 				if (_position != previousPosition)
 				{
-					MoveTile(_position);
+					SetPath(_position);
 					break;
 				}
 			}
