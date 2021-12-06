@@ -15,6 +15,9 @@ public class MazeController : MonoBehaviour
 	Material mazeMaterial;
 	MazeData maze;
 
+	[Header("Other")]
+	public Camera camera;
+
 	// Movement stuff
 	// Position doesn't denote the actual current position,
 	// it instead refers to the position the car will be in after moving
@@ -27,7 +30,7 @@ public class MazeController : MonoBehaviour
 	Vector2 currentDestination;
 	bool isMoving;
 
-	bool[] queryStates = new bool[16]
+	readonly bool[] queryStates = new bool[16]
 	{
 		false,	// 00 - never happens
 		false,	// 01 - dead end
@@ -47,7 +50,7 @@ public class MazeController : MonoBehaviour
 		false	// 15 - query
 	};
 
-	Vector2Int[] cardinals = new Vector2Int[4]
+	readonly Vector2Int[] cardinals = new Vector2Int[4]
 	{
 		new Vector2Int(0, 1),
 		new Vector2Int(1, 0),
@@ -80,7 +83,7 @@ public class MazeController : MonoBehaviour
 			if (!isMoving)
 			{
 				Vector2Int cell = path.Dequeue();
-				currentDestination = new Vector2(cell.x * 0.5f + 0.25f, cell.y * 0.5f + 0.25f);
+				currentDestination = MazeCoordstoWorldCoords(cell);
 				isMoving = true;
 			}
 			// Move the car
@@ -99,8 +102,13 @@ public class MazeController : MonoBehaviour
 	void LoadMaze()
 	{
 		// Loads a random maze
-		maze = mazes[Random.Range(0, mazes.Length)];
+		int rand = Random.Range(0, mazes.Length);
+		maze = mazes[rand];
+		carObject.transform.position = MazeCoordstoWorldCoords(maze.startLocation);
+		position = maze.startLocation;
 		mazeMaterial.mainTexture = maze.map;
+		mazeObject.transform.localScale = new Vector3(maze.dimensions.x, 1, maze.dimensions.y);
+		camera.transform.position = new Vector3(maze.dimensions.x / 4, maze.dimensions.y / 4, -10);
 		SetActiveArrows(Direction.South);
 	}
 
@@ -124,14 +132,15 @@ public class MazeController : MonoBehaviour
 		// This line is temp, car needs to be animated moving through the maze
 		//carObject.transform.position = new Vector2(nextTile.x * 0.5f + 0.25f, nextTile.y * 0.5f + 0.25f);
 
-		// Stuff below here needs to happen after the car finishes moving
-		MazeCell cell = maze.Cells2D[position.x, position.y];
 		// Query based on open passages
 		if (position.y < 0)
 		{
 			// Map complete
 			return;
 		}
+		// Stuff below here needs to happen after the car finishes moving
+		MazeCell cell = maze.Cells2D[position.x, position.y];
+
 		// Comment out from here to the end of the function if you want the player to click every cell
 		// May need to rethink structure?
 		// Maybe have a stack of the cell positions the car needs to move through stored and use Update()?
@@ -177,6 +186,7 @@ public class MazeController : MonoBehaviour
 			arrows[0].SetActive(false);
 		}
 	}
+
 	public void SetActiveArrows(Direction direction)
 	{
 		for (int i = 0; i < arrows.Length; i++)
@@ -185,15 +195,5 @@ public class MazeController : MonoBehaviour
 		}
 	}
 
-	public int CountOnBits(int x)
-	{
-		int count = 0;
-		while (x != 0)
-		{
-			if ((x & 1) != 0) count++;
-			x >>= 1;
-		}
-		return count;
-	}
-
+	public Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
 }

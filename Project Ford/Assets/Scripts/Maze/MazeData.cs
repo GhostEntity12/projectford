@@ -7,6 +7,7 @@ public class MazeData : ScriptableObject
 #endif
 	public Vector2Int dimensions;
 	public MazeCell[] cells;
+	public Vector2Int startLocation;
 	/// <summary>
 	/// Returns the cell data in a 2D array form 
 	/// </summary>
@@ -15,12 +16,25 @@ public class MazeData : ScriptableObject
 		get
 		{
 			MazeCell[,] returnArray = new MazeCell[dimensions.x, dimensions.y];
-			for (int i = 0; i < dimensions.x; i++)
+			for (int i = 0; i < cells.Length; i++)
 			{
-				for (int j = 0; j < dimensions.y; j++)
-				{
-					returnArray[j, i] = cells[i * dimensions.x + j];
-				}
+				returnArray[i % dimensions.x, Mathf.FloorToInt(i / dimensions.x)] = cells[i];
+				//for (int j = 0; j < dimensions.y; j++)
+				//{
+				//	try
+				//	{
+				//		returnArray[j, i] = cells[i * dimensions.x + j];
+				//	}
+				//	catch (System.Exception)
+				//	{
+				//		Debug.Log(dimensions);
+				//		Debug.Log(new Vector2Int(j, i));
+				//		Debug.Log(cells.Length);
+				//		Debug.Log(i * dimensions.x + j);
+
+				//		throw;
+				//	}
+				//}
 			}
 			return returnArray;
 		}

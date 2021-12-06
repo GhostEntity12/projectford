@@ -415,3 +415,4 @@ MonoBehaviour:
   - walls: 9
   - walls: 5
   - walls: 7
+  startLocation: {x: 9, y: 20}
