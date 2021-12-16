@@ -2,6 +2,15 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
+[Flags]
+public enum Direction
+{
+	North = 1,
+	East = 2,
+	South = 4,
+	West = 8
+}
+
 public class MazeReadWriter
 {
 #if UNITY_EDITOR
@@ -30,10 +39,10 @@ public class MazeReadWriter
 			// Cell (0, 0) is bottom left
 			// Iterate through each cell of the maze and check for walls
 			// Y direction
-			for (int i = 0; i < cellCount.x; i++)
+			for (int i = 0; i < cellCount.y; i++)
 			{
 				// X direction
-				for (int j = 0; j < cellCount.y; j++)
+				for (int j = 0; j < cellCount.x; j++)
 				{
 					MazeCell cell = new MazeCell();
 					int xCoord = j * (borderWidth + internalSize) + borderWidth;
@@ -53,11 +62,12 @@ public class MazeReadWriter
 						// Set flag if wall was found
 						if (map.GetPixel(cellCoords.x, cellCoords.y) == Color.black)
 						{
-							cell.walls |= (MazeCell.Walls)Mathf.Pow(2, edge);
+							cell.walls |= (Direction)Mathf.Pow(2, edge);
 						}
 					}
+
 					// Save to location in 2D array
-					cells[i, j] = cell;
+					cells[j, i] = cell;
 				}
 			}
 
@@ -68,16 +78,30 @@ public class MazeReadWriter
 			// Need to crush this down to a 1D array, because of Unity serialization :rolling_eyes:
 			// Use MazeData.Cells2D to get back a usable 2D array
 			MazeCell[] squashedArray = new MazeCell[cellCount.x * cellCount.y];
+			Debug.Log(cellCount);
+			Debug.Log(cells.Length);
 			int index = 0;
-			for (int i = 0; i < cellCount.x; i++)
+			for (int i = 0; i < cellCount.y; i++)
 			{
-				for (int j = 0; j < cellCount.y; j++)
+				for (int j = 0; j < cellCount.x; j++)
 				{
-					squashedArray[index] = cells[i, j];
+					Debug.Log(index);
+					Debug.Log(j + "/" + cellCount.y);
+					squashedArray[index] = cells[j, i];
+					Debug.Log(squashedArray[index].walls);
 					index++;
 				}
 			}
 			maze.cells = squashedArray;
+
+			for (int i = 0; i < cellCount.x; i++)
+			{
+				if (!maze.Cells2D[i, maze.dimensions.y - 1].walls.HasFlag(Direction.North))
+				{
+					maze.startLocation = new Vector2Int(i, maze.dimensions.y);
+					break;
+				}
+			}
 
 			// Create and save the assets
 			AssetDatabase.CreateAsset(maze, $"Assets/Resources/MapData/{maze.map.name}.asset");
@@ -104,14 +128,5 @@ public class MazeReadWriter
 [Serializable]
 public class MazeCell
 {
-	[Flags]
-	public enum Walls
-	{
-		North = 1,
-		East = 2,
-		South = 4,
-		West = 8
-	}
-
-	public Walls walls;
+	public Direction walls;
 }
