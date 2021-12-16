@@ -8,6 +8,8 @@ public class Animal : ScriptableObject
 	[SerializeField] private int _weight = 0;
 
 	[SerializeField] private Sprite _animalSprite = null;
+	
+	[SerializeField] private GameObject _animalPhysicsObject = null;
 
 	public int GetWeight()
 	{
@@ -17,5 +19,10 @@ public class Animal : ScriptableObject
 	public Sprite GetSprite()
 	{
 		return _animalSprite;
+	}
+
+	public GameObject GetPhysicsObject()
+	{
+		return _animalPhysicsObject;
 	}
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Quokka
   m_EditorClassIdentifier: 
   _weight: 2
-  _shapeSprite: {fileID: 21300000, guid: e28903e65fbe18e4f8e0973792c37dd9, type: 3}
+  _animalSprite: {fileID: 21300000, guid: e28903e65fbe18e4f8e0973792c37dd9, type: 3}
+  _animalPhysicsObject: {fileID: 656589692899240134, guid: 9f8ca6b57670c384081df97c2e5e6fea, type: 3}
