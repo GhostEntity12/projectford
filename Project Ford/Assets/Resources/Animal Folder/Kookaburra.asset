@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 1
   _animalSprite: {fileID: 21300000, guid: 131fd52022fa0674c81e7ae07c40a6de, type: 3}
+  _animalPhysicsObject: {fileID: 3656521866853459993, guid: 3d47da6d9731065499877d4f33b13e0a, type: 3}
