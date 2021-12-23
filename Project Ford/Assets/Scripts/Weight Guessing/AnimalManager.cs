@@ -7,27 +7,83 @@ using TMPro;
 
 public class AnimalManager : MonoBehaviour
 {
+	/// <summary>
+	/// Possible animals the manager can select.
+	/// </summary>
 	[SerializeField] private List<Animal> _possibleAnimals = new List<Animal>();
 
+	/// <summary>
+	/// The images that will show the selected animals.
+	/// </summary>
 	[SerializeField] private List<Image> _animalImages = new List<Image>();
 
+	/// <summary>
+	/// TMPro input field.
+	/// </summary>
 	[SerializeField] private TMP_InputField _inputText = null;
 
+	/// <summary>
+	/// Just an image that changes colour to show if the input was right or wrong (just for prototyping).
+	/// </summary>
+	/// <returns></returns>
 	[SerializeField] private Image _indicator = null;
 
+	/// <summary>
+	/// The zone for spawning the physics objects.
+	/// </summary>
+	/// <returns></returns>
 	[SerializeField] private BoxCollider2D _spawnZone = null;
 
+	/// <summary>
+	/// The bounds of the spawn zone.
+	/// Gets properly set in Awake(), just needs something for now.
+	/// </summary>
+	/// <returns></returns>
+	private Bounds _spawnBounds = new Bounds();
+
+	/// <summary>
+	/// The transform of the spawn zone.
+	/// </summary>
+	private Transform _spawnZoneTransform = null;
+
+	/// <summary>
+	/// The animals that were selected for the game.
+	/// </summary>
 	private List<Animal> _selectedAnimals = new List<Animal>();
 
+	/// <summary>
+	/// The physics objects of the selected animals in the scene.
+	/// </summary>
+	private List<GameObject> _selectedAnimalsObjs = new List<GameObject>();
+
+	/// <summary>
+	/// The sum of the selected animal's weights.
+	/// </summary>
 	private int _weightSum = 0;
 
+	/// <summary>
+	/// On startup.
+	/// </summary>
 	void Awake()
 	{
-		// Seed Unity rng with the clock time.
+		// Get necessary variables.
+		_spawnBounds = _spawnZone.bounds;
+		_spawnZoneTransform = _spawnZone.transform;
+
+		// Seed Unity RNG with the clock time.
 		UnityEngine.Random.InitState(((int)System.DateTime.Now.Ticks));
 
-		Bounds spawnBounds = _spawnZone.bounds;
-		Transform spawnZoneTransform = _spawnZone.transform;
+		// Select animals to begin with.
+		SelectAnimals();
+	}
+
+	/// <summary>
+	/// Selects and sets animals for the weight guessing game.
+	/// OVERRIDES THE PREVIOUS ROUND!
+	/// </summary>
+	public void SelectAnimals()
+	{
+		_weightSum = 0;
 
 		// Select 3 random animals.
 		for(int i = 0; i < 3; ++i)
@@ -38,24 +94,31 @@ public class AnimalManager : MonoBehaviour
 			_selectedAnimals.Add(randomAnimal);
 			_animalImages[i].sprite = _selectedAnimals[i].GetSprite();
 
-			Vector2 spawnPointInBounds = RandomPointInBounds(spawnBounds, 1.0f);
+			Vector2 spawnPointInBounds = RandomPointInBounds(_spawnBounds, 1.0f);
 			Vector3 vec3SpawnPoint = new Vector3(spawnPointInBounds.x, spawnPointInBounds.y, 0.0f);
+
 			// Spawn the physics object representing the animal in a random point in the spawn zone.
 			GameObject spawnedPhysicsObject = GameObject.Instantiate
 			(
 				randomAnimal.GetPhysicsObject(),
 				vec3SpawnPoint,
 				Quaternion.Euler(0.0f, 0.0f, UnityEngine.Random.Range(0.0f, 360.0f)),
-				spawnZoneTransform
+				_spawnZoneTransform
 			);
-			Debug.Log(spawnedPhysicsObject.name + " pos: " + spawnedPhysicsObject.transform.position);
+
+			// Save the objects to a list for reference later.
+			_selectedAnimalsObjs.Add(spawnedPhysicsObject);
 		}
 
-		// Get the sum of the sides of the different animals.
+		// Get the sum of the weights of the different animals.
 		foreach(Animal animal in _selectedAnimals)
 			_weightSum += animal.GetWeight();
 	}
 
+	/// <summary>
+	/// Submit the player's input for the weight.
+	/// Also resets the game if the input was correct. (TODO: FEEDBACK TO SHOW THE PLAYER GOT THE ANSWER GOT THE QUESTION RIGHT)
+	/// </summary>
 	public void Submit()
 	{
 		int playerGuess = 0;
@@ -68,13 +131,22 @@ public class AnimalManager : MonoBehaviour
 			return;
 		}
 
-		// Input is an integer, check if it was right.
+		// Input is an integer, check if it is the same as the weight calculated when the animals were selected.
 		if (playerGuess == _weightSum)
+		{
 			_indicator.color = Color.green;
+			ResetWeightGuessGame();
+		}
 		else
 			_indicator.color = Color.red;
 	}
 
+	/// <summary>
+	/// Gets a random point in a collider.
+	/// </summary>
+	/// <param name="bounds">The bounds of the collider</param>
+	/// <param name="scale">The scale of the colliders</param>
+	/// <returns>A random position in the bounds of the collider</returns>
 	public Vector3 RandomPointInBounds(Bounds bounds, float scale)
 	{
 		Vector3 randomPoint = new Vector3
@@ -85,5 +157,24 @@ public class AnimalManager : MonoBehaviour
 		);
 
 		return randomPoint;
+	}
+
+	/// <summary>
+	/// Reset the Guess the Weight game.
+	/// </summary>
+	public void ResetWeightGuessGame()
+	{
+		// Delete the physics objects.
+		foreach(GameObject physicsObject in _selectedAnimalsObjs)
+		{
+			Destroy(physicsObject);
+		}
+
+		// Clear the lists of animals.
+		_selectedAnimalsObjs.Clear();
+		_selectedAnimals.Clear();
+
+		// Select new animals.
+		SelectAnimals();
 	}
 }
