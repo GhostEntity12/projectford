@@ -690,15 +690,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carObject: {fileID: 8767609359670144422}
+  carMesh: {fileID: 8767609359992844039}
   arrows:
   - {fileID: 8767609361093936523}
   - {fileID: 8767609360004442381}
   - {fileID: 8767609361147123486}
   - {fileID: 8767609360136182817}
   moveSpeed: 1
-  mazeObject: {fileID: 8767609360513776818}
+  rotSpeed: 1
   line: {fileID: 5438748252315256508}
-  camera: {fileID: 234485057}
+  mazeObject: {fileID: 8767609360513776818}
+  colors:
+  - {r: 0.5943396, g: 0.17661978, b: 0.17661978, a: 1}
+  - {r: 0.18727604, g: 0.4716981, b: 0.1713243, a: 1}
+  - {r: 0.1533019, g: 0.2997016, b: 0.6132076, a: 1}
 --- !u!120 &5438748252315256508
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -788,7 +793,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 5
+    numCornerVertices: 0
     numCapVertices: 0
     alignment: 1
     textureMode: 1

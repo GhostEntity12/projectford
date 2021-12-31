@@ -4,33 +4,10 @@ using UnityEngine;
 
 public class MazeController : MonoBehaviour
 {
-	[Header("Car Data")]
-	public GameObject carObject;
-	public GameObject[] arrows;
-	public float moveSpeed = 1f;
-
-	[Header("Maze Data")]
-	public GameObject mazeObject;
-	MazeData[] mazes;
-	Material mazeMaterial;
-	MazeData maze;
-	public LineRenderer line;
-
-	[Header("Other")]
-	new public Camera camera;
-
-	// Movement stuff
-	// Position doesn't denote the actual current position,
-	// it instead refers to the position the car will be in after moving
-	// Check currentDestination for that instead
-	Vector2Int position = new Vector2Int(9, 20);
-	// Previous position used to iterate through corridors.
-	// Similarly to position, does not store the actual cell the car was previously in
-	Vector2Int previousPosition;
-	Queue<Vector2Int> path = new Queue<Vector2Int>();
-	Vector2 currentDestination;
-	bool isMoving;
-
+	// Constansts
+	/// <summary>
+	/// Whether the car should continue moving or query for a new command based on the number of walls
+	/// </summary>
 	readonly bool[] queryStates = new bool[16]
 	{
 		false,	// 00 - never happens
@@ -50,7 +27,9 @@ public class MazeController : MonoBehaviour
 		false,	// 14 - query
 		false	// 15 - query
 	};
-
+	/// <summary>
+	/// Used to get the tile in a given cardinal direction
+	/// </summary>
 	readonly Vector2Int[] cardinals = new Vector2Int[4]
 	{
 		new Vector2Int(0, 1),
@@ -59,13 +38,59 @@ public class MazeController : MonoBehaviour
 		new Vector2Int(-1, 0)
 	};
 
-	// Start is called before the first frame update
+	[Header("Car Data")]
+	public GameObject carObject;
+	public Transform carMesh;
+	public GameObject[] arrows;
+	public float moveSpeed = 1f;
+	public float rotSpeed = 0.2f;
+	public LineRenderer line;
+
+	[Header("Maze Data")]
+	public GameObject mazeObject;
+	MazeData[] mazes;
+	Material mazeMaterial;
+	MazeData maze;
+
+	[Header("Debug")]
+	public Color[] colors;
+	public Dictionary<string, Color> colorsDict;
+
+	// Movement stuff
+
+	/// <summary>
+	/// Position doesn't denote the actual current position,
+	/// it instead refers to the position the car will be in after moving
+	/// Check currentDestination for that instead
+	/// </summary>
+	Vector2Int position = new Vector2Int(9, 20);
+	Vector2 currentDestination;
+
+	/// <summary>
+	/// Previous position used to iterate through corridors.
+	/// Similarly to position, does not store the actual cell the car was previously in
+	/// </summary>
+	Vector2Int previousPosition;
+	readonly Queue<Vector2Int> path = new Queue<Vector2Int>();
+
+	// Flow
+	bool isMoving;
+	bool isRotating;
+
 	void Start()
 	{
+		// Caching
 		mazes = Resources.LoadAll<MazeData>("MapData");
 		mazeMaterial = mazeObject.GetComponent<Renderer>().material;
+
 		LoadMaze();
-		line.SetPosition(0, carObject.transform.position);
+
+		colorsDict = new Dictionary<string, Color>
+		{
+			{ "waiting", colors[0] },
+			{ "turning", colors[1] },
+			{ "moving", colors[2] }
+		};
 	}
 
 	private void Update()
@@ -75,46 +100,66 @@ public class MazeController : MonoBehaviour
 			return;
 
 		// Queue is empty and car is no longer moving, show arrows for tile
-		if (path.Count == 0 && !isMoving)
+		if (path.Count == 0 && !isMoving && !isRotating)
 		{
+			carMesh.GetComponent<Renderer>().material.color = Color.red;
 			SetActiveArrows();
 			line.Simplify(0.2f);
 		}
 		else
 		{
-			// Set the next new destination
-			if (!isMoving)
+			if (isRotating)
 			{
-				Vector2Int cell = path.Dequeue();
-				currentDestination = MazeCoordstoWorldCoords(cell);
-				isMoving = true;
-				line.SetPosition(line.positionCount++ - 1, carObject.transform.position);
-				line.SetPosition(line.positionCount - 1, carObject.transform.position);
+				carMesh.GetComponent<Renderer>().material.color = Color.green;
+				Quaternion targetRotation = Quaternion.LookRotation(carMesh.position - (Vector3)currentDestination, Vector3.back);
+				Debug.Log(targetRotation.eulerAngles);
+				carMesh.rotation = Quaternion.RotateTowards(carMesh.rotation, targetRotation, rotSpeed);
+				if (carMesh.rotation == targetRotation)
+				{
+					isMoving = true;
+					isRotating = false;
+				}
 			}
-			// Move the car
 			else
 			{
-				line.SetPosition(line.positionCount - 1, carObject.transform.position);
-				// Put rotation code here?
-				carObject.transform.position = Vector2.MoveTowards(carObject.transform.position, currentDestination, moveSpeed * Time.deltaTime);
-				if ((Vector2)carObject.transform.position == currentDestination)
+				carMesh.GetComponent<Renderer>().material.color = Color.blue;
+				// Set the next new destination
+				if (!isMoving)
 				{
-					isMoving = false;
+					Vector2Int cell = path.Dequeue();
+					currentDestination = MazeCoordstoWorldCoords(cell);
+					isRotating = true;
+					line.SetPosition(line.positionCount++ - 1, carObject.transform.position);
+					line.SetPosition(line.positionCount - 1, carObject.transform.position);
+				}
+				// Move the car
+				else
+				{
+					line.SetPosition(line.positionCount - 1, carObject.transform.position);
+					// Put rotation code here?
+					carObject.transform.position = Vector2.MoveTowards(carObject.transform.position, currentDestination, moveSpeed * Time.deltaTime);
+					if ((Vector2)carObject.transform.position == currentDestination)
+					{
+						isMoving = false;
+					}
 				}
 			}
 		}
 	}
 
+	/// <summary>
+	/// Loads a random maze
+	/// </summary>
 	void LoadMaze()
 	{
-		// Loads a random maze
 		int rand = Random.Range(0, mazes.Length);
 		maze = mazes[rand];
 		carObject.transform.position = MazeCoordstoWorldCoords(maze.startLocation);
+		line.SetPosition(0, carObject.transform.position);
 		position = maze.startLocation;
 		mazeMaterial.mainTexture = maze.map;
 		mazeObject.transform.localScale = new Vector3(maze.dimensions.x, 1, maze.dimensions.y);
-		camera.transform.position = new Vector3(maze.dimensions.x / 4, maze.dimensions.y / 4, -10);
+		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4, maze.dimensions.y / 4, -10);
 		SetActiveArrows(Direction.South);
 	}
 
@@ -135,8 +180,6 @@ public class MazeController : MonoBehaviour
 		position = nextTile;
 		path.Enqueue(nextTile);
 
-		// This line is temp, car needs to be animated moving through the maze
-		//carObject.transform.position = new Vector2(nextTile.x * 0.5f + 0.25f, nextTile.y * 0.5f + 0.25f);
 
 		// Query based on open passages
 		if (position.y < 0)
@@ -147,9 +190,7 @@ public class MazeController : MonoBehaviour
 		// Stuff below here needs to happen after the car finishes moving
 		MazeCell cell = maze.Cells2D[position.x, position.y];
 
-		// Comment out from here to the end of the function if you want the player to click every cell
-		// May need to rethink structure?
-		// Maybe have a stack of the cell positions the car needs to move through stored and use Update()?
+		/* Comment out from here to the end of the function if you want the player to click every cell */
 		// If there's two walls and two passages
 		if (queryStates[(int)cell.walls])
 		{
@@ -162,6 +203,7 @@ public class MazeController : MonoBehaviour
 				Vector2Int _position = position + cardinals[i];
 				if (_position != previousPosition)
 				{
+					// Recurse until a dead end or junction
 					SetPath(_position);
 					break;
 				}
@@ -182,6 +224,7 @@ public class MazeController : MonoBehaviour
 			// No arrows if out of bounds
 			direction = 0;
 		}
+
 		for (int i = 0; i < arrows.Length; i++)
 		{
 			arrows[i].SetActive(direction.HasFlag((Direction)Mathf.Pow(2, i)));
@@ -201,5 +244,5 @@ public class MazeController : MonoBehaviour
 		}
 	}
 
-	public Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
+	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
 }
