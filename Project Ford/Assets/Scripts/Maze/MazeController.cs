@@ -14,9 +14,10 @@ public class MazeController : MonoBehaviour
 	MazeData[] mazes;
 	Material mazeMaterial;
 	MazeData maze;
+	public LineRenderer line;
 
 	[Header("Other")]
-	public Camera camera;
+	new public Camera camera;
 
 	// Movement stuff
 	// Position doesn't denote the actual current position,
@@ -64,6 +65,7 @@ public class MazeController : MonoBehaviour
 		mazes = Resources.LoadAll<MazeData>("MapData");
 		mazeMaterial = mazeObject.GetComponent<Renderer>().material;
 		LoadMaze();
+		line.SetPosition(0, carObject.transform.position);
 	}
 
 	private void Update()
@@ -76,6 +78,7 @@ public class MazeController : MonoBehaviour
 		if (path.Count == 0 && !isMoving)
 		{
 			SetActiveArrows();
+			line.Simplify(0.2f);
 		}
 		else
 		{
@@ -85,10 +88,13 @@ public class MazeController : MonoBehaviour
 				Vector2Int cell = path.Dequeue();
 				currentDestination = MazeCoordstoWorldCoords(cell);
 				isMoving = true;
+				line.SetPosition(line.positionCount++ - 1, carObject.transform.position);
+				line.SetPosition(line.positionCount - 1, carObject.transform.position);
 			}
 			// Move the car
 			else
 			{
+				line.SetPosition(line.positionCount - 1, carObject.transform.position);
 				// Put rotation code here?
 				carObject.transform.position = Vector2.MoveTowards(carObject.transform.position, currentDestination, moveSpeed * Time.deltaTime);
 				if ((Vector2)carObject.transform.position == currentDestination)
