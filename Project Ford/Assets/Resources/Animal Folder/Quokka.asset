@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c07bbb0e1977c4bbf59e528c69a8c6, type: 3}
+  m_Name: Quokka
+  m_EditorClassIdentifier: 
+  _weight: 2
+  _animalSprite: {fileID: 21300000, guid: e28903e65fbe18e4f8e0973792c37dd9, type: 3}
+  _animalPhysicsObject: {fileID: 656589692899240134, guid: 9f8ca6b57670c384081df97c2e5e6fea, type: 3}
