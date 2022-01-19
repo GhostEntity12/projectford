@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +32,16 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	/// <returns></returns>
 	[SerializeField] private BoxCollider2D _spawnZone = null;
+
+	/// <summary>
+	/// The Transform which holds the displayed weights of the animals
+	/// </summary>
+	[SerializeField] private Transform _weightList = null;
+
+	/// <summary>
+	/// The prefab for displaying animal weight information
+	/// </summary>
+	[SerializeField] private GameObject _weightPrefab = null;
 
 	/// <summary>
 	/// The bounds of the spawn zone.
@@ -71,10 +80,13 @@ public class AnimalManager : MonoBehaviour
 		_spawnZoneTransform = _spawnZone.transform;
 
 		// Seed Unity RNG with the clock time.
-		UnityEngine.Random.InitState(((int)System.DateTime.Now.Ticks));
+		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
 
 		// Select animals to begin with.
 		SelectAnimals();
+
+		// Spawn the weight text
+		_possibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
 	}
 
 	/// <summary>
@@ -86,21 +98,20 @@ public class AnimalManager : MonoBehaviour
 		_weightSum = 0;
 
 		// Select 3 random animals.
-		for(int i = 0; i < 3; ++i)
+		for (int i = 0; i < 3; ++i)
 		{
-			int randomSelect = UnityEngine.Random.Range(0, 3);
-			Animal randomAnimal = _possibleAnimals[randomSelect];
+			Animal randomAnimal = _possibleAnimals[UnityEngine.Random.Range(0, _possibleAnimals.Count)];
 
 			_selectedAnimals.Add(randomAnimal);
-			_animalImages[i].sprite = _selectedAnimals[i].GetSprite();
+			_animalImages[i].sprite = _selectedAnimals[i].Sprite;
 
 			Vector2 spawnPointInBounds = RandomPointInBounds(_spawnBounds, 1.0f);
 			Vector3 vec3SpawnPoint = new Vector3(spawnPointInBounds.x, spawnPointInBounds.y, 0.0f);
 
 			// Spawn the physics object representing the animal in a random point in the spawn zone.
-			GameObject spawnedPhysicsObject = GameObject.Instantiate
+			GameObject spawnedPhysicsObject = Instantiate
 			(
-				randomAnimal.GetPhysicsObject(),
+				randomAnimal.PhysicsObject,
 				vec3SpawnPoint,
 				Quaternion.Euler(0.0f, 0.0f, UnityEngine.Random.Range(0.0f, 360.0f)),
 				_spawnZoneTransform
@@ -111,8 +122,8 @@ public class AnimalManager : MonoBehaviour
 		}
 
 		// Get the sum of the weights of the different animals.
-		foreach(Animal animal in _selectedAnimals)
-			_weightSum += animal.GetWeight();
+		foreach (Animal animal in _selectedAnimals)
+			_weightSum += animal.Weight;
 	}
 
 	/// <summary>
@@ -126,7 +137,7 @@ public class AnimalManager : MonoBehaviour
 		// Parse the input as an integer, if it couldn't be parsed: display an error.
 		if (!Int32.TryParse(_inputText.text, out playerGuess))
 		{
-			Debug.LogError("Input '" + _inputText.text + "' could not be passed as integer!");
+			Debug.LogError($"Input '{_inputText.text}' could not be passed as integer!");
 			_indicator.color = Color.red;
 			return;
 		}
@@ -165,7 +176,7 @@ public class AnimalManager : MonoBehaviour
 	public void ResetWeightGuessGame()
 	{
 		// Delete the physics objects.
-		foreach(GameObject physicsObject in _selectedAnimalsObjs)
+		foreach (GameObject physicsObject in _selectedAnimalsObjs)
 		{
 			Destroy(physicsObject);
 		}
