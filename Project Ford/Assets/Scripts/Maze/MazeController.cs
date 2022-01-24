@@ -118,7 +118,6 @@ public class MazeController : MonoBehaviour
 			{
 				//carMesh.GetComponent<Renderer>().material.color = Color.green;
 				Quaternion targetRotation = Quaternion.LookRotation(carMesh.position - (Vector3)currentDestination, Vector3.back);
-				Debug.Log(targetRotation.eulerAngles);
 				carMesh.rotation = Quaternion.RotateTowards(carMesh.rotation, targetRotation, rotSpeed);
 				if (carMesh.rotation == targetRotation)
 				{
@@ -164,7 +163,7 @@ public class MazeController : MonoBehaviour
 		position = maze.startLocation;
 		mazeMaterial.mainTexture = maze.map;
 		mazeObject.transform.localScale = new Vector3(maze.dimensions.x, 1, maze.dimensions.y);
-		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4, maze.dimensions.y / 4, -10);
+		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4f, maze.dimensions.y / 4f, -10);
 		line.positionCount = 1;
 		SetActiveArrows(Direction.South);
 	}
