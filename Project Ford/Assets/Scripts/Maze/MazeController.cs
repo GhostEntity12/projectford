@@ -76,6 +76,7 @@ public class MazeController : MonoBehaviour
 	// Flow
 	bool isMoving;
 	bool isRotating;
+	bool isComplete;
 
 	void Start()
 	{
@@ -102,15 +103,20 @@ public class MazeController : MonoBehaviour
 		// Queue is empty and car is no longer moving, show arrows for tile
 		if (path.Count == 0 && !isMoving && !isRotating)
 		{
-			carMesh.GetComponent<Renderer>().material.color = Color.red;
+			//carMesh.GetComponent<Renderer>().material.color = Color.red;
 			SetActiveArrows();
 			line.Simplify(0.2f);
+
+			if (isComplete)
+			{
+				LoadMaze();
+			}
 		}
 		else
 		{
 			if (isRotating)
 			{
-				carMesh.GetComponent<Renderer>().material.color = Color.green;
+				//carMesh.GetComponent<Renderer>().material.color = Color.green;
 				Quaternion targetRotation = Quaternion.LookRotation(carMesh.position - (Vector3)currentDestination, Vector3.back);
 				Debug.Log(targetRotation.eulerAngles);
 				carMesh.rotation = Quaternion.RotateTowards(carMesh.rotation, targetRotation, rotSpeed);
@@ -122,7 +128,7 @@ public class MazeController : MonoBehaviour
 			}
 			else
 			{
-				carMesh.GetComponent<Renderer>().material.color = Color.blue;
+				//carMesh.GetComponent<Renderer>().material.color = Color.blue;
 				// Set the next new destination
 				if (!isMoving)
 				{
@@ -136,7 +142,6 @@ public class MazeController : MonoBehaviour
 				else
 				{
 					line.SetPosition(line.positionCount - 1, carObject.transform.position);
-					// Put rotation code here?
 					carObject.transform.position = Vector2.MoveTowards(carObject.transform.position, currentDestination, moveSpeed * Time.deltaTime);
 					if ((Vector2)carObject.transform.position == currentDestination)
 					{
@@ -160,6 +165,7 @@ public class MazeController : MonoBehaviour
 		mazeMaterial.mainTexture = maze.map;
 		mazeObject.transform.localScale = new Vector3(maze.dimensions.x, 1, maze.dimensions.y);
 		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4, maze.dimensions.y / 4, -10);
+		line.positionCount = 1;
 		SetActiveArrows(Direction.South);
 	}
 
@@ -185,6 +191,7 @@ public class MazeController : MonoBehaviour
 		if (position.y < 0)
 		{
 			// Map complete
+			isComplete = true;
 			return;
 		}
 		// Stuff below here needs to happen after the car finishes moving
