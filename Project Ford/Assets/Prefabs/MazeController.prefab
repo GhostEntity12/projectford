@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 6790217860631806773}
   - component: {fileID: 1863688194288008898}
   m_Layer: 0
-  m_Name: Square
+  m_Name: CarSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,9 +193,9 @@ Transform:
   m_GameObject: {fileID: 3307852288496111431}
   m_LocalRotation: {x: -2.842171e-14, y: 0.0000006743485, z: -0.70710576, w: 0.7071079}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 8767609359670144423}
+  m_Father: {fileID: 6237791269534237982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &1863688194288008898
@@ -249,6 +249,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8071968356656251421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6237791269534237982}
+  m_Layer: 0
+  m_Name: CarTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6237791269534237982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071968356656251421}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6790217860631806773}
+  m_Father: {fileID: 8767609359670144423}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8767609359670144422
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +307,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6790217860631806773}
+  - {fileID: 6237791269534237982}
   - {fileID: 8767609361093936524}
   - {fileID: 8767609360004442382}
   - {fileID: 8767609361147123487}
@@ -691,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carObject: {fileID: 8767609359670144422}
-  carMesh: {fileID: 6790217860631806773}
+  carMesh: {fileID: 6237791269534237982}
   arrows:
   - {fileID: 8767609361093936523}
   - {fileID: 8767609360004442381}
