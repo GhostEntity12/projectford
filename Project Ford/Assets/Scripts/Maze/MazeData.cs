@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class MazeData : ScriptableObject
 {
-#if UNITY_EDITOR
 	public Texture2D map;
-#endif
 	public Vector2Int dimensions;
 	public MazeCell[] cells;
 	public Vector2Int startLocation;
