@@ -47,7 +47,6 @@ public class AnimalManager : MonoBehaviour
 	/// The bounds of the spawn zone.
 	/// Gets properly set in Awake(), just needs something for now.
 	/// </summary>
-	/// <returns></returns>
 	private Bounds _spawnBounds = new Bounds();
 
 	/// <summary>
@@ -70,6 +69,8 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	private int _weightSum = 0;
 
+	private ComboManager _comboManager = null;
+
 	/// <summary>
 	/// On startup.
 	/// </summary>
@@ -87,6 +88,11 @@ public class AnimalManager : MonoBehaviour
 
 		// Spawn the weight text
 		_possibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
+	}
+
+	void Start()
+	{
+		_comboManager = ComboManager.GetInstance();
 	}
 
 	/// <summary>
@@ -147,9 +153,14 @@ public class AnimalManager : MonoBehaviour
 		{
 			_indicator.color = Color.green;
 			ResetWeightGuessGame();
+
+			_comboManager.IncrementComboCounter();
 		}
 		else
+		{
 			_indicator.color = Color.red;
+			_comboManager.ResetComboCounter();
+		}
 	}
 
 	/// <summary>
