@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49c07bbb0e1977c4bbf59e528c69a8c6, type: 3}
-  m_Name: Koala
+  m_Name: Emu
   m_EditorClassIdentifier: 
-  _weight: 5
-  _animalSprite: {fileID: 21300000, guid: 507836a2f0c49a5449d42c896b0d71a8, type: 3}
-  _animalPhysicsObject: {fileID: 8085035980605296472, guid: 6fa75e0bc54a17c44922f78db2492745, type: 3}
+  _weight: 35
+  _animalSprite: {fileID: 21300000, guid: 13a2d392d1cdc2b468318c5f1f8d3b7c, type: 3}
+  _animalPhysicsObject: {fileID: 3656521866853459993, guid: 1b0d3ab74ae360f4bb220f0e22da8310, type: 3}

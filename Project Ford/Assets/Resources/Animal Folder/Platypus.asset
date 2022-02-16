@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49c07bbb0e1977c4bbf59e528c69a8c6, type: 3}
-  m_Name: Koala
+  m_Name: Platypus
   m_EditorClassIdentifier: 
-  _weight: 5
-  _animalSprite: {fileID: 21300000, guid: 507836a2f0c49a5449d42c896b0d71a8, type: 3}
-  _animalPhysicsObject: {fileID: 8085035980605296472, guid: 6fa75e0bc54a17c44922f78db2492745, type: 3}
+  _weight: 2
+  _animalSprite: {fileID: 21300000, guid: 77c6d5c8fdbf99b40a0773f287db7648, type: 3}
+  _animalPhysicsObject: {fileID: 656589692899240134, guid: a51804b1a98f6dc459d3eb41762f2ec0, type: 3}
