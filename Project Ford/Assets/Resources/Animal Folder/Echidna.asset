@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49c07bbb0e1977c4bbf59e528c69a8c6, type: 3}
-  m_Name: Quokka
+  m_Name: Echidna
   m_EditorClassIdentifier: 
-  _weight: 2
-  _animalSprite: {fileID: 21300000, guid: 1e546e891b0d358418621a10f0ac2fd4, type: 3}
-  _animalPhysicsObject: {fileID: 656589692899240134, guid: 9f8ca6b57670c384081df97c2e5e6fea, type: 3}
+  _weight: 4
+  _animalSprite: {fileID: 21300000, guid: 14a06de05cabddf47aadd6950eb0de18, type: 3}
+  _animalPhysicsObject: {fileID: 3656521866853459993, guid: c91611a406ac81246aab02795e2926da, type: 3}
