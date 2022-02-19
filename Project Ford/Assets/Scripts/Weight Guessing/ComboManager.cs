@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class ComboManager : MonoBehaviour
 {
+	public enum ComboStep
+	{
+		OneVariety,
+		TwoVariety,
+		ThreeAmount,
+		Count
+	}
+
 		/// <summary>
 	/// Images of the combo counter.
 	/// </summary>
@@ -31,6 +39,13 @@ public class ComboManager : MonoBehaviour
 	private int _answerCombo = 0;
 
 	/// <summary>
+	/// The current step through the combos.
+	/// </summary>
+	private ComboStep _comboStep = 0;
+
+	private AnimalManager _amInstance = null;
+
+	/// <summary>
 	/// On startup.
 	/// </summary>
 	void Awake()
@@ -41,6 +56,11 @@ public class ComboManager : MonoBehaviour
 		{
 			img.color = Color.white;
 		}
+	}
+
+	void Start()
+	{
+		_amInstance = AnimalManager.GetInstance();
 	}
 
 	/// <summary>
@@ -60,6 +80,33 @@ public class ComboManager : MonoBehaviour
 		if (_answerCombo >= 3)
 		{
 			_comboSkyImage.sprite = _skyImages[1];
+
+			switch(_comboStep)
+			{
+				case ComboStep.OneVariety:
+				Debug.Log("Alright.");
+				_amInstance.IncreaseAnimalVariety();
+				_comboStep++;
+				break;
+
+				case ComboStep.TwoVariety:
+				Debug.Log("Epic!");
+				_amInstance.IncreaseAnimalVariety();
+				_comboStep++;
+				break;
+
+				case ComboStep.ThreeAmount:
+				Debug.Log("SUPER SEXY STYLE!");
+				Debug.Log("TODO: Increase the amount of animals spawned!");
+				_comboStep = 0;
+				break;
+
+				default:
+				Debug.LogError("Error in combo steps! Combo step is " + _comboStep, this);
+				break;
+			}
+
+			ResetComboCounter();
 		}
 	}
 
