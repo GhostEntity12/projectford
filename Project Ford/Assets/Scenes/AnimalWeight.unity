@@ -2813,17 +2813,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446009ec24e90974ba258a8e3c872341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _possibleAnimals:
+  _allPossibleAnimals:
+  - {fileID: 11400000, guid: 83290d484b3e1544ca54457a792c6589, type: 2}
+  - {fileID: 11400000, guid: 747294bb27844b643b54067d06617f36, type: 2}
+  - {fileID: 11400000, guid: c10f052dcddec7a4594fa21f578cf131, type: 2}
+  - {fileID: 11400000, guid: c6689f65cb74959468a8bd57e39aaa90, type: 2}
+  - {fileID: 11400000, guid: 30c0499b473f92f4bacac9e00d075398, type: 2}
   - {fileID: 11400000, guid: b956a487f99ab70428bb398c5ba96f8d, type: 2}
   - {fileID: 11400000, guid: f33901fd82a189046b4cb010bec1c3bd, type: 2}
   - {fileID: 11400000, guid: 565fd53562a174542b67f2d1e511ca53, type: 2}
-  - {fileID: 11400000, guid: 747294bb27844b643b54067d06617f36, type: 2}
-  - {fileID: 11400000, guid: 30c0499b473f92f4bacac9e00d075398, type: 2}
   - {fileID: 11400000, guid: b4d0c2c53f0c35e44bf98145355ec4cb, type: 2}
-  - {fileID: 11400000, guid: 83290d484b3e1544ca54457a792c6589, type: 2}
   - {fileID: 11400000, guid: 02747adca04430f47a50b0649d4953cd, type: 2}
-  - {fileID: 11400000, guid: c10f052dcddec7a4594fa21f578cf131, type: 2}
-  - {fileID: 11400000, guid: c6689f65cb74959468a8bd57e39aaa90, type: 2}
   _animalImages:
   - {fileID: 1281288595}
   - {fileID: 1804911677}
@@ -2833,6 +2833,7 @@ MonoBehaviour:
   _spawnZone: {fileID: 620127340}
   _weightList: {fileID: 6607269825762249927}
   _weightPrefab: {fileID: 6084771389200072904, guid: dba4d69a3be800343ac772b868fa6f79, type: 3}
+  _startingAnimalVarietyCount: 3
 --- !u!4 &1372055424
 Transform:
   m_ObjectHideFlags: 0
