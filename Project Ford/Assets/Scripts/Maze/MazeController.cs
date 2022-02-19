@@ -41,6 +41,9 @@ public class MazeController : MonoBehaviour
 	[Header("Car Data")]
 	public GameObject carObject;
 	public Transform carMesh;
+	public int _startingFuel = 10;
+	public int _maximumFuel = 10; // For when we implement a way to restore fuel.
+	int _currentFuel;
 	public GameObject[] arrows;
 	public float moveSpeed = 1f;
 	public float rotSpeed = 0.2f;
@@ -92,6 +95,8 @@ public class MazeController : MonoBehaviour
 			{ "turning", colors[1] },
 			{ "moving", colors[2] }
 		};
+
+		_currentFuel = _startingFuel;
 	}
 
 	private void Update()
@@ -131,11 +136,22 @@ public class MazeController : MonoBehaviour
 				// Set the next new destination
 				if (!isMoving)
 				{
-					Vector2Int cell = path.Dequeue();
-					currentDestination = MazeCoordstoWorldCoords(cell);
-					isRotating = true;
-					line.SetPosition(line.positionCount++ - 1, carObject.transform.position);
-					line.SetPosition(line.positionCount - 1, carObject.transform.position);
+					// Can only move if the car has fuel.
+					if (_currentFuel > 0)
+					{
+						Vector2Int cell = path.Dequeue();
+						currentDestination = MazeCoordstoWorldCoords(cell);
+						isRotating = true;
+						line.SetPosition(line.positionCount++ - 1, carObject.transform.position);
+						line.SetPosition(line.positionCount - 1, carObject.transform.position);
+
+						_currentFuel--;
+						// Ran out of fuel, just throws up an error message.
+						if (_currentFuel == 0)
+						{
+							Debug.Log("Ran out of fuel!");
+						}
+					}
 				}
 				// Move the car
 				else
