@@ -90,14 +90,14 @@ public class ComboManager : MonoBehaviour
 				break;
 
 				case ComboStep.TwoVariety:
-				Debug.Log("Epic!");
+				Debug.Log("Super!");
 				_amInstance.IncreaseAnimalVariety();
 				_comboStep++;
 				break;
 
 				case ComboStep.ThreeAmount:
-				Debug.Log("SUPER SEXY STYLE!");
-				Debug.Log("TODO: Increase the amount of animals spawned!");
+				Debug.Log("SUPER SEXY STYLE!!!");
+				_amInstance.IncreaseAnimalSpawnAmount();
 				_comboStep = 0;
 				break;
 
