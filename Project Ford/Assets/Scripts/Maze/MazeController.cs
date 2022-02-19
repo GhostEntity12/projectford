@@ -152,6 +152,7 @@ public class MazeController : MonoBehaviour
 						if (_currentFuel == 0)
 						{
 							Debug.Log("Ran out of fuel!");
+							LoadMaze();
 						}
 					}
 				}
@@ -187,6 +188,12 @@ public class MazeController : MonoBehaviour
 		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4f, maze.dimensions.y / 4f, -10);
 		line.positionCount = 1;
 		SetActiveArrows(Direction.South);
+
+		_currentFuel = _startingFuel;
+		foreach(Image fuelCounter in _fuelCounters)
+		{
+			fuelCounter.fillAmount = 1;
+		}
 	}
 
 	public void OnArrowClick(int index)
