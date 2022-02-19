@@ -9,7 +9,7 @@ public class AnimalManager : MonoBehaviour
 	/// <summary>
 	/// Possible animals the manager can select.
 	/// </summary>
-	[SerializeField] private List<Animal> _possibleAnimals = new List<Animal>();
+	[SerializeField] private List<Animal> _allPossibleAnimals = new List<Animal>();
 
 	/// <summary>
 	/// The images that will show the selected animals.
@@ -44,8 +44,18 @@ public class AnimalManager : MonoBehaviour
 	[SerializeField] private GameObject _weightPrefab = null;
 
 	/// <summary>
+	/// How many animals to choose for the variety of animals that can appear to begin with.
+	/// </summary>
+	[SerializeField] private int _startingAnimalVarietyCount = 3;
+
+	/// <summary>
+	/// The animals the manager can choose to spawn in the game.
+	/// </summary>
+	private List<Animal> _currentAnimalVariety = new List<Animal>();
+
+	/// <summary>
 	/// The bounds of the spawn zone.
-	/// Gets properly set in Awake(), just needs something for now.
+	/// <para>Gets properly set in Awake(), just needs something for now.</para>
 	/// </summary>
 	private Bounds _spawnBounds = new Bounds();
 
@@ -69,13 +79,23 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	private int _weightSum = 0;
 
+	/// <summary>
+	/// The combo manager.
+	/// </summary>
 	private ComboManager _comboManager = null;
+	
+	/// <summary>
+	/// The instance of the animal manager.
+	/// </summary>
+	static private AnimalManager _instance = null;
 
 	/// <summary>
 	/// On startup.
 	/// </summary>
 	void Awake()
 	{
+		_instance = this;
+
 		// Get necessary variables.
 		_spawnBounds = _spawnZone.bounds;
 		_spawnZoneTransform = _spawnZone.transform;
@@ -83,11 +103,17 @@ public class AnimalManager : MonoBehaviour
 		// Seed Unity RNG with the clock time.
 		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
 
+		// Go through all the possible animals to choose and get a number of animals from all the possible animals to choose.
+		for(int i = 0; i < _startingAnimalVarietyCount; ++i)
+		{
+			IncreaseAnimalVariety();
+		}
+
 		// Select animals to begin with.
 		SelectAnimals();
 
 		// Spawn the weight text
-		_possibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
+		_allPossibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
 	}
 
 	void Start()
@@ -97,7 +123,7 @@ public class AnimalManager : MonoBehaviour
 
 	/// <summary>
 	/// Selects and sets animals for the weight guessing game.
-	/// OVERRIDES THE PREVIOUS ROUND!
+	/// <para>OVERRIDES THE CURRENT ROUND!</para>
 	/// </summary>
 	public void SelectAnimals()
 	{
@@ -106,7 +132,7 @@ public class AnimalManager : MonoBehaviour
 		// Select 3 random animals.
 		for (int i = 0; i < 3; ++i)
 		{
-			Animal randomAnimal = _possibleAnimals[UnityEngine.Random.Range(0, _possibleAnimals.Count)];
+			Animal randomAnimal = _currentAnimalVariety[UnityEngine.Random.Range(0, _currentAnimalVariety.Count)];
 
 			_selectedAnimals.Add(randomAnimal);
 			_animalImages[i].sprite = _selectedAnimals[i].Sprite;
@@ -134,7 +160,7 @@ public class AnimalManager : MonoBehaviour
 
 	/// <summary>
 	/// Submit the player's input for the weight.
-	/// Also resets the game if the input was correct. (TODO: FEEDBACK TO SHOW THE PLAYER GOT THE ANSWER GOT THE QUESTION RIGHT)
+	/// <para>Also resets the game if the input was correct.</para>
 	/// </summary>
 	public void Submit()
 	{
@@ -198,5 +224,26 @@ public class AnimalManager : MonoBehaviour
 
 		// Select new animals.
 		SelectAnimals();
+	}
+
+	/// <summary>
+	/// Increase the number of animals the animal manager can spawn by 1.
+	/// </summary>
+	public void IncreaseAnimalVariety()
+	{
+		Animal newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
+
+		// If the current animal variety contains the randomly chosen animal - choose another animal (no double ups!)
+		while (_currentAnimalVariety.Contains(newAnimal))
+		{
+			newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
+		}
+
+		_currentAnimalVariety.Add(newAnimal);
+	}
+
+	static public AnimalManager GetInstance()
+	{
+		return _instance;
 	}
 }
