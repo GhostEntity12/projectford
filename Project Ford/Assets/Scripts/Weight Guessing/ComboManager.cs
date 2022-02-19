@@ -123,6 +123,11 @@ public class ComboManager : MonoBehaviour
 		}
 	}
 
+	public void SetComboCount(int newCount)
+	{
+		_answerCombo = newCount;
+	}
+
 	/// <summary>
 	/// Get the combo counter.
 	/// </summary>
