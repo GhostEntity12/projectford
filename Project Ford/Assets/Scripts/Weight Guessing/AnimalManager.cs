@@ -9,7 +9,7 @@ public class AnimalManager : MonoBehaviour
 	/// <summary>
 	/// Possible animals the manager can select.
 	/// </summary>
-	[SerializeField] private List<Animal> _possibleAnimals = new List<Animal>();
+	[SerializeField] private List<Animal> _allPossibleAnimals = new List<Animal>();
 
 	/// <summary>
 	/// The images that will show the selected animals.
@@ -44,8 +44,28 @@ public class AnimalManager : MonoBehaviour
 	[SerializeField] private GameObject _weightPrefab = null;
 
 	/// <summary>
+	/// How many animals to choose for the variety of animals that can appear to begin with.
+	/// </summary>
+	[SerializeField] private int _startingAnimalVarietyCount = 3;
+
+	/// <summary>
+	/// The starting amount of animals the manager spawns at the start of the round.
+	/// </summary>
+	[SerializeField] private int _startingAnimalSpawnAmount = 3;
+
+	/// <summary>
+	/// The maximum amount of animals the manager can be able to spawn.
+	/// </summary>
+	[SerializeField] private int _maxAnimalSpawnAmount = 5;
+
+	/// <summary>
+	/// The animals the manager can choose to spawn in the game.
+	/// </summary>
+	private List<Animal> _currentAnimalVariety = new List<Animal>();
+
+	/// <summary>
 	/// The bounds of the spawn zone.
-	/// Gets properly set in Awake(), just needs something for now.
+	/// <para>Gets properly set in Awake(), just needs something for now.</para>
 	/// </summary>
 	private Bounds _spawnBounds = new Bounds();
 
@@ -69,13 +89,28 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	private int _weightSum = 0;
 
+	/// <summary>
+	/// The combo manager.
+	/// </summary>
 	private ComboManager _comboManager = null;
+
+	/// <summary>
+	/// The current amount of animals the manager spawns at the start of a round.
+	/// </summary>
+	private int _currentSpawnAmount = 3;
+
+	/// <summary>
+	/// The instance of the animal manager.
+	/// </summary>
+	static private AnimalManager _instance = null;
 
 	/// <summary>
 	/// On startup.
 	/// </summary>
 	void Awake()
 	{
+		_instance = this;
+
 		// Get necessary variables.
 		_spawnBounds = _spawnZone.bounds;
 		_spawnZoneTransform = _spawnZone.transform;
@@ -83,11 +118,17 @@ public class AnimalManager : MonoBehaviour
 		// Seed Unity RNG with the clock time.
 		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
 
-		// Select animals to begin with.
-		SelectAnimals();
+		// Go through all the possible animals to choose and get a number of animals from all the possible animals to choose.
+		for(int i = 0; i < _startingAnimalVarietyCount; ++i)
+		{
+			IncreaseAnimalVariety();
+		}
+
+		// Reset to begin the game.
+		ResetWeightGuessGame();
 
 		// Spawn the weight text
-		_possibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
+		_allPossibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
 	}
 
 	void Start()
@@ -96,17 +137,27 @@ public class AnimalManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Selects and sets animals for the weight guessing game.
-	/// OVERRIDES THE PREVIOUS ROUND!
+	/// Reset the game.
 	/// </summary>
-	public void SelectAnimals()
+	public void ResetWeightGuessGame()
 	{
+		// Delete the physics objects.
+		foreach (GameObject physicsObject in _selectedAnimalsObjs)
+		{
+			Destroy(physicsObject);
+		}
+
+		// Clear the lists of animals.
+		_selectedAnimalsObjs.Clear();
+		_selectedAnimals.Clear();
+
 		_weightSum = 0;
 
-		// Select 3 random animals.
-		for (int i = 0; i < 3; ++i)
+		Debug.Log("--------");
+		// Select random animals from current variety.
+		for (int i = 0; i < _currentSpawnAmount; ++i)
 		{
-			Animal randomAnimal = _possibleAnimals[UnityEngine.Random.Range(0, _possibleAnimals.Count)];
+			Animal randomAnimal = _currentAnimalVariety[UnityEngine.Random.Range(0, _currentAnimalVariety.Count)];
 
 			_selectedAnimals.Add(randomAnimal);
 			_animalImages[i].sprite = _selectedAnimals[i].Sprite;
@@ -125,6 +176,8 @@ public class AnimalManager : MonoBehaviour
 
 			// Save the objects to a list for reference later.
 			_selectedAnimalsObjs.Add(spawnedPhysicsObject);
+
+			Debug.Log("Selected Animal " + randomAnimal);
 		}
 
 		// Get the sum of the weights of the different animals.
@@ -134,7 +187,7 @@ public class AnimalManager : MonoBehaviour
 
 	/// <summary>
 	/// Submit the player's input for the weight.
-	/// Also resets the game if the input was correct. (TODO: FEEDBACK TO SHOW THE PLAYER GOT THE ANSWER GOT THE QUESTION RIGHT)
+	/// <para>Also resets the game if the input was correct.</para>
 	/// </summary>
 	public void Submit()
 	{
@@ -152,9 +205,9 @@ public class AnimalManager : MonoBehaviour
 		if (playerGuess == _weightSum)
 		{
 			_indicator.color = Color.green;
-			ResetWeightGuessGame();
-
 			_comboManager.IncrementComboCounter();
+
+			ResetWeightGuessGame();
 		}
 		else
 		{
@@ -182,21 +235,37 @@ public class AnimalManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Reset the Guess the Weight game.
+	/// Increase the number of animals the animal manager can spawn by 1.
 	/// </summary>
-	public void ResetWeightGuessGame()
+	public void IncreaseAnimalVariety()
 	{
-		// Delete the physics objects.
-		foreach (GameObject physicsObject in _selectedAnimalsObjs)
+		Animal newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
+
+		// Only get new animal if we don't already have all the animals avaliable to spawn.
+		if (_currentAnimalVariety.Count < _allPossibleAnimals.Count)
 		{
-			Destroy(physicsObject);
+			// If the current animal variety contains the randomly chosen animal - choose another animal (no double ups!)
+			while (_currentAnimalVariety.Contains(newAnimal))
+			{
+				newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
+			}
 		}
 
-		// Clear the lists of animals.
-		_selectedAnimalsObjs.Clear();
-		_selectedAnimals.Clear();
+		_currentAnimalVariety.Add(newAnimal);
+	}
 
-		// Select new animals.
-		SelectAnimals();
+	/// <summary>
+	/// Increase the amount of animals the manager spawns at the start of the round up to a maximum amount.
+	/// </summary>
+	public void IncreaseAnimalSpawnAmount()
+	{
+		// Only increase the current spawn amount if it's below the maximum.
+		if (_currentSpawnAmount < _maxAnimalSpawnAmount)
+			_currentSpawnAmount++;
+	}
+
+	static public AnimalManager GetInstance()
+	{
+		return _instance;
 	}
 }
