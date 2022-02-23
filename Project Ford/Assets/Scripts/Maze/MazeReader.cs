@@ -48,21 +48,30 @@ public class MazeReadWriter
 					int xCoord = j * (borderWidth + internalSize) + borderWidth;
 					int yCoord = i * (borderWidth + internalSize) + borderWidth;
 
-					// Iterating through the edges
-					for (int edge = 0; edge < 4; edge++)
+					if (map.GetPixel(xCoord + (largeOffset / 2), yCoord + (largeOffset / 2)) == Color.red)
 					{
-						Vector2Int cellCoords = edge switch
+						Debug.Log("Fuel Canister Found!");
+						cell._fuel = true;
+						cell._fuelTaken = false;
+					}
+					else
+					{
+						// Iterating through the edges
+						for (int edge = 0; edge < 4; edge++)
 						{
-							0 => new Vector2Int(xCoord, yCoord + largeOffset),
-							1 => new Vector2Int(xCoord + largeOffset, yCoord),
-							2 => new Vector2Int(xCoord, yCoord - smallOffset),
-							3 => new Vector2Int(xCoord - smallOffset, yCoord),
-							_ => throw new IndexOutOfRangeException("Something went very wrong... (Generating map data)"),
-						};
-						// Set flag if wall was found
-						if (map.GetPixel(cellCoords.x, cellCoords.y) == Color.black)
-						{
-							cell.walls |= (Direction)Mathf.Pow(2, edge);
+							Vector2Int cellCoords = edge switch
+							{
+								0 => new Vector2Int(xCoord, yCoord + largeOffset),
+								1 => new Vector2Int(xCoord + largeOffset, yCoord),
+								2 => new Vector2Int(xCoord, yCoord - smallOffset),
+								3 => new Vector2Int(xCoord - smallOffset, yCoord),
+								_ => throw new IndexOutOfRangeException("Something went very wrong... (Generating map data)"),
+							};
+							// Set flag if wall was found
+							if (map.GetPixel(cellCoords.x, cellCoords.y) == Color.black)
+							{
+								cell.walls |= (Direction)Mathf.Pow(2, edge);
+							}
 						}
 					}
 
@@ -129,4 +138,6 @@ public class MazeReadWriter
 public class MazeCell
 {
 	public Direction walls;
+	public bool _fuel;
+	public bool _fuelTaken;
 }
