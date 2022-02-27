@@ -6,6 +6,7 @@ public class MazeData : ScriptableObject
 	public Vector2Int dimensions;
 	public MazeCell[] cells;
 	public Vector2Int startLocation;
+	public GameObject mapCanvas;
 	/// <summary>
 	/// Returns the cell data in a 2D array form 
 	/// </summary>
