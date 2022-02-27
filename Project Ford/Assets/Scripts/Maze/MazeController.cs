@@ -58,6 +58,7 @@ public class MazeController : MonoBehaviour
 	Material mazeMaterial;
 	MazeData maze;
 	GameObject currentMapCanvas;
+	int currentMap = 0;
 
 	[Header("Misc")]
 	public GameObject victoryScreen;
@@ -216,11 +217,15 @@ public class MazeController : MonoBehaviour
 		}
 
 		// Get a new map.
-		int rand = Random.Range(0, mazes.Length);
-		maze = mazes[rand];
+		maze = mazes[currentMap++];
+
+		// Rest map counter if you complete the last map.
+		if (currentMap == mazes.Length)
+			currentMap = 0;
 
 		// Set up the car for the start.
 		carObject.transform.position = MazeCoordstoWorldCoords(maze.startLocation);
+		carMesh.transform.rotation = Quaternion.Euler(-90, 0, 0);
 		line.SetPosition(0, carObject.transform.position);
 		path.Clear();
 		position = maze.startLocation;
@@ -274,7 +279,6 @@ public class MazeController : MonoBehaviour
 		previousPosition = position;
 		position = nextTile;
 		path.Enqueue(nextTile);
-
 
 		// Query based on open passages
 		if (position.y < 0)
