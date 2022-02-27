@@ -225,6 +225,7 @@ public class MazeController : MonoBehaviour
 
 		// Set up the car for the start.
 		carObject.transform.position = MazeCoordstoWorldCoords(maze.startLocation);
+		carMesh.transform.rotation = Quaternion.Euler(-90, 0, 0);
 		line.SetPosition(0, carObject.transform.position);
 		path.Clear();
 		position = maze.startLocation;
