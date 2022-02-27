@@ -59,6 +59,10 @@ public class MazeController : MonoBehaviour
 	MazeData maze;
 	GameObject currentMapCanvas;
 
+	[Header("Misc")]
+	public GameObject victoryScreen;
+	public GameObject failureScreen;
+
 	[Header("Debug")]
 	public Color[] colors;
 	public Dictionary<string, Color> colorsDict;
@@ -118,7 +122,7 @@ public class MazeController : MonoBehaviour
 
 			if (isComplete)
 			{
-				LoadMaze();
+				victoryScreen.SetActive(true);
 			}
 		}
 		else
@@ -155,7 +159,7 @@ public class MazeController : MonoBehaviour
 						if (_currentFuel == 0)
 						{
 							Debug.Log("Ran out of fuel!");
-							LoadMaze();
+							failureScreen.SetActive(true);
 						}
 					}
 				}
@@ -171,7 +175,7 @@ public class MazeController : MonoBehaviour
 					if ((Vector2)carObject.transform.position == currentDestination)
 					{
 						isMoving = false;
-						Debug.Log(currentDestination);
+						// Debug.Log(currentDestination);
 
 						// Get the current cell the car is at.
 						Vector2 currentCellWorld = WorldCoordsToMazeCoords(currentDestination);
@@ -202,7 +206,7 @@ public class MazeController : MonoBehaviour
 	/// <summary>
 	/// Loads a random maze
 	/// </summary>
-	void LoadMaze()
+	public void LoadMaze()
 	{
 		if (currentMapCanvas != null)
 		{
@@ -237,6 +241,10 @@ public class MazeController : MonoBehaviour
 		{
 			fuelCounter.fillAmount = 1;
 		}
+
+		// Make sure these are off when starting a new map.
+		victoryScreen.SetActive(false);
+		failureScreen.SetActive(false);
 	}
 
 	public void OnArrowClick(int index)
