@@ -46,6 +46,7 @@ public class MazeController : MonoBehaviour
 	public int _maximumFuel = 10; // For when we implement a way to restore fuel.
 	int _currentFuel;
 	public List<Image> _fuelCounters = new List<Image>();
+	public GameObject _fuelCanPrefab;
 	public GameObject[] arrows;
 	public float moveSpeed = 1f;
 	public float rotSpeed = 0.2f;
@@ -212,6 +213,16 @@ public class MazeController : MonoBehaviour
 		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4f, maze.dimensions.y / 4f, -10);
 		line.positionCount = 1;
 		SetActiveArrows(Direction.South);
+
+		foreach(MazeCell cell in maze.cells)
+		{
+			if (cell._fuel == true)
+			{
+				// TODO: need to figure out a way of finding the the cell to place the fuel can on top of it.
+				// Vector2 cellPos = 
+				GameObject.Instantiate(_fuelCanPrefab, Vector3.one, Quaternion.identity, transform);
+			}
+		}
 
 		_currentFuel = _startingFuel;
 		foreach(Image fuelCounter in _fuelCounters)
