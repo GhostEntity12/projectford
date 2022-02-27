@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc04862a10dada4d9baf39a08ccdcab, type: 3}
   m_Name: Map1
   m_EditorClassIdentifier: 
-  map: {fileID: 2800000, guid: c651eab480fef3642a49b9e70bd3598b, type: 3}
-  dimensions: {x: 20, y: 20}
+  map: {fileID: 2800000, guid: fc1f6be6f3af3854195db2215041b331, type: 3}
+  dimensions: {x: 15, y: 7}
   cells:
   - walls: 12
     _fuel: 0
@@ -21,37 +21,31 @@ MonoBehaviour:
   - walls: 5
     _fuel: 0
     _fuelTaken: 0
-  - walls: 4
-    _fuel: 0
-    _fuelTaken: 0
   - walls: 5
     _fuel: 0
     _fuelTaken: 0
   - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 4
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 4
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
     _fuel: 0
     _fuelTaken: 0
   - walls: 6
     _fuel: 0
     _fuelTaken: 0
   - walls: 12
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 6
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 13
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
     _fuel: 0
     _fuelTaken: 0
   - walls: 6
@@ -60,15 +54,6 @@ MonoBehaviour:
   - walls: 13
     _fuel: 0
     _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
   - walls: 5
     _fuel: 0
     _fuelTaken: 0
@@ -78,184 +63,10 @@ MonoBehaviour:
   - walls: 10
     _fuel: 0
     _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 0
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 1
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
   - walls: 12
     _fuel: 0
     _fuelTaken: 0
   - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
     _fuel: 0
     _fuelTaken: 0
   - walls: 12
@@ -267,88 +78,16 @@ MonoBehaviour:
   - walls: 10
     _fuel: 0
     _fuelTaken: 0
-  - walls: 12
+  - walls: 10
     _fuel: 0
     _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
+  - walls: 10
     _fuel: 0
     _fuelTaken: 0
   - walls: 12
     _fuel: 0
     _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 1
-    _fuel: 0
-    _fuelTaken: 0
   - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 4
     _fuel: 0
     _fuelTaken: 0
   - walls: 6
@@ -358,6 +97,21 @@ MonoBehaviour:
     _fuel: 0
     _fuelTaken: 0
   - walls: 12
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 3
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 9
     _fuel: 0
     _fuelTaken: 0
   - walls: 3
@@ -372,511 +126,10 @@ MonoBehaviour:
   - walls: 11
     _fuel: 0
     _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
   - walls: 9
     _fuel: 0
     _fuelTaken: 0
   - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 1
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 4
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 1
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 4
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
     _fuel: 0
     _fuelTaken: 0
   - walls: 12
@@ -886,192 +139,6 @@ MonoBehaviour:
     _fuel: 0
     _fuelTaken: 0
   - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 1
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 5
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 4
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 13
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 8
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 3
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 12
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 14
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 7
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
     _fuel: 0
     _fuelTaken: 0
   - walls: 9
@@ -1086,46 +153,25 @@ MonoBehaviour:
   - walls: 10
     _fuel: 0
     _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
   - walls: 10
     _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 6
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 11
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 2
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 10
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 9
-    _fuel: 0
-    _fuelTaken: 0
-  - walls: 0
-    _fuel: 1
     _fuelTaken: 0
   - walls: 12
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 6
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 12
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
     _fuel: 0
     _fuelTaken: 0
   - walls: 5
@@ -1137,16 +183,19 @@ MonoBehaviour:
   - walls: 12
     _fuel: 0
     _fuelTaken: 0
-  - walls: 2
+  - walls: 5
     _fuel: 0
     _fuelTaken: 0
-  - walls: 11
+  - walls: 5
     _fuel: 0
     _fuelTaken: 0
-  - walls: 8
+  - walls: 3
     _fuel: 0
     _fuelTaken: 0
-  - walls: 6
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 10
     _fuel: 0
     _fuelTaken: 0
   - walls: 9
@@ -1155,40 +204,88 @@ MonoBehaviour:
   - walls: 3
     _fuel: 0
     _fuelTaken: 0
-  - walls: 13
+  - walls: 9
     _fuel: 0
     _fuelTaken: 0
-  - walls: 1
+  - walls: 2
     _fuel: 0
     _fuelTaken: 0
-  - walls: 1
+  - walls: 9
     _fuel: 0
     _fuelTaken: 0
   - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 6
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 12
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 1
     _fuel: 0
     _fuelTaken: 0
   - walls: 7
     _fuel: 0
     _fuelTaken: 0
-  - walls: 9
+  - walls: 12
     _fuel: 0
     _fuelTaken: 0
-  - walls: 3
+  - walls: 6
     _fuel: 0
     _fuelTaken: 0
-  - walls: 9
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 10
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 13
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 6
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 14
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 8
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 4
     _fuel: 0
     _fuelTaken: 0
   - walls: 5
     _fuel: 0
     _fuelTaken: 0
   - walls: 0
+    _fuel: 1
+    _fuelTaken: 0
+  - walls: 11
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 12
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 4
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 2
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 9
     _fuel: 0
     _fuelTaken: 0
   - walls: 3
     _fuel: 0
     _fuelTaken: 0
-  - walls: 13
+  - walls: 9
     _fuel: 0
     _fuelTaken: 0
   - walls: 5
@@ -1200,7 +297,25 @@ MonoBehaviour:
   - walls: 9
     _fuel: 0
     _fuelTaken: 0
+  - walls: 3
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 9
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 7
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 8
+    _fuel: 0
+    _fuelTaken: 0
   - walls: 5
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 3
+    _fuel: 0
+    _fuelTaken: 0
+  - walls: 13
     _fuel: 0
     _fuelTaken: 0
   - walls: 3
@@ -1215,5 +330,5 @@ MonoBehaviour:
   - walls: 7
     _fuel: 0
     _fuelTaken: 0
-  startLocation: {x: 9, y: 20}
-  mapCanvas: {fileID: 4254879877491721021, guid: 12e49ab59f16860499fc54a64efb172b, type: 3}
+  startLocation: {x: 7, y: 7}
+  mapCanvas: {fileID: 4881614175532506110, guid: 16c127c45d528db4689c7ceb75978e5c, type: 3}
