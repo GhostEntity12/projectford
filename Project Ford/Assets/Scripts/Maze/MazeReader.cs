@@ -50,7 +50,6 @@ public class MazeReadWriter
 
 					if (map.GetPixel(xCoord + (largeOffset / 2), yCoord + (largeOffset / 2)) == Color.red)
 					{
-						Debug.Log("Fuel Canister Found!");
 						cell._fuel = true;
 						cell._fuelTaken = false;
 					}

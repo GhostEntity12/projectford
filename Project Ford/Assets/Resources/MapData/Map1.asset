@@ -1216,3 +1216,4 @@ MonoBehaviour:
     _fuel: 0
     _fuelTaken: 0
   startLocation: {x: 9, y: 20}
+  mapCanvas: {fileID: 4254879877491721021, guid: 12e49ab59f16860499fc54a64efb172b, type: 3}

@@ -57,6 +57,7 @@ public class MazeController : MonoBehaviour
 	MazeData[] mazes;
 	Material mazeMaterial;
 	MazeData maze;
+	GameObject currentMapCanvas;
 
 	[Header("Debug")]
 	public Color[] colors;
@@ -203,6 +204,12 @@ public class MazeController : MonoBehaviour
 	/// </summary>
 	void LoadMaze()
 	{
+		if (currentMapCanvas != null)
+		{
+			GameObject.Destroy(currentMapCanvas);
+			currentMapCanvas = null;
+		}
+
 		int rand = Random.Range(0, mazes.Length);
 		maze = mazes[rand];
 		carObject.transform.position = MazeCoordstoWorldCoords(maze.startLocation);
@@ -213,6 +220,7 @@ public class MazeController : MonoBehaviour
 		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4f, maze.dimensions.y / 4f, -10);
 		line.positionCount = 1;
 		SetActiveArrows(Direction.South);
+		currentMapCanvas = GameObject.Instantiate(maze.mapCanvas);
 
 		foreach(MazeCell cell in maze.cells)
 		{
