@@ -179,14 +179,12 @@ public class MazeController : MonoBehaviour
 						// Debug.Log(currentDestination);
 
 						// Get the current cell the car is at.
-						Vector2 currentCellWorld = WorldCoordsToMazeCoords(currentDestination);
-						MazeCell currentCell = maze.Cells2D[(int)currentCellWorld.x, (int)currentCellWorld.y];
+						Vector2 currentCellPos = WorldCoordsToMazeCoords(currentDestination);
+						MazeCell currentCell = maze.Cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
 
 						// Check if the cell has a fuel canister.
 						if (currentCell._fuel == true && currentCell._fuelTaken == false)
 						{
-							Debug.Log("Obtained Fuel!");
-
 							// Just sets to maximum for now.
 							_currentFuel = _maximumFuel;
 
@@ -195,8 +193,9 @@ public class MazeController : MonoBehaviour
 								fuelCounter.fillAmount = 1;
 
 							// Set fuel taken to true so the player can't get the fuel more than once.
-							// TODO: delete the object representing the fuel space.
 							currentCell._fuelTaken = true;
+
+							Destroy(currentCell._fuelCanObject);
 						}
 					}
 				}
@@ -240,14 +239,13 @@ public class MazeController : MonoBehaviour
 		SetActiveArrows(Direction.South);
 		currentMapCanvas = GameObject.Instantiate(maze.mapCanvas);
 
-		// Place a fuel can at each fuel cell (not working.)
+		// Reset fuel cell variables and spawn a fuel can at each cell.
 		foreach(MazeCell cell in maze.cells)
 		{
 			if (cell._fuel == true)
 			{
-				// TODO: need to figure out a way of finding the the cell to place the fuel can on top of it.
-				// Vector2 cellPos = 
-				GameObject.Instantiate(_fuelCanPrefab, Vector3.one, Quaternion.identity, transform);
+				cell._fuelTaken = false;
+				cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position), Quaternion.identity, transform);
 			}
 		}
 

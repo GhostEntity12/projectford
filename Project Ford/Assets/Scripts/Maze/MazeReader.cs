@@ -76,6 +76,9 @@ public class MazeReadWriter
 
 					// Save to location in 2D array
 					cells[j, i] = cell;
+
+					// Set cell position.
+					cell._position = (Vector2Int.right * j) + (Vector2Int.up * i);
 				}
 			}
 
@@ -139,4 +142,6 @@ public class MazeCell
 	public Direction walls;
 	public bool _fuel;
 	public bool _fuelTaken;
+	public Vector2 _position;
+	public GameObject _fuelCanObject;
 }
