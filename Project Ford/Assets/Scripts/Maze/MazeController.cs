@@ -58,6 +58,11 @@ public class MazeController : MonoBehaviour
 	Material mazeMaterial;
 	MazeData maze;
 	GameObject currentMapCanvas;
+	int currentMap = 0;
+
+	[Header("Misc")]
+	public GameObject victoryScreen;
+	public GameObject failureScreen;
 
 	[Header("Debug")]
 	public Color[] colors;
@@ -118,7 +123,7 @@ public class MazeController : MonoBehaviour
 
 			if (isComplete)
 			{
-				LoadMaze();
+				victoryScreen.SetActive(true);
 			}
 		}
 		else
@@ -155,7 +160,7 @@ public class MazeController : MonoBehaviour
 						if (_currentFuel == 0)
 						{
 							Debug.Log("Ran out of fuel!");
-							LoadMaze();
+							failureScreen.SetActive(true);
 						}
 					}
 				}
@@ -171,7 +176,7 @@ public class MazeController : MonoBehaviour
 					if ((Vector2)carObject.transform.position == currentDestination)
 					{
 						isMoving = false;
-						Debug.Log(currentDestination);
+						// Debug.Log(currentDestination);
 
 						// Get the current cell the car is at.
 						Vector2 currentCellWorld = WorldCoordsToMazeCoords(currentDestination);
@@ -202,26 +207,40 @@ public class MazeController : MonoBehaviour
 	/// <summary>
 	/// Loads a random maze
 	/// </summary>
-	void LoadMaze()
+	public void LoadMaze()
 	{
+		// Turn off the current decoration canvas.
 		if (currentMapCanvas != null)
 		{
 			GameObject.Destroy(currentMapCanvas);
 			currentMapCanvas = null;
 		}
 
-		int rand = Random.Range(0, mazes.Length);
-		maze = mazes[rand];
+		// Get a new map.
+		maze = mazes[currentMap++];
+
+		// Rest map counter if you complete the last map.
+		if (currentMap == mazes.Length)
+			currentMap = 0;
+
+		// Set up the car for the start.
 		carObject.transform.position = MazeCoordstoWorldCoords(maze.startLocation);
+		carMesh.transform.rotation = Quaternion.Euler(-90, 0, 0);
 		line.SetPosition(0, carObject.transform.position);
+		path.Clear();
 		position = maze.startLocation;
+
+		// Load the new map.
 		mazeMaterial.mainTexture = maze.map;
 		mazeObject.transform.localScale = new Vector3(maze.dimensions.x, 1, maze.dimensions.y);
 		Camera.main.transform.position = new Vector3(maze.dimensions.x / 4f, maze.dimensions.y / 4f, -10);
+
+		// Some misc setting up.
 		line.positionCount = 1;
 		SetActiveArrows(Direction.South);
 		currentMapCanvas = GameObject.Instantiate(maze.mapCanvas);
 
+		// Place a fuel can at each fuel cell (not working.)
 		foreach(MazeCell cell in maze.cells)
 		{
 			if (cell._fuel == true)
@@ -232,11 +251,16 @@ public class MazeController : MonoBehaviour
 			}
 		}
 
+		// Reset fuel of the car.
 		_currentFuel = _startingFuel;
 		foreach(Image fuelCounter in _fuelCounters)
 		{
 			fuelCounter.fillAmount = 1;
 		}
+
+		// Make sure these are off when starting a new map.
+		victoryScreen.SetActive(false);
+		failureScreen.SetActive(false);
 	}
 
 	public void OnArrowClick(int index)
@@ -255,7 +279,6 @@ public class MazeController : MonoBehaviour
 		previousPosition = position;
 		position = nextTile;
 		path.Enqueue(nextTile);
-
 
 		// Query based on open passages
 		if (position.y < 0)
