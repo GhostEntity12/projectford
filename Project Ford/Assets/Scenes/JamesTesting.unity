@@ -1612,6 +1612,10 @@ PrefabInstance:
       value: MazeController
       objectReference: {fileID: 0}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _fuelCanPrefab
+      value: 
+      objectReference: {fileID: 1706141989320087810, guid: 34aeb30fd8070ec4fb3ca65194ba4256, type: 3}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: _fuelCounters.Array.size
       value: 10
       objectReference: {fileID: 0}
