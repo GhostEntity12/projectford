@@ -1884,7 +1884,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1131257217
 MonoBehaviour:
@@ -1902,10 +1902,24 @@ MonoBehaviour:
   - {fileID: 207723137}
   - {fileID: 770971119}
   - {fileID: 1023935134}
-  _comboSkyImage: {fileID: 1779330697}
-  _skyImages:
-  - {fileID: 21300000, guid: e24fa597f6287c44e8dcfe0e3a4b57f2, type: 3}
-  - {fileID: 21300000, guid: 909e5f13e2fafe947b7c4cbb54bcc0c5, type: 3}
+  _skyboxMaterials:
+  - {fileID: 2100000, guid: b4345c5fc60e4e8499f7824ed57040d0, type: 2}
+  - {fileID: 2100000, guid: 06d07730ed85f914babe9fb7feb994f6, type: 2}
+  - {fileID: 2100000, guid: c652ea4185188ce4a83e78b0befc8fcd, type: 2}
+  - {fileID: 2100000, guid: 06d07730ed85f914babe9fb7feb994f6, type: 2}
+  _carRenderer: {fileID: 1815353580}
+  _carSprites:
+  - {fileID: 21300000, guid: b8e045b309d77d246a5a72fd799bf7d9, type: 3}
+  - {fileID: 21300000, guid: cf1ef403aa4a50c4ca28636d683dbc87, type: 3}
+  - {fileID: 21300000, guid: a0e8415889be45c4294382775547ea72, type: 3}
+  - {fileID: 21300000, guid: 166482b5dac075e46bd6565069699d1d, type: 3}
+  - {fileID: 21300000, guid: 7ba84ddedcb17694ba3f804e2d453ec4, type: 3}
+  - {fileID: 21300000, guid: fd7b1ded71ef26e4f9e91d9e7f097fe1, type: 3}
+  - {fileID: 21300000, guid: af5d3bf82cf4b7d43b1656771421ccf0, type: 3}
+  - {fileID: 21300000, guid: 8aaa81c5ae2621b4dad5519df5d1fc70, type: 3}
+  - {fileID: 21300000, guid: fbd7fdb50ce43ae468b3e949c86fd929, type: 3}
+  - {fileID: 21300000, guid: c29e78ab08093e3428ded7bfd32efa6d, type: 3}
+  - {fileID: 21300000, guid: 0cf3eec9e76a80f44aa407f24faf071a, type: 3}
 --- !u!4 &1131257218
 Transform:
   m_ObjectHideFlags: 0
