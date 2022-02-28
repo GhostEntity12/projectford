@@ -540,6 +540,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16755146}
   m_CullTransparentMesh: 1
+--- !u!1 &17058629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767609360513776818, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &21835624
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +855,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!4 &124778654 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6237791269534237982, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &321090915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1284,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &865997722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767609361147123486, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &925239935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,6 +2423,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1672652746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767609359670144422, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1824939533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767609361093936523, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1895521623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,6 +2713,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0d68721134142429ecf737d45945e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2045658119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767609360136182817, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2068144246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767609360004442381, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2069595353
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,6 +2798,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069595353}
   m_CullTransparentMesh: 1
+--- !u!120 &2099038287 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 5438748252315256508, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+  m_PrefabInstance: {fileID: 8767609361389177048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8767609361389177048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2843,9 +2883,33 @@ PrefabInstance:
       value: MazeController
       objectReference: {fileID: 0}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _line
+      value: 
+      objectReference: {fileID: 2099038287}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _carMesh
+      value: 
+      objectReference: {fileID: 124778654}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: rotSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _rotSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _carObject
+      value: 
+      objectReference: {fileID: 1672652746}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _mazeObject
+      value: 
+      objectReference: {fileID: 17058629}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _carTransform
+      value: 
+      objectReference: {fileID: 124778654}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: failureScreen
       value: 
@@ -2855,9 +2919,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 594392600}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _failureScreen
+      value: 
+      objectReference: {fileID: 1562910694}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: _fuelCanPrefab
       value: 
       objectReference: {fileID: 1706141989320087810, guid: 34aeb30fd8070ec4fb3ca65194ba4256, type: 3}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _victoryScreen
+      value: 
+      objectReference: {fileID: 594392600}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _arrows.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _colors.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _arrows.Array.data[0]
+      value: 
+      objectReference: {fileID: 1824939533}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _arrows.Array.data[1]
+      value: 
+      objectReference: {fileID: 2068144246}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _arrows.Array.data[2]
+      value: 
+      objectReference: {fileID: 865997722}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _arrows.Array.data[3]
+      value: 
+      objectReference: {fileID: 2045658119}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: _fuelCounters.Array.size
       value: 10

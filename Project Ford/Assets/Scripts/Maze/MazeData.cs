@@ -10,7 +10,7 @@ public class MazeData : ScriptableObject
 	/// <summary>
 	/// Returns the cell data in a 2D array form 
 	/// </summary>
-	public MazeCell[,] Cells2D
+	public MazeCell[,] cells2D
 	{
 		get
 		{
