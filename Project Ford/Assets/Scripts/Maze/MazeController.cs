@@ -96,7 +96,7 @@ public class MazeController : MonoBehaviour
 		mazes = Resources.LoadAll<MazeData>("MapData");
 		mazeMaterial = mazeObject.GetComponent<Renderer>().material;
 
-		LoadMaze();
+		LoadMaze(currentMap);
 
 		colorsDict = new Dictionary<string, Color>
 		{
@@ -206,7 +206,7 @@ public class MazeController : MonoBehaviour
 	/// <summary>
 	/// Loads a random maze
 	/// </summary>
-	public void LoadMaze()
+	public void LoadMaze(int mapIndex)
 	{
 		// Turn off the current decoration canvas.
 		if (currentMapCanvas != null)
@@ -216,7 +216,7 @@ public class MazeController : MonoBehaviour
 		}
 
 		// Get a new map.
-		maze = mazes[currentMap++];
+		maze = mazes[mapIndex];
 
 		// Rest map counter if you complete the last map.
 		if (currentMap == mazes.Length)
@@ -340,6 +340,16 @@ public class MazeController : MonoBehaviour
 		{
 			arrows[i].SetActive(direction.HasFlag((Direction)Mathf.Pow(2, i)));
 		}
+	}
+
+	public void LoadNextMap()
+	{
+		LoadMaze(++currentMap);
+	}
+
+	public void LoadCurrentMap()
+	{
+		LoadMaze(currentMap);
 	}
 
 	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
