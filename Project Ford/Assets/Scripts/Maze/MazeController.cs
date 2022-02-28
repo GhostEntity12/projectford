@@ -43,7 +43,7 @@ public class MazeController : MonoBehaviour
 	public GameObject carObject;
 	public Transform carMesh;
 	public int _startingFuel = 10;
-	public int _maximumFuel = 10; // For when we implement a way to restore fuel.
+	public int _maximumFuel = 10;
 	int _currentFuel;
 	public List<Image> _fuelCounters = new List<Image>();
 	public GameObject _fuelCanPrefab;
@@ -153,15 +153,6 @@ public class MazeController : MonoBehaviour
 						isRotating = true;
 						line.SetPosition(line.positionCount++ - 1, carObject.transform.position);
 						line.SetPosition(line.positionCount - 1, carObject.transform.position);
-
-						_currentFuel--;
-						// Ran out of fuel, throws up an error message and loads new maze.
-						// TODO: This causes weirdness in the movement at the start of the next maze.
-						if (_currentFuel == 0)
-						{
-							Debug.Log("Ran out of fuel!");
-							failureScreen.SetActive(true);
-						}
 					}
 				}
 				// Move the car
@@ -170,7 +161,7 @@ public class MazeController : MonoBehaviour
 					line.SetPosition(line.positionCount - 1, carObject.transform.position);
 					Vector2 newPos = Vector2.MoveTowards(carObject.transform.position, currentDestination, moveSpeed * Time.deltaTime);
 					carObject.transform.position = newPos;
-					_fuelCounters[(_fuelCounters.Count - 1) - _currentFuel].fillAmount = (newPos - currentDestination).magnitude;
+					_fuelCounters[_fuelCounters.Count - (_currentFuel)].fillAmount = (newPos - currentDestination).magnitude;
 
 					// Reached next cell in path.
 					if ((Vector2)carObject.transform.position == currentDestination)
@@ -196,6 +187,13 @@ public class MazeController : MonoBehaviour
 							currentCell._fuelTaken = true;
 
 							Destroy(currentCell._fuelCanObject);
+						}
+						else
+						{
+							_currentFuel--;
+							// Ran out of fuel.
+							if (_currentFuel == 0)
+								failureScreen.SetActive(true);
 						}
 					}
 				}
