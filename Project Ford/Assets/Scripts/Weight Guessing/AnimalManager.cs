@@ -153,7 +153,6 @@ public class AnimalManager : MonoBehaviour
 
 		_weightSum = 0;
 
-		Debug.Log("--------");
 		// Select random animals from current variety.
 		for (int i = 0; i < _currentSpawnAmount; ++i)
 		{
@@ -176,8 +175,6 @@ public class AnimalManager : MonoBehaviour
 
 			// Save the objects to a list for reference later.
 			_selectedAnimalsObjs.Add(spawnedPhysicsObject);
-
-			Debug.Log("Selected Animal " + randomAnimal);
 		}
 
 		// Get the sum of the weights of the different animals.
