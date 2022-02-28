@@ -13,20 +13,21 @@ public class ComboManager : MonoBehaviour
 		Count
 	}
 
-		/// <summary>
+	/// <summary>
 	/// Images of the combo counter.
 	/// </summary>
 	[SerializeField] private List<Image> _comboCounterImages = new List<Image>();
 
-	/// <summary>
-	/// The asset of the sky that can change when the player gets 3 right answers.
-	/// </summary>
-	[SerializeField] private Image _comboSkyImage;
-
+	[Header("Skybox")]
 	/// <summary>
 	/// List of images the sky can change to.
 	/// </summary>
-	[SerializeField] private List<Sprite> _skyImages = new List<Sprite>();
+	[SerializeField] private List<Material> _skyboxMaterials = new List<Material>();
+
+	[Header("Car")]
+	[SerializeField] private SpriteRenderer _carRenderer = null;
+
+	[SerializeField] private List<Sprite> _carSprites = new List<Sprite>();
 
 	/// <summary>
 	/// Instance of the combo manager.
@@ -44,6 +45,8 @@ public class ComboManager : MonoBehaviour
 	private ComboStep _comboStep = 0;
 
 	private AnimalManager _amInstance = null;
+
+	private int _currentSkyboxMaterial = 0;
 
 	/// <summary>
 	/// On startup.
@@ -79,30 +82,36 @@ public class ComboManager : MonoBehaviour
 		// When the player reaches 3 consecutive right answers, do something.
 		if (_answerCombo >= 3)
 		{
-			_comboSkyImage.sprite = _skyImages[1];
+			// Assign new car sprite.
+			Sprite newCarSprite = _carSprites[Random.Range(0, _carSprites.Count)];
+			while (newCarSprite == _carRenderer.sprite)
+				newCarSprite = _carSprites[Random.Range(0, _carSprites.Count)];
+			_carRenderer.sprite = newCarSprite;
+
+			// Iterate through the skybox materials.
+			if (_currentSkyboxMaterial >= _skyboxMaterials.Count - 1)
+				_currentSkyboxMaterial = -1;
+			RenderSettings.skybox = _skyboxMaterials[++_currentSkyboxMaterial];
 
 			switch(_comboStep)
 			{
 				case ComboStep.OneVariety:
-				Debug.Log("Alright.");
-				_amInstance.IncreaseAnimalVariety();
-				_comboStep++;
+					_amInstance.IncreaseAnimalVariety();
+					_comboStep++;
 				break;
 
 				case ComboStep.TwoVariety:
-				Debug.Log("Super!");
-				_amInstance.IncreaseAnimalVariety();
-				_comboStep++;
+					_amInstance.IncreaseAnimalVariety();
+					_comboStep++;
 				break;
 
 				case ComboStep.ThreeAmount:
-				Debug.Log("SUPER SEXY STYLE!!!");
-				_amInstance.IncreaseAnimalSpawnAmount();
-				_comboStep = 0;
+					_amInstance.IncreaseAnimalSpawnAmount();
+					_comboStep = 0;
 				break;
 
 				default:
-				Debug.LogError("Error in combo steps! Combo step is " + _comboStep, this);
+					Debug.LogError("Error in combo steps! Combo step is " + _comboStep, this);
 				break;
 			}
 
