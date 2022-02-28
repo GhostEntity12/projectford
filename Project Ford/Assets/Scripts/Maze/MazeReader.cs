@@ -107,7 +107,7 @@ public class MazeReadWriter
 
 			for (int i = 0; i < cellCount.x; i++)
 			{
-				if (!maze.Cells2D[i, maze.dimensions.y - 1].walls.HasFlag(Direction.North))
+				if (!maze.cells2D[i, maze.dimensions.y - 1].walls.HasFlag(Direction.North))
 				{
 					maze.startLocation = new Vector2Int(i, maze.dimensions.y);
 					break;
