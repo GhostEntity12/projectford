@@ -132,6 +132,9 @@ public class MazeController : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetKey(KeyCode.Alpha1))
+			_victoryScreen.SetActive(true);
+
 		// Handling the start when the car is outside of the maze
 		if (_targetPosition.y >= _maze.dimensions.y)
 			return;
@@ -279,6 +282,8 @@ public class MazeController : MonoBehaviour
 		// Make sure these are off when starting a new map.
 		_victoryScreen.SetActive(false);
 		_failureScreen.SetActive(false);
+
+		_isComplete = false;
 	}
 
 	public void OnArrowClick(int index)
