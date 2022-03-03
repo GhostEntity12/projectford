@@ -2630,7 +2630,7 @@ MonoBehaviour:
     _fuelTaken: 0
     _position: {x: 12, y: 17}
     _fuelCanObject: {fileID: 0}
-  - walls: 0
+  - walls: 8
     _fuel: 1
     _fuelTaken: 0
     _position: {x: 13, y: 17}
@@ -3016,4 +3016,4 @@ MonoBehaviour:
     _position: {x: 29, y: 19}
     _fuelCanObject: {fileID: 0}
   startLocation: {x: 14, y: 20}
-  mapCanvas: {fileID: 7875387502766546702, guid: 2482fd0ba9d73d44d94fa504340dc62d, type: 3}
+  mapCanvas: {fileID: 0}
