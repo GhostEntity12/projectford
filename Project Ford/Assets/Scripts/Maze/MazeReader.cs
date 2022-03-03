@@ -53,24 +53,21 @@ public class MazeReadWriter
 						cell._fuel = true;
 						cell._fuelTaken = false;
 					}
-					else
+					// Iterating through the edges
+					for (int edge = 0; edge < 4; edge++)
 					{
-						// Iterating through the edges
-						for (int edge = 0; edge < 4; edge++)
+						Vector2Int cellCoords = edge switch
 						{
-							Vector2Int cellCoords = edge switch
-							{
-								0 => new Vector2Int(xCoord, yCoord + largeOffset),
-								1 => new Vector2Int(xCoord + largeOffset, yCoord),
-								2 => new Vector2Int(xCoord, yCoord - smallOffset),
-								3 => new Vector2Int(xCoord - smallOffset, yCoord),
-								_ => throw new IndexOutOfRangeException("Something went very wrong... (Generating map data)"),
-							};
-							// Set flag if wall was found
-							if (map.GetPixel(cellCoords.x, cellCoords.y) == Color.black)
-							{
-								cell.walls |= (Direction)Mathf.Pow(2, edge);
-							}
+							0 => new Vector2Int(xCoord, yCoord + largeOffset),
+							1 => new Vector2Int(xCoord + largeOffset, yCoord),
+							2 => new Vector2Int(xCoord, yCoord - smallOffset),
+							3 => new Vector2Int(xCoord - smallOffset, yCoord),
+							_ => throw new IndexOutOfRangeException("Something went very wrong... (Generating map data)"),
+						};
+						// Set flag if wall was found
+						if (map.GetPixel(cellCoords.x, cellCoords.y) == Color.black)
+						{
+							cell.walls |= (Direction)Mathf.Pow(2, edge);
 						}
 					}
 
