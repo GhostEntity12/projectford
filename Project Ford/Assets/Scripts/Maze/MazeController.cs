@@ -115,7 +115,7 @@ public class MazeController : MonoBehaviour
 		_mazes = Resources.LoadAll<MazeData>("MapData");
 		_mazeMaterial = _mazeObject.GetComponent<Renderer>().material;
 
-		LoadMaze(_currentMap);
+		LoadMaze(0);
 
 		if (_colors.Length > 0)
 		{
