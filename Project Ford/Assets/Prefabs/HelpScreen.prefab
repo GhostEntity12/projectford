@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e9508ae9bcbb54b9bcc92d8074d59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _helpBackground: {fileID: 5452619522306698570}
+  _elementBackground: {fileID: 5452619522306698570}
   fadeSpeedModifier: 4
 --- !u!1 &5452619521482310328
 GameObject:
@@ -238,8 +238,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5452619520451796602}
-        m_TargetAssemblyTypeName: HelpMenu, Assembly-CSharp
-        m_MethodName: ToggleHelp
+        m_TargetAssemblyTypeName: FadingCanvas, Assembly-CSharp
+        m_MethodName: ToggleFadeStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

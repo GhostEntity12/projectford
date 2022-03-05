@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HelpMenu : MonoBehaviour
+public class FadingCanvas : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup _helpBackground = null;
+    [SerializeField] private CanvasGroup _elementBackground = null;
     
     private float _progress = 0f;
     private bool _faded = false;
@@ -14,7 +14,9 @@ public class HelpMenu : MonoBehaviour
     {
         UpdateProgress();
 
-        _helpBackground.alpha = _progress;
+        _elementBackground.alpha = _progress;
+        _elementBackground.interactable = _elementBackground.alpha == 1;
+        _elementBackground.blocksRaycasts = _elementBackground.alpha != 0;
     }
 
     void UpdateProgress()
@@ -31,5 +33,5 @@ public class HelpMenu : MonoBehaviour
         }
     }
 
-    public void ToggleHelp() => _faded = !_faded;
+    public void ToggleFadeStatus() => _faded = !_faded;
 }
