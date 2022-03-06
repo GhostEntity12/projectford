@@ -16,7 +16,7 @@ public class ComboManager : MonoBehaviour
 	/// <summary>
 	/// Images of the combo counter.
 	/// </summary>
-	[SerializeField] private List<Image> _comboCounterImages = new List<Image>();
+	[SerializeField] private List<GameObject> _comboCounterObjects = new List<GameObject>();
 
 	[Header("Skybox")]
 	/// <summary>
@@ -55,9 +55,9 @@ public class ComboManager : MonoBehaviour
 	{
 		_instance = this;
 
-		foreach(Image img in _comboCounterImages)
+		foreach(GameObject counter in _comboCounterObjects)
 		{
-			img.color = Color.white;
+			counter.SetActive(false);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class ComboManager : MonoBehaviour
 
 		for(int i = 0; i < _answerCombo; ++i)
 		{
-			_comboCounterImages[i].color = Color.green;
+			_comboCounterObjects[i].SetActive(true);
 		}
 
 		// When the player reaches 3 consecutive right answers, do something.
@@ -126,9 +126,9 @@ public class ComboManager : MonoBehaviour
 	{
 		_answerCombo = 0;
 
-		foreach(Image img in _comboCounterImages)
+		foreach(GameObject counter in _comboCounterObjects)
 		{
-			img.color = Color.white;
+			counter.SetActive(false);
 		}
 	}
 
