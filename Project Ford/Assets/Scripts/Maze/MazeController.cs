@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,6 +69,8 @@ public class MazeController : MonoBehaviour
 
 	private MazeData[] _mazes;
 
+	private GameObject[] _mazeDecor;
+
 	private Material _mazeMaterial;
 
 	private MazeData _maze;
@@ -80,11 +83,6 @@ public class MazeController : MonoBehaviour
 	[SerializeField] private GameObject _victoryScreen;
 
 	[SerializeField] private GameObject _failureScreen;
-
-	[Header("Debug")]
-	[SerializeField] private Color[] _colors;
-
-	[SerializeField] private Dictionary<string, Color> _colorsDict;
 
 	// Movement stuff
 
@@ -112,20 +110,11 @@ public class MazeController : MonoBehaviour
 	void Start()
 	{
 		// Caching
-		_mazes = Resources.LoadAll<MazeData>("MapData");
+		_mazes = Resources.LoadAll<MazeData>("Maze/MapData");
+		_mazeDecor = Resources.LoadAll<GameObject>("Maze/MapDecor");
 		_mazeMaterial = _mazeObject.GetComponent<Renderer>().material;
 
-		LoadMaze(0);
-
-		if (_colors.Length > 0)
-		{
-			_colorsDict = new Dictionary<string, Color>
-			{
-				{ "waiting", _colors[0] },
-				{ "turning", _colors[1] },
-				{ "moving", _colors[2] }
-			};
-		}
+		LoadMaze(2);// Random.Range(0, _mazes.Length));
 
 		_currentFuel = _startingFuel;
 	}
@@ -142,7 +131,6 @@ public class MazeController : MonoBehaviour
 		// Queue is empty and car is no longer moving, show arrows for tile
 		if (_path.Count == 0 && !_isMoving && !_isRotating)
 		{
-			//carMesh.GetComponent<Renderer>().material.color = Color.red;
 			SetActiveArrows();
 			_line.Simplify(0.2f);
 
@@ -155,7 +143,6 @@ public class MazeController : MonoBehaviour
 		{
 			if (_isRotating)
 			{
-				//carMesh.GetComponent<Renderer>().material.color = Color.green;
 				Quaternion targetRotation = Quaternion.LookRotation(_carTransform.position - (Vector3)_currentPosition, Vector3.back);
 				_carTransform.rotation = Quaternion.RotateTowards(_carTransform.rotation, targetRotation, _rotSpeed);
 				if (_carTransform.rotation == targetRotation)
@@ -166,7 +153,6 @@ public class MazeController : MonoBehaviour
 			}
 			else
 			{
-				//carMesh.GetComponent<Renderer>().material.color = Color.blue;
 				// Set the next new destination
 				if (!_isMoving)
 				{
@@ -260,7 +246,7 @@ public class MazeController : MonoBehaviour
 		// Some misc setting up.
 		_line.positionCount = 1;
 		SetActiveArrows(Direction.South);
-		_currentMapCanvas = GameObject.Instantiate(_maze.mapCanvas);
+		_currentMapCanvas = GameObject.Instantiate(_mazeDecor[mapIndex]);
 
 		// Reset fuel cell variables and spawn a fuel can at each cell.
 		foreach(MazeCell cell in _maze.cells)

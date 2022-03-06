@@ -30,7 +30,7 @@ public class MazeReadWriter
 		int largeOffset = 14;
 		int smallOffset = 1;
 
-		Texture2D[] maps = Resources.LoadAll<Texture2D>("Maps");
+		Texture2D[] maps = Resources.LoadAll<Texture2D>("Maze/MapSources");
 		foreach (Texture2D map in maps)
 		{
 			Vector2Int cellCount = new Vector2Int((map.width - borderWidth) / (borderWidth + internalSize), (map.height - 2) / (borderWidth + internalSize));
@@ -48,7 +48,8 @@ public class MazeReadWriter
 					int xCoord = j * (borderWidth + internalSize) + borderWidth;
 					int yCoord = i * (borderWidth + internalSize) + borderWidth;
 
-					if (map.GetPixel(xCoord + (largeOffset / 2), yCoord + (largeOffset / 2)) == Color.red)
+					// Maybe come back to this and fine tune?
+					if (map.GetPixel(xCoord + (largeOffset / 2), yCoord + (largeOffset / 2)).r == 1)
 					{
 						cell._fuel = true;
 						cell._fuelTaken = false;
@@ -93,10 +94,10 @@ public class MazeReadWriter
 			{
 				for (int j = 0; j < cellCount.x; j++)
 				{
-					Debug.Log(index);
-					Debug.Log(j + "/" + cellCount.y);
+					//Debug.Log(index);
+					//Debug.Log(j + "/" + cellCount.y);
 					squashedArray[index] = cells[j, i];
-					Debug.Log(squashedArray[index].walls);
+					//Debug.Log(squashedArray[index].walls);
 					index++;
 				}
 			}
@@ -112,7 +113,7 @@ public class MazeReadWriter
 			}
 
 			// Create and save the assets
-			AssetDatabase.CreateAsset(maze, $"Assets/Resources/MapData/{maze.map.name}.asset");
+			AssetDatabase.CreateAsset(maze, $"Assets/Resources/Maze/MapData/{maze.map.name}.asset");
 			AssetDatabase.SaveAssets();
 		}
 	}

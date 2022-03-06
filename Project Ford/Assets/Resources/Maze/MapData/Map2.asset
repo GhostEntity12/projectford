@@ -16,7 +16,7 @@ MonoBehaviour:
   dimensions: {x: 30, y: 20}
   cells:
   - walls: 14
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 0, y: 0}
     _fuelCanObject: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
     _position: {x: 7, y: 0}
     _fuelCanObject: {fileID: 0}
   - walls: 4
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 8, y: 0}
     _fuelCanObject: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
     _position: {x: 19, y: 0}
     _fuelCanObject: {fileID: 0}
   - walls: 13
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 20, y: 0}
     _fuelCanObject: {fileID: 0}
@@ -251,7 +251,7 @@ MonoBehaviour:
     _position: {x: 16, y: 1}
     _fuelCanObject: {fileID: 0}
   - walls: 12
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 17, y: 1}
     _fuelCanObject: {fileID: 0}
@@ -261,7 +261,7 @@ MonoBehaviour:
     _position: {x: 18, y: 1}
     _fuelCanObject: {fileID: 0}
   - walls: 9
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 19, y: 1}
     _fuelCanObject: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
     _position: {x: 29, y: 1}
     _fuelCanObject: {fileID: 0}
   - walls: 12
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 0, y: 2}
     _fuelCanObject: {fileID: 0}
@@ -366,7 +366,7 @@ MonoBehaviour:
     _position: {x: 9, y: 2}
     _fuelCanObject: {fileID: 0}
   - walls: 9
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 10, y: 2}
     _fuelCanObject: {fileID: 0}
@@ -391,7 +391,7 @@ MonoBehaviour:
     _position: {x: 14, y: 2}
     _fuelCanObject: {fileID: 0}
   - walls: 14
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 15, y: 2}
     _fuelCanObject: {fileID: 0}
@@ -621,7 +621,7 @@ MonoBehaviour:
     _position: {x: 0, y: 4}
     _fuelCanObject: {fileID: 0}
   - walls: 6
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 1, y: 4}
     _fuelCanObject: {fileID: 0}
@@ -636,7 +636,7 @@ MonoBehaviour:
     _position: {x: 3, y: 4}
     _fuelCanObject: {fileID: 0}
   - walls: 11
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 4, y: 4}
     _fuelCanObject: {fileID: 0}
@@ -656,7 +656,7 @@ MonoBehaviour:
     _position: {x: 7, y: 4}
     _fuelCanObject: {fileID: 0}
   - walls: 4
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 8, y: 4}
     _fuelCanObject: {fileID: 0}
@@ -706,7 +706,7 @@ MonoBehaviour:
     _position: {x: 17, y: 4}
     _fuelCanObject: {fileID: 0}
   - walls: 12
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 18, y: 4}
     _fuelCanObject: {fileID: 0}
@@ -836,7 +836,7 @@ MonoBehaviour:
     _position: {x: 13, y: 5}
     _fuelCanObject: {fileID: 0}
   - walls: 6
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 14, y: 5}
     _fuelCanObject: {fileID: 0}
@@ -1071,7 +1071,7 @@ MonoBehaviour:
     _position: {x: 0, y: 7}
     _fuelCanObject: {fileID: 0}
   - walls: 2
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 1, y: 7}
     _fuelCanObject: {fileID: 0}
@@ -1081,7 +1081,7 @@ MonoBehaviour:
     _position: {x: 2, y: 7}
     _fuelCanObject: {fileID: 0}
   - walls: 11
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 3, y: 7}
     _fuelCanObject: {fileID: 0}
@@ -1131,7 +1131,7 @@ MonoBehaviour:
     _position: {x: 12, y: 7}
     _fuelCanObject: {fileID: 0}
   - walls: 3
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 13, y: 7}
     _fuelCanObject: {fileID: 0}
@@ -1161,7 +1161,7 @@ MonoBehaviour:
     _position: {x: 18, y: 7}
     _fuelCanObject: {fileID: 0}
   - walls: 3
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 19, y: 7}
     _fuelCanObject: {fileID: 0}
@@ -1176,7 +1176,7 @@ MonoBehaviour:
     _position: {x: 21, y: 7}
     _fuelCanObject: {fileID: 0}
   - walls: 11
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 22, y: 7}
     _fuelCanObject: {fileID: 0}
@@ -1266,7 +1266,7 @@ MonoBehaviour:
     _position: {x: 9, y: 8}
     _fuelCanObject: {fileID: 0}
   - walls: 1
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 10, y: 8}
     _fuelCanObject: {fileID: 0}
@@ -1696,7 +1696,7 @@ MonoBehaviour:
     _position: {x: 5, y: 11}
     _fuelCanObject: {fileID: 0}
   - walls: 3
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 6, y: 11}
     _fuelCanObject: {fileID: 0}
@@ -1776,7 +1776,7 @@ MonoBehaviour:
     _position: {x: 21, y: 11}
     _fuelCanObject: {fileID: 0}
   - walls: 9
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 22, y: 11}
     _fuelCanObject: {fileID: 0}
@@ -1951,7 +1951,7 @@ MonoBehaviour:
     _position: {x: 26, y: 12}
     _fuelCanObject: {fileID: 0}
   - walls: 13
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 27, y: 12}
     _fuelCanObject: {fileID: 0}
@@ -1986,7 +1986,7 @@ MonoBehaviour:
     _position: {x: 3, y: 13}
     _fuelCanObject: {fileID: 0}
   - walls: 7
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 4, y: 13}
     _fuelCanObject: {fileID: 0}
@@ -2231,7 +2231,7 @@ MonoBehaviour:
     _position: {x: 22, y: 14}
     _fuelCanObject: {fileID: 0}
   - walls: 9
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 23, y: 14}
     _fuelCanObject: {fileID: 0}
@@ -2281,7 +2281,7 @@ MonoBehaviour:
     _position: {x: 2, y: 15}
     _fuelCanObject: {fileID: 0}
   - walls: 6
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 3, y: 15}
     _fuelCanObject: {fileID: 0}
@@ -2296,7 +2296,7 @@ MonoBehaviour:
     _position: {x: 5, y: 15}
     _fuelCanObject: {fileID: 0}
   - walls: 4
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 6, y: 15}
     _fuelCanObject: {fileID: 0}
@@ -2351,7 +2351,7 @@ MonoBehaviour:
     _position: {x: 16, y: 15}
     _fuelCanObject: {fileID: 0}
   - walls: 9
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 17, y: 15}
     _fuelCanObject: {fileID: 0}
@@ -2381,7 +2381,7 @@ MonoBehaviour:
     _position: {x: 22, y: 15}
     _fuelCanObject: {fileID: 0}
   - walls: 7
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 23, y: 15}
     _fuelCanObject: {fileID: 0}
@@ -2456,7 +2456,7 @@ MonoBehaviour:
     _position: {x: 7, y: 16}
     _fuelCanObject: {fileID: 0}
   - walls: 7
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 8, y: 16}
     _fuelCanObject: {fileID: 0}
@@ -2571,12 +2571,12 @@ MonoBehaviour:
     _position: {x: 0, y: 17}
     _fuelCanObject: {fileID: 0}
   - walls: 6
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 1, y: 17}
     _fuelCanObject: {fileID: 0}
   - walls: 12
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 2, y: 17}
     _fuelCanObject: {fileID: 0}
@@ -2676,7 +2676,7 @@ MonoBehaviour:
     _position: {x: 21, y: 17}
     _fuelCanObject: {fileID: 0}
   - walls: 7
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 22, y: 17}
     _fuelCanObject: {fileID: 0}
@@ -2701,7 +2701,7 @@ MonoBehaviour:
     _position: {x: 26, y: 17}
     _fuelCanObject: {fileID: 0}
   - walls: 3
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 27, y: 17}
     _fuelCanObject: {fileID: 0}
@@ -2711,7 +2711,7 @@ MonoBehaviour:
     _position: {x: 28, y: 17}
     _fuelCanObject: {fileID: 0}
   - walls: 2
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 29, y: 17}
     _fuelCanObject: {fileID: 0}
@@ -2886,7 +2886,7 @@ MonoBehaviour:
     _position: {x: 3, y: 19}
     _fuelCanObject: {fileID: 0}
   - walls: 11
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 4, y: 19}
     _fuelCanObject: {fileID: 0}
@@ -2901,7 +2901,7 @@ MonoBehaviour:
     _position: {x: 6, y: 19}
     _fuelCanObject: {fileID: 0}
   - walls: 3
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 7, y: 19}
     _fuelCanObject: {fileID: 0}
@@ -2921,7 +2921,7 @@ MonoBehaviour:
     _position: {x: 10, y: 19}
     _fuelCanObject: {fileID: 0}
   - walls: 7
-    _fuel: 0
+    _fuel: 1
     _fuelTaken: 0
     _position: {x: 11, y: 19}
     _fuelCanObject: {fileID: 0}
@@ -3016,4 +3016,3 @@ MonoBehaviour:
     _position: {x: 29, y: 19}
     _fuelCanObject: {fileID: 0}
   startLocation: {x: 14, y: 20}
-  mapCanvas: {fileID: 7875387502766546702, guid: 2482fd0ba9d73d44d94fa504340dc62d, type: 3}
