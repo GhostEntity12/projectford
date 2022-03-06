@@ -16,7 +16,7 @@ public class GTWDebugger : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Alpha1))
+		if (Input.GetKey(KeyCode.N))
 		{
 			_cmInstance.SetComboCount(2);
 			_cmInstance.IncrementComboCounter();
