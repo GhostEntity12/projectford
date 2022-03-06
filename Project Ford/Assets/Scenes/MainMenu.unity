@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8f1ea8f9dd6c54d9f4be30057afc81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: JamesTesting
+  _sceneName: OutbackMaze
 --- !u!1 &565593612
 GameObject:
   m_ObjectHideFlags: 0
