@@ -17,11 +17,6 @@ public class AnimalManager : MonoBehaviour
 	[SerializeField] private List<Image> _animalImages = new List<Image>();
 
 	/// <summary>
-	/// TMPro input field.
-	/// </summary>
-	[SerializeField] private TMP_InputField _inputText = null;
-
-	/// <summary>
 	/// Just an image that changes colour to show if the input was right or wrong (just for prototyping).
 	/// </summary>
 	/// <returns></returns>
@@ -186,18 +181,8 @@ public class AnimalManager : MonoBehaviour
 	/// Submit the player's input for the weight.
 	/// <para>Also resets the game if the input was correct.</para>
 	/// </summary>
-	public void Submit()
+	public bool Submit(int playerGuess)
 	{
-		int playerGuess = 0;
-
-		// Parse the input as an integer, if it couldn't be parsed: display an error.
-		if (!Int32.TryParse(_inputText.text, out playerGuess))
-		{
-			Debug.LogError($"Input '{_inputText.text}' could not be passed as integer!");
-			_indicator.color = Color.red;
-			return;
-		}
-
 		// Input is an integer, check if it is the same as the weight calculated when the animals were selected.
 		if (playerGuess == _weightSum)
 		{
@@ -205,12 +190,15 @@ public class AnimalManager : MonoBehaviour
 			_comboManager.IncrementComboCounter();
 
 			ResetWeightGuessGame();
+			return true;
 		}
 		else
 		{
 			_indicator.color = Color.red;
 			_comboManager.ResetComboCounter();
 		}
+
+		return false;
 	}
 
 	/// <summary>
