@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 4325673216532170555}
   - component: {fileID: 4325673216532170552}
   - component: {fileID: 4325673216532170553}
-  - component: {fileID: 4325673216532170558}
+  - component: {fileID: 6970885798026405676}
   m_Layer: 5
   m_Name: QuitCanvas
   m_TagString: Untagged
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _elementBackground: {fileID: 4325673216558668945}
   fadeSpeedModifier: 4
---- !u!114 &4325673216532170558
+--- !u!114 &6970885798026405676
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -601,10 +601,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4325673216532170559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8f1ea8f9dd6c54d9f4be30057afc81, type: 3}
+  m_Script: {fileID: 11500000, guid: d8cc5fb14e1371f42af9b7530cdf822b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneName: MainMenu
 --- !u!1 &4325673216558668950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,10 +1143,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4325673216532170558}
-        m_TargetAssemblyTypeName: LoadSceneButton, Assembly-CSharp
+      - m_Target: {fileID: 6970885798026405676}
+        m_TargetAssemblyTypeName: SceneManagement, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

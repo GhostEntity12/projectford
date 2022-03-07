@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc04862a10dada4d9baf39a08ccdcab, type: 3}
   m_Name: Map1
   m_EditorClassIdentifier: 
-  map: {fileID: 2800000, guid: fc1f6be6f3af3854195db2215041b331, type: 3}
+  map: {fileID: 2800000, guid: c651eab480fef3642a49b9e70bd3598b, type: 3}
   dimensions: {x: 15, y: 7}
   cells:
   - walls: 12
@@ -217,7 +217,7 @@ MonoBehaviour:
     _fuelCanObject: {fileID: 0}
   - walls: 1
     _fuel: 1
-    _fuelTaken: 1
+    _fuelTaken: 0
     _position: {x: 10, y: 2}
     _fuelCanObject: {fileID: 0}
   - walls: 3
@@ -267,7 +267,7 @@ MonoBehaviour:
     _fuelCanObject: {fileID: 0}
   - walls: 12
     _fuel: 1
-    _fuelTaken: 1
+    _fuelTaken: 0
     _position: {x: 5, y: 3}
     _fuelCanObject: {fileID: 0}
   - walls: 5
@@ -427,7 +427,7 @@ MonoBehaviour:
     _fuelCanObject: {fileID: 0}
   - walls: 2
     _fuel: 1
-    _fuelTaken: 1
+    _fuelTaken: 0
     _position: {x: 7, y: 5}
     _fuelCanObject: {fileID: 0}
   - walls: 11
@@ -541,4 +541,3 @@ MonoBehaviour:
     _position: {x: 14, y: 6}
     _fuelCanObject: {fileID: 0}
   startLocation: {x: 7, y: 7}
-  mapCanvas: {fileID: 4254879877491721021, guid: 12e49ab59f16860499fc54a64efb172b, type: 3}
