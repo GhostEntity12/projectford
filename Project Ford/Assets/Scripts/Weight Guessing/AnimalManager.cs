@@ -114,13 +114,13 @@ public class AnimalManager : MonoBehaviour
 		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
 
 		// Go through all the possible animals to choose and get a number of animals from all the possible animals to choose.
-		for(int i = 0; i < _startingAnimalVarietyCount; ++i)
-		{
-			IncreaseAnimalVariety();
-		}
+		// for(int i = 0; i < _startingAnimalVarietyCount; ++i)
+		// {
+		// 	IncreaseAnimalVariety();
+		// }
 
 		// Reset to begin the game.
-		ResetWeightGuessGame();
+		// ResetWeightGuessGame();
 
 		// Spawn the weight text
 		_allPossibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
@@ -224,19 +224,45 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	public void IncreaseAnimalVariety()
 	{
-		Animal newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
-
 		// Only get new animal if we don't already have all the animals avaliable to spawn.
 		if (_currentAnimalVariety.Count < _allPossibleAnimals.Count)
 		{
-			// If the current animal variety contains the randomly chosen animal - choose another animal (no double ups!)
-			while (_currentAnimalVariety.Contains(newAnimal))
-			{
-				newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
-			}
+			_currentAnimalVariety.Add(_allPossibleAnimals[_currentAnimalVariety.Count]);
 		}
+	}
 
-		_currentAnimalVariety.Add(newAnimal);
+	public void GetDifficultyFromManager()
+	{
+		DifficultyManager dmInstance = DifficultyManager.GetInstance();
+		DifficultyManager.DifficultyEnum selectedDifficulty = dmInstance.GetDifficulty();
+		int variety = 0;
+
+		switch (selectedDifficulty)
+		{
+			case DifficultyManager.DifficultyEnum.Easy:
+				variety = dmInstance.GetEasyDifficultyAnimals();
+
+				for (int i = 0; i < variety; ++i)
+					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
+			break;
+
+			case DifficultyManager.DifficultyEnum.Medium:
+				variety = dmInstance.GetMediumDifficultyAnimals();
+
+				for (int i = 0; i < variety; ++i)
+					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
+			break;
+
+			case DifficultyManager.DifficultyEnum.Hard:
+				variety = dmInstance.GetHardDifficultyAnimals();
+
+				for (int i = 0; i < variety; ++i)
+					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
+			break;
+
+			default:
+			break;
+		}
 	}
 
 	/// <summary>
