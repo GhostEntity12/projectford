@@ -17,11 +17,6 @@ public class AnimalManager : MonoBehaviour
 	[SerializeField] private List<Image> _animalImages = new List<Image>();
 
 	/// <summary>
-	/// TMPro input field.
-	/// </summary>
-	[SerializeField] private TMP_InputField _inputText = null;
-
-	/// <summary>
 	/// Just an image that changes colour to show if the input was right or wrong (just for prototyping).
 	/// </summary>
 	/// <returns></returns>
@@ -119,13 +114,13 @@ public class AnimalManager : MonoBehaviour
 		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
 
 		// Go through all the possible animals to choose and get a number of animals from all the possible animals to choose.
-		for(int i = 0; i < _startingAnimalVarietyCount; ++i)
-		{
-			IncreaseAnimalVariety();
-		}
+		// for(int i = 0; i < _startingAnimalVarietyCount; ++i)
+		// {
+		// 	IncreaseAnimalVariety();
+		// }
 
 		// Reset to begin the game.
-		ResetWeightGuessGame();
+		// ResetWeightGuessGame();
 
 		// Spawn the weight text
 		_allPossibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
@@ -186,18 +181,8 @@ public class AnimalManager : MonoBehaviour
 	/// Submit the player's input for the weight.
 	/// <para>Also resets the game if the input was correct.</para>
 	/// </summary>
-	public void Submit()
+	public bool Submit(int playerGuess)
 	{
-		int playerGuess = 0;
-
-		// Parse the input as an integer, if it couldn't be parsed: display an error.
-		if (!Int32.TryParse(_inputText.text, out playerGuess))
-		{
-			Debug.LogError($"Input '{_inputText.text}' could not be passed as integer!");
-			_indicator.color = Color.red;
-			return;
-		}
-
 		// Input is an integer, check if it is the same as the weight calculated when the animals were selected.
 		if (playerGuess == _weightSum)
 		{
@@ -205,12 +190,15 @@ public class AnimalManager : MonoBehaviour
 			_comboManager.IncrementComboCounter();
 
 			ResetWeightGuessGame();
+			return true;
 		}
 		else
 		{
 			_indicator.color = Color.red;
 			_comboManager.ResetComboCounter();
 		}
+
+		return false;
 	}
 
 	/// <summary>
@@ -236,19 +224,45 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	public void IncreaseAnimalVariety()
 	{
-		Animal newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
-
 		// Only get new animal if we don't already have all the animals avaliable to spawn.
 		if (_currentAnimalVariety.Count < _allPossibleAnimals.Count)
 		{
-			// If the current animal variety contains the randomly chosen animal - choose another animal (no double ups!)
-			while (_currentAnimalVariety.Contains(newAnimal))
-			{
-				newAnimal = _allPossibleAnimals[UnityEngine.Random.Range(0, _allPossibleAnimals.Count)];
-			}
+			_currentAnimalVariety.Add(_allPossibleAnimals[_currentAnimalVariety.Count]);
 		}
+	}
 
-		_currentAnimalVariety.Add(newAnimal);
+	public void GetDifficultyFromManager()
+	{
+		DifficultyManager dmInstance = DifficultyManager.GetInstance();
+		DifficultyManager.DifficultyEnum selectedDifficulty = dmInstance.GetDifficulty();
+		int variety = 0;
+
+		switch (selectedDifficulty)
+		{
+			case DifficultyManager.DifficultyEnum.Easy:
+				variety = dmInstance.GetEasyDifficultyAnimals();
+
+				for (int i = 0; i < variety; ++i)
+					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
+			break;
+
+			case DifficultyManager.DifficultyEnum.Medium:
+				variety = dmInstance.GetMediumDifficultyAnimals();
+
+				for (int i = 0; i < variety; ++i)
+					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
+			break;
+
+			case DifficultyManager.DifficultyEnum.Hard:
+				variety = dmInstance.GetHardDifficultyAnimals();
+
+				for (int i = 0; i < variety; ++i)
+					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
+			break;
+
+			default:
+			break;
+		}
 	}
 
 	/// <summary>
