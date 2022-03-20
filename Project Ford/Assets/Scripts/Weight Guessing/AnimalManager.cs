@@ -112,18 +112,6 @@ public class AnimalManager : MonoBehaviour
 
 		// Seed Unity RNG with the clock time.
 		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
-
-		// Go through all the possible animals to choose and get a number of animals from all the possible animals to choose.
-		// for(int i = 0; i < _startingAnimalVarietyCount; ++i)
-		// {
-		// 	IncreaseAnimalVariety();
-		// }
-
-		// Reset to begin the game.
-		// ResetWeightGuessGame();
-
-		// Spawn the weight text
-		_allPossibleAnimals.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
 	}
 
 	void Start()
@@ -228,6 +216,10 @@ public class AnimalManager : MonoBehaviour
 		if (_currentAnimalVariety.Count < _allPossibleAnimals.Count)
 		{
 			_currentAnimalVariety.Add(_allPossibleAnimals[_currentAnimalVariety.Count]);
+
+			// Add the last newly added animal to the weight list.
+			GameObject animal = Instantiate(_weightPrefab, _weightList);
+			animal.GetComponent<AnimalWeightInfo>().SetValues(_currentAnimalVariety[_currentAnimalVariety.Count - 1]);
 		}
 	}
 
@@ -263,6 +255,9 @@ public class AnimalManager : MonoBehaviour
 			default:
 			break;
 		}
+
+		// Spawn the weight text.
+		_currentAnimalVariety.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
 	}
 
 	/// <summary>
