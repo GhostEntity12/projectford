@@ -227,34 +227,45 @@ public class AnimalManager : MonoBehaviour
 	{
 		DifficultyManager dmInstance = DifficultyManager.GetInstance();
 		DifficultyManager.DifficultyEnum selectedDifficulty = dmInstance.GetDifficulty();
+		DifficultyManager.DifficultySettings settings = new DifficultyManager.DifficultySettings(0, 0);
 		int variety = 0;
 
+		// Go through each of the difficulty settings.
 		switch (selectedDifficulty)
 		{
+			// Easy.
 			case DifficultyManager.DifficultyEnum.Easy:
-				variety = dmInstance.GetEasyDifficultyAnimals();
+				settings = dmInstance.GetEasyDifficultySettings();
+				variety = settings._difAnimals;
 
 				for (int i = 0; i < variety; ++i)
 					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
 			break;
 
+			// Medium.
 			case DifficultyManager.DifficultyEnum.Medium:
-				variety = dmInstance.GetMediumDifficultyAnimals();
+				settings = dmInstance.GetMediumDifficultySettings();
+				variety = settings._difAnimals;
 
 				for (int i = 0; i < variety; ++i)
 					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
 			break;
 
+			// Hard
 			case DifficultyManager.DifficultyEnum.Hard:
-				variety = dmInstance.GetHardDifficultyAnimals();
+				settings = dmInstance.GetHardDifficultySettings();
+				variety = settings._difAnimals;
 
 				for (int i = 0; i < variety; ++i)
 					_currentAnimalVariety.Add(_allPossibleAnimals[i]);
 			break;
 
 			default:
+				Debug.LogError("Error in determining selected difficulty, difficulty was " + selectedDifficulty, this);
 			break;
 		}
+
+		_comboManager.SetFinishQuestionAmount(settings._finishQuestionStreakAmount);
 
 		// Spawn the weight text.
 		_currentAnimalVariety.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
