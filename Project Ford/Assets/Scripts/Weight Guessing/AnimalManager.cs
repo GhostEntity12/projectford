@@ -53,6 +53,8 @@ public class AnimalManager : MonoBehaviour
 	/// </summary>
 	[SerializeField] private int _maxAnimalSpawnAmount = 5;
 
+	[SerializeField] private Toggle _endlessModeToggle = null;
+
 	/// <summary>
 	/// The animals the manager can choose to spawn in the game.
 	/// </summary>
@@ -266,6 +268,7 @@ public class AnimalManager : MonoBehaviour
 		}
 
 		_comboManager.SetFinishQuestionAmount(settings._finishQuestionStreakAmount);
+		_comboManager.SetEndlessMode(_endlessModeToggle.isOn);
 
 		// Spawn the weight text.
 		_currentAnimalVariety.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
