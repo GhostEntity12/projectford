@@ -185,7 +185,7 @@ public class AnimalManager : MonoBehaviour
 		else
 		{
 			_indicator.color = Color.red;
-			_comboManager.ResetComboCounter();
+			_comboManager.ResetComboCounter(false);
 		}
 
 		return false;

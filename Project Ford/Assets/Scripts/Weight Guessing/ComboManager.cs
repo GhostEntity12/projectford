@@ -167,7 +167,8 @@ public class ComboManager : MonoBehaviour
 	/// <summary>
 	/// Reset the combo counter to 0.
 	/// </summary>
-	public void ResetComboCounter()
+	/// <param name="correct">If the reason was for a correct answer, defaults to true.</param>
+	public void ResetComboCounter(bool correct = true)
 	{
 		_answerCombo = 0;
 
@@ -175,6 +176,10 @@ public class ComboManager : MonoBehaviour
 		{
 			counter.SetActive(false);
 		}
+
+		// Only reset streak counter if incorrect answer and in endless mode.
+		if (!correct && _endlessMode)
+			_counterManager.ResetStreakCount();
 	}
 
 	public void SetComboCount(int newCount)
