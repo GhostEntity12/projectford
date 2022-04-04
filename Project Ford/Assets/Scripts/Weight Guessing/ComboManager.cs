@@ -13,10 +13,10 @@ public class ComboManager : MonoBehaviour
 		Count
 	}
 
-	/// <summary>
-	/// Images of the combo counter.
-	/// </summary>
-	[SerializeField] private List<GameObject> _comboCounterObjects = new List<GameObject>();
+	// /// <summary>
+	// /// Images of the combo counter.
+	// /// </summary>
+	// [SerializeField] private List<GameObject> _comboCounterObjects = new List<GameObject>();
 
 	[Header("Skybox")]
 	/// <summary>
@@ -79,10 +79,10 @@ public class ComboManager : MonoBehaviour
 	{
 		_instance = this;
 
-		foreach(GameObject counter in _comboCounterObjects)
-		{
-			counter.SetActive(false);
-		}
+		// foreach(GameObject counter in _comboCounterObjects)
+		// {
+		// 	counter.SetActive(false);
+		// }
 
 		// Make sure the finish screen is off when starting the game.
 		if (_finishScreen.activeSelf)
@@ -102,10 +102,10 @@ public class ComboManager : MonoBehaviour
 	{
 		_answerCombo++;
 
-		for(int i = 0; i < _answerCombo; ++i)
-		{
-			_comboCounterObjects[i].SetActive(true);
-		}
+		// for(int i = 0; i < _answerCombo; ++i)
+		// {
+		// 	_comboCounterObjects[i].SetActive(true);
+		// }
 
 		// When the player reaches 3 consecutive right answers.
 		if (_answerCombo >= 3)
@@ -172,10 +172,10 @@ public class ComboManager : MonoBehaviour
 	{
 		_answerCombo = 0;
 
-		foreach(GameObject counter in _comboCounterObjects)
-		{
-			counter.SetActive(false);
-		}
+		// foreach(GameObject counter in _comboCounterObjects)
+		// {
+		// 	counter.SetActive(false);
+		// }
 
 		// Only reset streak counter if incorrect answer and in endless mode.
 		if (!correct && _endlessMode)
