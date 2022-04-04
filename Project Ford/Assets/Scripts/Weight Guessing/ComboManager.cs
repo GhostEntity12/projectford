@@ -13,10 +13,10 @@ public class ComboManager : MonoBehaviour
 		Count
 	}
 
-	/// <summary>
-	/// Images of the combo counter.
-	/// </summary>
-	[SerializeField] private List<GameObject> _comboCounterObjects = new List<GameObject>();
+	// /// <summary>
+	// /// Images of the combo counter.
+	// /// </summary>
+	// [SerializeField] private List<GameObject> _comboCounterObjects = new List<GameObject>();
 
 	[Header("Skybox")]
 	/// <summary>
@@ -31,6 +31,8 @@ public class ComboManager : MonoBehaviour
 
 	[Header("Misc.")]
 	[SerializeField] private GameObject _finishScreen = null;
+
+	[SerializeField] private StreakCounterManager _counterManager = null;
 
 	/// <summary>
 	/// Instance of the combo manager.
@@ -77,10 +79,10 @@ public class ComboManager : MonoBehaviour
 	{
 		_instance = this;
 
-		foreach(GameObject counter in _comboCounterObjects)
-		{
-			counter.SetActive(false);
-		}
+		// foreach(GameObject counter in _comboCounterObjects)
+		// {
+		// 	counter.SetActive(false);
+		// }
 
 		// Make sure the finish screen is off when starting the game.
 		if (_finishScreen.activeSelf)
@@ -100,10 +102,10 @@ public class ComboManager : MonoBehaviour
 	{
 		_answerCombo++;
 
-		for(int i = 0; i < _answerCombo; ++i)
-		{
-			_comboCounterObjects[i].SetActive(true);
-		}
+		// for(int i = 0; i < _answerCombo; ++i)
+		// {
+		// 	_comboCounterObjects[i].SetActive(true);
+		// }
 
 		// When the player reaches 3 consecutive right answers.
 		if (_answerCombo >= 3)
@@ -156,19 +158,28 @@ public class ComboManager : MonoBehaviour
 
 			ResetComboCounter();
 		}
+
+		// Only increment streak counter when in endless mode.
+		if (_endlessMode)
+			_counterManager.IncrementStreakCount();
 	}
 
 	/// <summary>
 	/// Reset the combo counter to 0.
 	/// </summary>
-	public void ResetComboCounter()
+	/// <param name="correct">If the reason was for a correct answer, defaults to true.</param>
+	public void ResetComboCounter(bool correct = true)
 	{
 		_answerCombo = 0;
 
-		foreach(GameObject counter in _comboCounterObjects)
-		{
-			counter.SetActive(false);
-		}
+		// foreach(GameObject counter in _comboCounterObjects)
+		// {
+		// 	counter.SetActive(false);
+		// }
+
+		// Only reset streak counter if incorrect answer and in endless mode.
+		if (!correct && _endlessMode)
+			_counterManager.ResetStreakCount();
 	}
 
 	public void SetComboCount(int newCount)
@@ -184,6 +195,11 @@ public class ComboManager : MonoBehaviour
 	public void SetEndlessMode(bool endless)
 	{
 		_endlessMode = endless;
+
+		if (!_endlessMode)
+			_counterManager.gameObject.SetActive(false);
+		else
+			_counterManager.gameObject.SetActive(true);
 	}
 
 	/// <summary>
