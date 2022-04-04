@@ -29,6 +29,9 @@ public class ComboManager : MonoBehaviour
 
 	[SerializeField] private List<Sprite> _carSprites = new List<Sprite>();
 
+	[Header("Misc.")]
+	[SerializeField] private GameObject _finishScreen = null;
+
 	/// <summary>
 	/// Instance of the combo manager.
 	/// </summary>
@@ -44,9 +47,28 @@ public class ComboManager : MonoBehaviour
 	/// </summary>
 	private ComboStep _comboStep = 0;
 
+	/// <summary>
+	/// The Animal Manager.
+	/// </summary>
 	private AnimalManager _amInstance = null;
 
+	/// <summary>
+	/// The current skybox material.
+	/// </summary>
 	private int _currentSkyboxMaterial = 0;
+
+	/// <summary>
+	/// The current question streak amount. For progression.
+	/// </summary>
+	private int _currentQuestionStreakAmount = 0;
+
+	/// <summary>
+	/// The amount of questions streaks to 'finish' the game.
+	/// </summary>
+	private int _finishQuestionStreakAmount = 0;
+
+	// Endless mode, don't check for end.
+	private bool _endlessMode = false;
 
 	/// <summary>
 	/// On startup.
@@ -59,6 +81,10 @@ public class ComboManager : MonoBehaviour
 		{
 			counter.SetActive(false);
 		}
+
+		// Make sure the finish screen is off when starting the game.
+		if (_finishScreen.activeSelf)
+			_finishScreen.SetActive(false);
 	}
 
 	void Start()
@@ -79,7 +105,7 @@ public class ComboManager : MonoBehaviour
 			_comboCounterObjects[i].SetActive(true);
 		}
 
-		// When the player reaches 3 consecutive right answers, do something.
+		// When the player reaches 3 consecutive right answers.
 		if (_answerCombo >= 3)
 		{
 			// Assign new car sprite.
@@ -93,6 +119,7 @@ public class ComboManager : MonoBehaviour
 				_currentSkyboxMaterial = -1;
 			RenderSettings.skybox = _skyboxMaterials[++_currentSkyboxMaterial];
 
+			// The combos step through these increases to difficulty in this order.
 			switch(_comboStep)
 			{
 				case ComboStep.OneVariety:
@@ -107,6 +134,18 @@ public class ComboManager : MonoBehaviour
 
 				case ComboStep.ThreeAmount:
 					_amInstance.IncreaseAnimalSpawnAmount();
+
+					// Only do this if not in endless mode.
+					if (!_endlessMode)
+					{
+						if (++_currentQuestionStreakAmount >= _finishQuestionStreakAmount)
+						{
+							Debug.Log("Questions finished!");
+							_finishScreen.SetActive(true);
+							return;
+						}
+					}
+
 					_comboStep = 0;
 				break;
 
@@ -135,6 +174,16 @@ public class ComboManager : MonoBehaviour
 	public void SetComboCount(int newCount)
 	{
 		_answerCombo = newCount;
+	}
+
+	public void SetFinishQuestionAmount(int finishAmount)
+	{
+		_finishQuestionStreakAmount = finishAmount;
+	}
+
+	public void SetEndlessMode(bool endless)
+	{
+		_endlessMode = endless;
 	}
 
 	/// <summary>
