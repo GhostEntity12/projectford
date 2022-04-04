@@ -32,6 +32,8 @@ public class ComboManager : MonoBehaviour
 	[Header("Misc.")]
 	[SerializeField] private GameObject _finishScreen = null;
 
+	[SerializeField] private StreakCounterManager _counterManager = null;
+
 	/// <summary>
 	/// Instance of the combo manager.
 	/// </summary>
@@ -156,6 +158,10 @@ public class ComboManager : MonoBehaviour
 
 			ResetComboCounter();
 		}
+
+		// Only increment streak counter when in endless mode.
+		if (_endlessMode)
+			_counterManager.IncrementStreakCount();
 	}
 
 	/// <summary>
@@ -184,6 +190,11 @@ public class ComboManager : MonoBehaviour
 	public void SetEndlessMode(bool endless)
 	{
 		_endlessMode = endless;
+
+		if (!_endlessMode)
+			_counterManager.gameObject.SetActive(false);
+		else
+			_counterManager.gameObject.SetActive(true);
 	}
 
 	/// <summary>
