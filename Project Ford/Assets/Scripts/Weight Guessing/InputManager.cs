@@ -12,6 +12,13 @@ public class InputManager : MonoBehaviour
 
 	private KeyCode[] _numKeyCodes = new KeyCode[] {KeyCode.Alpha0, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9};
 
+	private AnimalManager _amInstance = null;
+
+	void Start()
+	{
+		_amInstance = AnimalManager.GetInstance();
+	}
+
 	void Update()
 	{
 		for (int i = 0; i < _numKeyCodes.Length; ++i)
@@ -34,7 +41,7 @@ public class InputManager : MonoBehaviour
 		}
 
 		// Submit the player's input, if it was correct reset the text input.
-		if (AnimalManager.GetInstance().Submit(playerGuess))
+		if (_amInstance.Submit(playerGuess))
 			_inputText.text = "";
 	}
 
