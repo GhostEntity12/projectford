@@ -189,9 +189,15 @@ public class ComboManager : MonoBehaviour
 		_endlessMode = endless;
 
 		if (!_endlessMode)
+		{
 			_counterManager.gameObject.SetActive(false);
+			_progInstance.gameObject.SetActive(true);
+		}
 		else
+		{
 			_counterManager.gameObject.SetActive(true);
+			_progInstance.gameObject.SetActive(false);
+		}
 	}
 
 	/// <summary>
