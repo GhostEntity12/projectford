@@ -20,7 +20,7 @@ public class AnimalManager : MonoBehaviour
 	/// Just an image that changes colour to show if the input was right or wrong (just for prototyping).
 	/// </summary>
 	/// <returns></returns>
-	[SerializeField] private Image _indicator = null;
+	[SerializeField] private Indicator _indicator = null;
 
 	/// <summary>
 	/// The zone for spawning the physics objects.
@@ -176,7 +176,7 @@ public class AnimalManager : MonoBehaviour
 		// Input is an integer, check if it is the same as the weight calculated when the animals were selected.
 		if (playerGuess == _weightSum)
 		{
-			_indicator.color = Color.green;
+			_indicator.SetIndicator(true);
 			_comboManager.IncrementComboCounter();
 
 			ResetWeightGuessGame();
@@ -184,7 +184,7 @@ public class AnimalManager : MonoBehaviour
 		}
 		else
 		{
-			_indicator.color = Color.red;
+			_indicator.SetIndicator(false);
 			_comboManager.ResetComboCounter(false);
 		}
 
