@@ -13,11 +13,6 @@ public class ComboManager : MonoBehaviour
 		Count
 	}
 
-	// /// <summary>
-	// /// Images of the combo counter.
-	// /// </summary>
-	// [SerializeField] private List<GameObject> _comboCounterObjects = new List<GameObject>();
-
 	[Header("Skybox")]
 	/// <summary>
 	/// List of images the sky can change to.
@@ -72,17 +67,16 @@ public class ComboManager : MonoBehaviour
 	// Endless mode, don't check for end.
 	private bool _endlessMode = false;
 
+	private ProgressManager _progInstance = null;
+
+	private int _currentQuestionCount = 0;
+
 	/// <summary>
 	/// On startup.
 	/// </summary>
 	void Awake()
 	{
 		_instance = this;
-
-		// foreach(GameObject counter in _comboCounterObjects)
-		// {
-		// 	counter.SetActive(false);
-		// }
 
 		// Make sure the finish screen is off when starting the game.
 		if (_finishScreen.activeSelf)
@@ -92,6 +86,7 @@ public class ComboManager : MonoBehaviour
 	void Start()
 	{
 		_amInstance = AnimalManager.GetInstance();
+		_progInstance = ProgressManager.GetInstance();
 	}
 
 	/// <summary>
@@ -101,11 +96,9 @@ public class ComboManager : MonoBehaviour
 	public void IncrementComboCounter()
 	{
 		_answerCombo++;
+		_currentQuestionCount++;
 
-		// for(int i = 0; i < _answerCombo; ++i)
-		// {
-		// 	_comboCounterObjects[i].SetActive(true);
-		// }
+		_progInstance.UpdateProgressBar(_currentQuestionCount);
 
 		// When the player reaches 3 consecutive right answers.
 		if (_answerCombo >= 3)
@@ -140,7 +133,9 @@ public class ComboManager : MonoBehaviour
 					// Only do this if not in endless mode.
 					if (!_endlessMode)
 					{
-						if (++_currentQuestionStreakAmount >= _finishQuestionStreakAmount)
+						++_currentQuestionStreakAmount;
+
+						if (_currentQuestionStreakAmount >= _finishQuestionStreakAmount)
 						{
 							Debug.Log("Questions finished!");
 							_finishScreen.SetActive(true);
@@ -172,11 +167,6 @@ public class ComboManager : MonoBehaviour
 	{
 		_answerCombo = 0;
 
-		// foreach(GameObject counter in _comboCounterObjects)
-		// {
-		// 	counter.SetActive(false);
-		// }
-
 		// Only reset streak counter if incorrect answer and in endless mode.
 		if (!correct && _endlessMode)
 			_counterManager.ResetStreakCount();
@@ -190,6 +180,8 @@ public class ComboManager : MonoBehaviour
 	public void SetFinishQuestionAmount(int finishAmount)
 	{
 		_finishQuestionStreakAmount = finishAmount;
+		
+		_progInstance.SetMaxQuestionCount(_finishQuestionStreakAmount * (int)ComboStep.Count);
 	}
 
 	public void SetEndlessMode(bool endless)
