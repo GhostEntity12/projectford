@@ -66,10 +66,16 @@ public class MazeController : MonoBehaviour
 
 	[Header("Maze Data")]
 	[SerializeField] private GameObject _mazeObject;
+	
+	[SerializeField] private MazeLevelsData _easyMazeLevels = null;
 
-	private MazeData[] _mazes;
+	[SerializeField] private MazeLevelsData _mediumMazeLevels = null;
 
-	private GameObject[] _mazeDecor;
+	[SerializeField] private MazeLevelsData _hardMazeLevels = null;
+
+	private MazeLevelsData _currentMazeLevels = null;
+
+	// private GameObject[] _mazeDecor;
 
 	private Material _mazeMaterial;
 
@@ -110,101 +116,103 @@ public class MazeController : MonoBehaviour
 	void Start()
 	{
 		// Caching
-		_mazes = Resources.LoadAll<MazeData>("Maze/MapData");
-		_mazeDecor = Resources.LoadAll<GameObject>("Maze/MapDecor");
+		// _mazes = Resources.LoadAll<MazeData>("Maze/MapData");
+		// _mazeDecor = Resources.LoadAll<GameObject>("Maze/MapDecor");
 		_mazeMaterial = _mazeObject.GetComponent<Renderer>().material;
-
-		LoadMaze(0);
 
 		_currentFuel = _startingFuel;
 	}
 
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.Alpha1))
-			_victoryScreen.SetActive(true);
-
-		// Handling the start when the car is outside of the maze
-		if (_targetPosition.y >= _maze.dimensions.y)
-			return;
-
-		// Queue is empty and car is no longer moving, show arrows for tile
-		if (_path.Count == 0 && !_isMoving && !_isRotating)
+		// Make sure maze is set.
+		if (_maze != null)
 		{
-			SetActiveArrows();
-			_line.Simplify(0.2f);
-
-			if (_isComplete)
-			{
+			if (Input.GetKey(KeyCode.Alpha1))
 				_victoryScreen.SetActive(true);
-			}
-		}
-		else
-		{
-			if (_isRotating)
+
+			// Handling the start when the car is outside of the maze
+			if (_targetPosition.y >= _maze.dimensions.y)
+				return;
+
+			// Queue is empty and car is no longer moving, show arrows for tile
+			if (_path.Count == 0 && !_isMoving && !_isRotating)
 			{
-				Quaternion targetRotation = Quaternion.LookRotation(_carTransform.position - (Vector3)_currentPosition, Vector3.back);
-				_carTransform.rotation = Quaternion.RotateTowards(_carTransform.rotation, targetRotation, _rotSpeed);
-				if (_carTransform.rotation == targetRotation)
+				SetActiveArrows();
+				_line.Simplify(0.2f);
+
+				if (_isComplete)
 				{
-					_isMoving = true;
-					_isRotating = false;
+					_victoryScreen.SetActive(true);
 				}
 			}
 			else
 			{
-				// Set the next new destination
-				if (!_isMoving)
+				if (_isRotating)
 				{
-					// Can only move if the car has fuel.
-					if (_currentFuel > 0)
+					Quaternion targetRotation = Quaternion.LookRotation(_carTransform.position - (Vector3)_currentPosition, Vector3.back);
+					_carTransform.rotation = Quaternion.RotateTowards(_carTransform.rotation, targetRotation, _rotSpeed);
+					if (_carTransform.rotation == targetRotation)
 					{
-						Vector2Int cell = _path.Dequeue();
-						_currentPosition = MazeCoordstoWorldCoords(cell);
-						_isRotating = true;
-						_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
-						_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
+						_isMoving = true;
+						_isRotating = false;
 					}
 				}
-				// Move the car
 				else
 				{
-					_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
-					Vector2 newPos = Vector2.MoveTowards(_carObject.transform.position, _currentPosition, _moveSpeed * Time.deltaTime);
-					_carObject.transform.position = newPos;
-					_fuelCounters[_fuelCounters.Count - (_currentFuel)].fillAmount = (newPos - _currentPosition).magnitude;
-
-					// Reached next cell in path.
-					if ((Vector2)_carObject.transform.position == _currentPosition)
+					// Set the next new destination
+					if (!_isMoving)
 					{
-						_isMoving = false;
-						// Debug.Log(currentDestination);
-
-						// Get the current cell the car is at.
-						Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
-						MazeCell currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
-
-						// Check if the cell has a fuel canister.
-						if (currentCell._fuel == true && currentCell._fuelTaken == false)
+						// Can only move if the car has fuel.
+						if (_currentFuel > 0)
 						{
-							// Just sets to maximum for now.
-							_currentFuel = _maximumFuel;
-
-							// Reset the UI for the fuel amount
-							foreach(Image fuelCounter in _fuelCounters)
-								fuelCounter.fillAmount = 1;
-
-							// Set fuel taken to true so the player can't get the fuel more than once.
-							currentCell._fuelTaken = true;
-
-							Destroy(currentCell._fuelCanObject);
+							Vector2Int cell = _path.Dequeue();
+							_currentPosition = MazeCoordstoWorldCoords(cell);
+							_isRotating = true;
+							_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
+							_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
 						}
-						else
+					}
+					// Move the car
+					else
+					{
+						_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
+						Vector2 newPos = Vector2.MoveTowards(_carObject.transform.position, _currentPosition, _moveSpeed * Time.deltaTime);
+						_carObject.transform.position = newPos;
+						_fuelCounters[_fuelCounters.Count - (_currentFuel)].fillAmount = (newPos - _currentPosition).magnitude;
+
+						// Reached next cell in path.
+						if ((Vector2)_carObject.transform.position == _currentPosition)
 						{
-							_currentFuel--;
-							// Ran out of fuel.
-							if (_currentFuel == 0)
-								_failureScreen.SetActive(true);
+							_isMoving = false;
+							// Debug.Log(currentDestination);
+
+							// Get the current cell the car is at.
+							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
+							MazeCell currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+
+							// Check if the cell has a fuel canister.
+							if (currentCell._fuel == true && currentCell._fuelTaken == false)
+							{
+								// Just sets to maximum for now.
+								_currentFuel = _maximumFuel;
+
+								// Reset the UI for the fuel amount
+								foreach(Image fuelCounter in _fuelCounters)
+									fuelCounter.fillAmount = 1;
+
+								// Set fuel taken to true so the player can't get the fuel more than once.
+								currentCell._fuelTaken = true;
+
+								Destroy(currentCell._fuelCanObject);
+							}
+							else
+							{
+								_currentFuel--;
+								// Ran out of fuel.
+								if (_currentFuel == 0)
+									_failureScreen.SetActive(true);
+							}
 						}
 					}
 				}
@@ -225,11 +233,11 @@ public class MazeController : MonoBehaviour
 		}
 
 		// Get a new map.
-		_maze = _mazes[mapIndex];
+		_maze = _currentMazeLevels.GetMazes()[mapIndex];
 
-		// Rest map counter if you complete the last map.
-		if (_currentMap == _mazes.Length)
-			_currentMap = 0;
+		// // Rest map counter if you complete the last map.
+		// if (_currentMap == _mazes.Length)
+		// 	_currentMap = 0;
 
 		// Set up the car for the start.
 		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
@@ -246,7 +254,7 @@ public class MazeController : MonoBehaviour
 		// Some misc setting up.
 		_line.positionCount = 1;
 		SetActiveArrows(Direction.East);
-		_currentMapCanvas = GameObject.Instantiate(_mazeDecor[mapIndex]);
+		_currentMapCanvas = GameObject.Instantiate(_currentMazeLevels.GetMazeDecor()[mapIndex]);
 
 		// Reset fuel cell variables and spawn a fuel can at each cell.
 		foreach(MazeCell cell in _maze.cells)
@@ -361,6 +369,21 @@ public class MazeController : MonoBehaviour
 	public void LoadCurrentMap()
 	{
 		LoadMaze(_currentMap);
+	}
+
+	public void SetDifficultyEasy()
+	{
+		_currentMazeLevels = _easyMazeLevels;
+	}
+
+	public void SetDifficultyMedium()
+	{
+		_currentMazeLevels = _mediumMazeLevels;
+	}
+
+	public void SetHardDifficulty()
+	{
+		_currentMazeLevels = _hardMazeLevels;
 	}
 
 	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
