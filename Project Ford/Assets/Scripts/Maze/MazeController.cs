@@ -245,7 +245,7 @@ public class MazeController : MonoBehaviour
 
 		// Some misc setting up.
 		_line.positionCount = 1;
-		SetActiveArrows(Direction.South);
+		SetActiveArrows(Direction.East);
 		_currentMapCanvas = GameObject.Instantiate(_mazeDecor[mapIndex]);
 
 		// Reset fuel cell variables and spawn a fuel can at each cell.
