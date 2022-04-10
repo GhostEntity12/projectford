@@ -114,7 +114,7 @@ public class MazeController : MonoBehaviour
 		_mazeDecor = Resources.LoadAll<GameObject>("Maze/MapDecor");
 		_mazeMaterial = _mazeObject.GetComponent<Renderer>().material;
 
-		LoadMaze(2);// Random.Range(0, _mazes.Length));
+		LoadMaze(0);
 
 		_currentFuel = _startingFuel;
 	}
