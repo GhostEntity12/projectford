@@ -40,9 +40,9 @@ public class InputManager : MonoBehaviour
 			return;
 		}
 
-		// Submit the player's input, if it was correct reset the text input.
-		if (_amInstance.Submit(playerGuess))
-			_inputText.text = "";
+		// Submit the player's input and reset text.
+		_amInstance.Submit(playerGuess);
+		_inputText.text = "";
 	}
 
 	public void AddNumber(int number)
