@@ -11806,11 +11806,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _easyDifAnimals: 3
-  _easyFinishQuestionStreakAmount: 3
+  _easyFinishQuestionsAmount: 9
   _mediumDifAnimals: 7
-  _mediumFinishQuestionStreakAmount: 5
+  _mediumFinishQuestionsAmount: 15
   _hardDifAnimals: 10
-  _hardFinishQuestionStreakAmount: 7
+  _hardFinishQuestionsAmount: 21
 --- !u!1 &2023553070
 GameObject:
   m_ObjectHideFlags: 0
