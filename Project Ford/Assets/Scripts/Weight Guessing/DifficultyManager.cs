@@ -18,24 +18,24 @@ public class DifficultyManager : MonoBehaviour
 		public DifficultySettings(int difAnimals, int finishAmount)
 		{
 			_difAnimals = difAnimals;
-			_finishQuestionStreakAmount = finishAmount;
+			_finishQuestionsAmount = finishAmount;
 		}
 
 		public int _difAnimals;
-		public int _finishQuestionStreakAmount;
+		public int _finishQuestionsAmount;
 	}
 
 	[Header("Easy")]
 	[SerializeField] private int _easyDifAnimals = 0;
-	[SerializeField] private int _easyFinishQuestionStreakAmount = 0;
+	[SerializeField] private int _easyFinishQuestionsAmount = 0;
 
 	[Header("Medium")]
 	[SerializeField] private int _mediumDifAnimals = 0;
-	[SerializeField] private int _mediumFinishQuestionStreakAmount = 0;
+	[SerializeField] private int _mediumFinishQuestionsAmount = 0;
 
 	[Header("Hard")]
 	[SerializeField] private int _hardDifAnimals = 0;
-	[SerializeField] private int _hardFinishQuestionStreakAmount = 0;
+	[SerializeField] private int _hardFinishQuestionsAmount = 0;
 
 	private static DifficultyManager _instance;
 
@@ -48,17 +48,17 @@ public class DifficultyManager : MonoBehaviour
 
 	public DifficultySettings GetEasyDifficultySettings()
 	{
-		return new DifficultySettings(_easyDifAnimals, _easyFinishQuestionStreakAmount);
+		return new DifficultySettings(_easyDifAnimals, _easyFinishQuestionsAmount);
 	}
 
 	public DifficultySettings GetMediumDifficultySettings()
 	{
-		return new DifficultySettings(_mediumDifAnimals, _mediumFinishQuestionStreakAmount);
+		return new DifficultySettings(_mediumDifAnimals, _mediumFinishQuestionsAmount);
 	}
 
 	public DifficultySettings GetHardDifficultySettings()
 	{
-		return new DifficultySettings(_hardDifAnimals, _hardFinishQuestionStreakAmount);
+		return new DifficultySettings(_hardDifAnimals, _hardFinishQuestionsAmount);
 	}
 
 	public void SetDifficulty(int selectedDifficulty)

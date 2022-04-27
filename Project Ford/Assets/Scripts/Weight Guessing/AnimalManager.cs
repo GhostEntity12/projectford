@@ -267,7 +267,7 @@ public class AnimalManager : MonoBehaviour
 			break;
 		}
 
-		_comboManager.SetFinishQuestionAmount(settings._finishQuestionStreakAmount);
+		_comboManager.SetFinishQuestionAmount(settings._finishQuestionsAmount);
 		_comboManager.SetEndlessMode(_endlessModeToggle.isOn);
 
 		// Spawn the weight text.

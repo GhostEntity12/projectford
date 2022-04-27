@@ -55,14 +55,9 @@ public class ComboManager : MonoBehaviour
 	private int _currentSkyboxMaterial = 0;
 
 	/// <summary>
-	/// The current question streak amount. For progression.
-	/// </summary>
-	private int _currentQuestionStreakAmount = 0;
-
-	/// <summary>
 	/// The amount of questions streaks to 'finish' the game.
 	/// </summary>
-	private int _finishQuestionStreakAmount = 0;
+	private int _finishQuestionsAmount = 0;
 
 	// Endless mode, don't check for end.
 	private bool _endlessMode = false;
@@ -96,9 +91,8 @@ public class ComboManager : MonoBehaviour
 	public void IncrementComboCounter()
 	{
 		_answerCombo++;
-		_currentQuestionCount++;
 
-		_progInstance.UpdateProgressBar(_currentQuestionCount);
+		_progInstance.UpdateProgressBar(++_currentQuestionCount);
 
 		// When the player reaches 3 consecutive right answers.
 		if (_answerCombo >= 3)
@@ -129,20 +123,6 @@ public class ComboManager : MonoBehaviour
 
 				case ComboStep.ThreeAmount:
 					_amInstance.IncreaseAnimalSpawnAmount();
-
-					// Only do this if not in endless mode.
-					if (!_endlessMode)
-					{
-						++_currentQuestionStreakAmount;
-
-						if (_currentQuestionStreakAmount >= _finishQuestionStreakAmount)
-						{
-							Debug.Log("Questions finished!");
-							_finishScreen.SetActive(true);
-							return;
-						}
-					}
-
 					_comboStep = 0;
 				break;
 
@@ -154,8 +134,18 @@ public class ComboManager : MonoBehaviour
 			ResetComboCounter();
 		}
 
+		// Only do this if not in endless mode.
+		if (!_endlessMode)
+		{
+			if (_currentQuestionCount >= _finishQuestionsAmount)
+			{
+				Debug.Log("Questions finished!");
+				_finishScreen.SetActive(true);
+				return;
+			}
+		}
 		// Only increment streak counter when in endless mode.
-		if (_endlessMode)
+		else
 			_counterManager.IncrementStreakCount();
 	}
 
@@ -179,9 +169,9 @@ public class ComboManager : MonoBehaviour
 
 	public void SetFinishQuestionAmount(int finishAmount)
 	{
-		_finishQuestionStreakAmount = finishAmount;
+		_finishQuestionsAmount = finishAmount;
 		
-		_progInstance.SetMaxQuestionCount(_finishQuestionStreakAmount * (int)ComboStep.Count);
+		_progInstance.SetMaxQuestionCount(_finishQuestionsAmount);
 	}
 
 	public void SetEndlessMode(bool endless)
