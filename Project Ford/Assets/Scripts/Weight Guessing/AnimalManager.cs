@@ -12,11 +12,6 @@ public class AnimalManager : MonoBehaviour
 	[SerializeField] private List<Animal> _allPossibleAnimals = new List<Animal>();
 
 	/// <summary>
-	/// The images that will show the selected animals.
-	/// </summary>
-	[SerializeField] private List<Image> _animalImages = new List<Image>();
-
-	/// <summary>
 	/// Just an image that changes colour to show if the input was right or wrong (just for prototyping).
 	/// </summary>
 	/// <returns></returns>
@@ -54,6 +49,15 @@ public class AnimalManager : MonoBehaviour
 	[SerializeField] private int _maxAnimalSpawnAmount = 5;
 
 	[SerializeField] private Toggle _endlessModeToggle = null;
+
+	[SerializeField] private GameObject _animalImagePrefab = null;
+
+	[SerializeField] private GameObject _animalImageGroupParent = null;
+
+	/// <summary>
+	/// The images that will show the selected animals.
+	/// </summary>
+	private List<Image> _animalImages = new List<Image>();
 
 	/// <summary>
 	/// The animals the manager can choose to spawn in the game.
@@ -112,8 +116,16 @@ public class AnimalManager : MonoBehaviour
 		_spawnBounds = _spawnZone.bounds;
 		_spawnZoneTransform = _spawnZone.transform;
 
+		_currentSpawnAmount = _startingAnimalSpawnAmount;
+
 		// Seed Unity RNG with the clock time.
 		UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
+
+		for(int i = 0 ; i < _currentSpawnAmount; ++i)
+		{
+			GameObject newImage = GameObject.Instantiate(_animalImagePrefab, Vector3.zero, Quaternion.identity, _animalImageGroupParent.transform);
+			_animalImages.Add(newImage.GetComponent<Image>());
+		}
 	}
 
 	void Start()
@@ -281,7 +293,11 @@ public class AnimalManager : MonoBehaviour
 	{
 		// Only increase the current spawn amount if it's below the maximum.
 		if (_currentSpawnAmount < _maxAnimalSpawnAmount)
+		{
 			_currentSpawnAmount++;
+			GameObject newImage = GameObject.Instantiate(_animalImagePrefab, Vector3.zero, Quaternion.identity, _animalImageGroupParent.transform);
+			_animalImages.Add(newImage.GetComponent<Image>());
+		}
 	}
 
 	static public AnimalManager GetInstance()
