@@ -60,7 +60,9 @@ public class MazeController : MonoBehaviour
 
 	private int _currentFuel;
 
-	[SerializeField] private List<Image> _fuelCounters = new List<Image>();
+	[SerializeField] private GameObject _fuelGaugePointer = null;
+	[SerializeField] private Transform _pointerMax = null;
+	[SerializeField] private Transform _pointerMin = null;
 
 	[SerializeField] private GameObject _fuelCanPrefab;
 
@@ -115,6 +117,8 @@ public class MazeController : MonoBehaviour
 
 	private bool _fuelActive = false;
 
+	private List<Quaternion> _fuelGaugeRots = new List<Quaternion>();
+
 	void Start()
 	{
 		// Caching
@@ -123,6 +127,13 @@ public class MazeController : MonoBehaviour
 		_mazeMaterial = _mazeObject.GetComponent<Renderer>().material;
 
 		_currentFuel = _startingFuel;
+
+		_fuelGaugeRots.Add(_pointerMin.rotation);
+		for(int i = 1; i < _maximumFuel; ++i)
+		{
+			// Debug.Log(((float)_maximumFuel - (float)i) / (float)_maximumFuel);
+			_fuelGaugeRots.Add(Quaternion.Lerp(_pointerMax.rotation, _pointerMin.rotation, ((float)_maximumFuel - (float)i) / (float)_maximumFuel));
+		}
 	}
 
 	private void Update()
@@ -195,6 +206,10 @@ public class MazeController : MonoBehaviour
 						_carObject.transform.position = newPos;
 
 						if (_fuelActive)
+						{
+							Debug.Log((newPos - _currentPosition).magnitude);
+							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 2], _fuelGaugeRots[_currentFuel - 1], (newPos - _currentPosition).magnitude);
+						}
 
 						// Reached next cell in path.
 						if ((Vector2)_carObject.transform.position == _currentPosition)
@@ -212,9 +227,8 @@ public class MazeController : MonoBehaviour
 								// Just sets to maximum for now.
 								_currentFuel = _maximumFuel;
 
-								// Reset the UI for the fuel amount
-								foreach(Image fuelCounter in _fuelCounters)
-									fuelCounter.fillAmount = 1;
+								// Reset the fuel gauge.
+								_fuelGaugePointer.transform.rotation = _pointerMax.rotation;
 
 								// Set fuel taken to true so the player can't get the fuel more than once.
 								currentCell._fuelTaken = true;
@@ -285,7 +299,7 @@ public class MazeController : MonoBehaviour
 
 			// Reset fuel of the car.
 			_currentFuel = _startingFuel;
-		foreach(Image fuelCounter in _fuelCounters)
+			_fuelGaugePointer.transform.rotation = _pointerMax.rotation;
 		}
 		else
 		{
