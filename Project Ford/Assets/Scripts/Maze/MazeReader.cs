@@ -104,9 +104,9 @@ public class MazeReadWriter
 			maze.cells = squashedArray;
 
 			// Check for start of maze by finding a gap along the west wall of the map.
-			for (int i = 0; i < cellCount.y; i++)
+			for (int i = 0; i < cellCount.x; i++)
 			{
-				if (!maze.cells2D[maze.dimensions.x - 1, i].walls.HasFlag(Direction.West))
+				if (!maze.cells2D[i, maze.dimensions.y - 1].walls.HasFlag(Direction.North))
 				{
 					maze.startLocation = new Vector2Int(i, maze.dimensions.y);
 					break;
