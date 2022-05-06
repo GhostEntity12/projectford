@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AnimalWeight.unity
     guid: a280ff06ebda3e74fa438317f51a9368
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/OutbackMaze.unity
     guid: 5304259b19be32142802fd321e338cdb
   m_configObjects: {}
