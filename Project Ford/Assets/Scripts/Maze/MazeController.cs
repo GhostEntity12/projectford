@@ -163,10 +163,22 @@ public class MazeController : MonoBehaviour
 				else
 				{
 					// Set the next new destination
-					if (_fuelActive && !_isMoving)
+					if (!_isMoving)
 					{
-						// Can only move if the car has fuel.
-						if (_currentFuel > 0)
+						if (_fuelActive)
+						{
+							// Can only move if the car has fuel.
+							if (_currentFuel > 0)
+							{
+								Vector2Int cell = _path.Dequeue();
+								_currentPosition = MazeCoordstoWorldCoords(cell);
+								_isRotating = true;
+								_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
+								_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
+							}
+						}
+						// Else fuel isn't enabled, so just move without checking for fuel.
+						else
 						{
 							Vector2Int cell = _path.Dequeue();
 							_currentPosition = MazeCoordstoWorldCoords(cell);
