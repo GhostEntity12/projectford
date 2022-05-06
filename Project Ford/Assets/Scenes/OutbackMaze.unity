@@ -931,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4325673216532170559, guid: 1d50e98bdf2fb294e9e2db9397122e2a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4325673216532170565, guid: 1d50e98bdf2fb294e9e2db9397122e2a, type: 3}
       propertyPath: m_Pivot.x
@@ -3992,6 +3992,14 @@ PrefabInstance:
       propertyPath: _mazeObject
       value: 
       objectReference: {fileID: 17058629}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _pointerMax
+      value: 
+      objectReference: {fileID: 125444088}
+    - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
+      propertyPath: _pointerMin
+      value: 
+      objectReference: {fileID: 1419412643}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: _carTransform
       value: 
