@@ -99,6 +99,7 @@ public class MazeController : MonoBehaviour
 	/// </summary>
 	private Vector2Int _targetPosition = new Vector2Int(9, 20);
 	private Vector2 _currentPosition;
+	private Vector2 _lastCellPos;
 
 	/// <summary>
 	/// Previous position used to iterate through corridors.
@@ -129,11 +130,12 @@ public class MazeController : MonoBehaviour
 		_currentFuel = _startingFuel;
 
 		_fuelGaugeRots.Add(_pointerMin.rotation);
-		for(int i = 1; i < _maximumFuel; ++i)
+		for(int i = 0; i < _maximumFuel; ++i)
 		{
 			// Debug.Log(((float)_maximumFuel - (float)i) / (float)_maximumFuel);
 			_fuelGaugeRots.Add(Quaternion.Lerp(_pointerMax.rotation, _pointerMin.rotation, ((float)_maximumFuel - (float)i) / (float)_maximumFuel));
 		}
+		_fuelGaugeRots.Add(_pointerMax.rotation);
 	}
 
 	private void Update()
@@ -182,6 +184,7 @@ public class MazeController : MonoBehaviour
 							if (_currentFuel > 0)
 							{
 								Vector2Int cell = _path.Dequeue();
+								_lastCellPos = _currentPosition;
 								_currentPosition = MazeCoordstoWorldCoords(cell);
 								_isRotating = true;
 								_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
@@ -207,8 +210,9 @@ public class MazeController : MonoBehaviour
 
 						if (_fuelActive)
 						{
-							Debug.Log((newPos - _currentPosition).magnitude);
-							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 2], _fuelGaugeRots[_currentFuel - 1], (newPos - _currentPosition).magnitude);
+							// Debug.Log((_lastCellPos - _currentPosition).normalized.magnitude);
+							Debug.Log((newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
+							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 1], _fuelGaugeRots[_currentFuel], (newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
 						}
 
 						// Reached next cell in path.
@@ -274,6 +278,7 @@ public class MazeController : MonoBehaviour
 		_line.SetPosition(0, _carObject.transform.position);
 		_path.Clear();
 		_targetPosition = _maze.startLocation;
+		_lastCellPos = _maze.startLocation;
 
 		// Load the new map.
 		_mazeMaterial.mainTexture = _maze.map;
