@@ -265,12 +265,15 @@ public class MazeController : MonoBehaviour
 			_currentMapCanvas = null;
 		}
 
+		List<MazeData> mazes = _currentMazeLevels.GetMazes();
 		// Get a new map.
-		_maze = _currentMazeLevels.GetMazes()[mapIndex];
-
-		// // Rest map counter if you complete the last map.
-		// if (_currentMap == _mazes.Length)
-		// 	_currentMap = 0;
+		if (mapIndex < mazes.Count)
+			_maze = mazes[mapIndex];
+		else
+		{
+			Debug.Log("Last map reached!");
+			return;
+		}
 
 		// Set up the car for the start.
 		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
