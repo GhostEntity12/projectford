@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: HardDifficulty
   m_EditorClassIdentifier: 
   _mazes:
-  - {fileID: 11400000, guid: 64d15c22b132edb4a97ef98a5660a1bf, type: 2}
+  - {fileID: 11400000, guid: 076eb032d3ec87a4aa7f405b0e61f85e, type: 2}
+  - {fileID: 11400000, guid: caf7b80c40908cb4e82b538c788a7365, type: 2}
+  - {fileID: 11400000, guid: f63ee84818c85534492801782f7c3fe4, type: 2}
+  - {fileID: 11400000, guid: 19aa2f835b0be0645897103c78116b38, type: 2}
   _mazeDecor:
+  - {fileID: 4881614175532506110, guid: 16c127c45d528db4689c7ceb75978e5c, type: 3}
+  - {fileID: 4881614175532506110, guid: 16c127c45d528db4689c7ceb75978e5c, type: 3}
+  - {fileID: 4881614175532506110, guid: 16c127c45d528db4689c7ceb75978e5c, type: 3}
   - {fileID: 4881614175532506110, guid: 16c127c45d528db4689c7ceb75978e5c, type: 3}

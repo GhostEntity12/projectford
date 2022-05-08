@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bc04862a10dada4d9baf39a08ccdcab, type: 3}
-  m_Name: EasyMap1
+  m_Name: EasyMap3
   m_EditorClassIdentifier: 
-  map: {fileID: 2800000, guid: 06d012b02e217cf41bf5bfd04a813cc2, type: 3}
+  map: {fileID: 2800000, guid: e924a60c992054146a01bddaa472f8a6, type: 3}
   dimensions: {x: 4, y: 4}
   cells:
   - walls: 13
@@ -20,7 +20,7 @@ MonoBehaviour:
     _fuelTaken: 0
     _position: {x: 0, y: 0}
     _fuelCanObject: {fileID: 0}
-  - walls: 4
+  - walls: 5
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 1, y: 0}
@@ -40,17 +40,17 @@ MonoBehaviour:
     _fuelTaken: 0
     _position: {x: 0, y: 1}
     _fuelCanObject: {fileID: 0}
-  - walls: 3
+  - walls: 6
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 1, y: 1}
     _fuelCanObject: {fileID: 0}
-  - walls: 13
+  - walls: 12
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 2, y: 1}
     _fuelCanObject: {fileID: 0}
-  - walls: 2
+  - walls: 3
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 3, y: 1}
@@ -60,17 +60,17 @@ MonoBehaviour:
     _fuelTaken: 0
     _position: {x: 0, y: 2}
     _fuelCanObject: {fileID: 0}
-  - walls: 5
+  - walls: 1
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 1, y: 2}
     _fuelCanObject: {fileID: 0}
-  - walls: 5
+  - walls: 3
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 2, y: 2}
     _fuelCanObject: {fileID: 0}
-  - walls: 1
+  - walls: 12
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 3, y: 2}
@@ -90,7 +90,7 @@ MonoBehaviour:
     _fuelTaken: 0
     _position: {x: 2, y: 3}
     _fuelCanObject: {fileID: 0}
-  - walls: 7
+  - walls: 3
     _fuel: 0
     _fuelTaken: 0
     _position: {x: 3, y: 3}
