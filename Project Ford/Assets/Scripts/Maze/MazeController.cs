@@ -122,6 +122,8 @@ public class MazeController : MonoBehaviour
 
 	private List<Quaternion> _fuelGaugeRots = new List<Quaternion>();
 
+	private List<GameObject> _fuelCans = new List<GameObject>();
+
 	void Start()
 	{
 		// Caching
@@ -220,7 +222,6 @@ public class MazeController : MonoBehaviour
 
 						if (_fuelActive)
 						{
-							// Debug.Log((_lastCellPos - _currentPosition).normalized.magnitude);
 							Debug.Log((newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
 							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 1], _fuelGaugeRots[_currentFuel], (newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
 						}
@@ -233,7 +234,14 @@ public class MazeController : MonoBehaviour
 
 							// Get the current cell the car is at.
 							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
-							MazeCell currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+							MazeCell currentCell = null;
+							if (currentCellPos.x < _maze.dimensions.x && currentCellPos.y < _maze.dimensions.y)
+								currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+							else
+							{
+								Debug.Log("Player is outside of map (maybe exiting?)", this);
+								return;
+							}
 
 							// Check if the cell has a fuel canister.
 							if (_fuelActive && currentCell._fuel == true && currentCell._fuelTaken == false)
@@ -274,16 +282,16 @@ public class MazeController : MonoBehaviour
 			GameObject.Destroy(_currentMapCanvas);
 			_currentMapCanvas = null;
 		}
+		// Destory the fuel cans each time a new maze is loaded.
+		foreach(GameObject can in _fuelCans)
+		{
+			GameObject.Destroy(can);
+		}
 
 		List<MazeData> mazes = _currentMazeLevels.GetMazes();
 		// Get a new map.
 		if (mapIndex < mazes.Count)
 			_maze = mazes[mapIndex];
-		else
-		{
-			Debug.Log("Last map reached!");
-			return;
-		}
 
 		// Set up the car for the start.
 		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
@@ -312,6 +320,7 @@ public class MazeController : MonoBehaviour
 				{
 					cell._fuelTaken = false;
 					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position), Quaternion.identity, transform);
+					_fuelCans.Add(cell._fuelCanObject);
 				}
 			}
 
