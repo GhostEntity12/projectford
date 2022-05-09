@@ -3609,7 +3609,7 @@ PrefabInstance:
       objectReference: {fileID: 1314488744}
     - target: {fileID: 2203191643706947720, guid: 8ae15f8ea0896ea4b890882f8cc49015, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetDifficultyHard
+      value: SetDifficultyMedium
       objectReference: {fileID: 0}
     - target: {fileID: 2203191643706947720, guid: 8ae15f8ea0896ea4b890882f8cc49015, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -3677,7 +3677,7 @@ PrefabInstance:
       objectReference: {fileID: 1314488744}
     - target: {fileID: 3256896208128946945, guid: 8ae15f8ea0896ea4b890882f8cc49015, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetDifficultyMedium
+      value: SetDifficultyHard
       objectReference: {fileID: 0}
     - target: {fileID: 3256896208128946945, guid: 8ae15f8ea0896ea4b890882f8cc49015, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
