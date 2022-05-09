@@ -60,6 +60,7 @@ public class MazeController : MonoBehaviour
 
 	private int _currentFuel;
 
+	[SerializeField] private GameObject _fuelGaugeObject = null;
 	[SerializeField] private GameObject _fuelGaugePointer = null;
 	[SerializeField] private Transform _pointerMax = null;
 	[SerializeField] private Transform _pointerMin = null;
@@ -330,7 +331,7 @@ public class MazeController : MonoBehaviour
 		}
 		else
 		{
-			_fuelGaugePointer.SetActive(false);
+			_fuelGaugeObject.SetActive(false);
 		}
 
 		// Make sure these are off when starting a new map.
