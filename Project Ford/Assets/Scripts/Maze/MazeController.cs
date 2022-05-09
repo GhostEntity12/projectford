@@ -88,6 +88,8 @@ public class MazeController : MonoBehaviour
 	private int _currentMap = 0;
 
 	[Header("Misc")]
+	[SerializeField] private GameObject _levelCompleteScreen;
+
 	[SerializeField] private GameObject _victoryScreen;
 
 	[SerializeField] private GameObject _failureScreen;
@@ -144,7 +146,7 @@ public class MazeController : MonoBehaviour
 		if (_maze != null)
 		{
 			if (Input.GetKey(KeyCode.Alpha1))
-				_victoryScreen.SetActive(true);
+				_levelCompleteScreen.SetActive(true);
 
 			// Handling the start when the car is outside of the maze
 			if (_targetPosition.x < 0)
@@ -158,7 +160,15 @@ public class MazeController : MonoBehaviour
 
 				if (_isComplete)
 				{
-					_victoryScreen.SetActive(true);
+					// If this is the last map of the difficulty display the victory screen.
+					if (_currentMap + 1 >= _currentMazeLevels.GetMazes().Count)
+						_victoryScreen.SetActive(true);
+					// Else display the level complete screen.
+					else
+						_levelCompleteScreen.SetActive(true);
+
+					// No need to keep updating the game now.
+					_maze = null;
 				}
 			}
 			else
@@ -315,7 +325,7 @@ public class MazeController : MonoBehaviour
 		}
 
 		// Make sure these are off when starting a new map.
-		_victoryScreen.SetActive(false);
+		_levelCompleteScreen.SetActive(false);
 		_failureScreen.SetActive(false);
 
 		_isComplete = false;
