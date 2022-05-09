@@ -88,6 +88,8 @@ public class MazeController : MonoBehaviour
 	private int _currentMap = 0;
 
 	[Header("Misc")]
+	[SerializeField] private GameObject _levelCompleteScreen;
+
 	[SerializeField] private GameObject _victoryScreen;
 
 	[SerializeField] private GameObject _failureScreen;
@@ -120,6 +122,8 @@ public class MazeController : MonoBehaviour
 
 	private List<Quaternion> _fuelGaugeRots = new List<Quaternion>();
 
+	private List<GameObject> _fuelCans = new List<GameObject>();
+
 	void Start()
 	{
 		// Caching
@@ -144,10 +148,10 @@ public class MazeController : MonoBehaviour
 		if (_maze != null)
 		{
 			if (Input.GetKey(KeyCode.Alpha1))
-				_victoryScreen.SetActive(true);
+				_levelCompleteScreen.SetActive(true);
 
 			// Handling the start when the car is outside of the maze
-			if (_targetPosition.y >= _maze.dimensions.y)
+			if (_targetPosition.x < 0)
 				return;
 
 			// Queue is empty and car is no longer moving, show arrows for tile
@@ -158,7 +162,15 @@ public class MazeController : MonoBehaviour
 
 				if (_isComplete)
 				{
-					_victoryScreen.SetActive(true);
+					// If this is the last map of the difficulty display the victory screen.
+					if (_currentMap + 1 >= _currentMazeLevels.GetMazes().Count)
+						_victoryScreen.SetActive(true);
+					// Else display the level complete screen.
+					else
+						_levelCompleteScreen.SetActive(true);
+
+					// No need to keep updating the game now.
+					_maze = null;
 				}
 			}
 			else
@@ -210,7 +222,6 @@ public class MazeController : MonoBehaviour
 
 						if (_fuelActive)
 						{
-							// Debug.Log((_lastCellPos - _currentPosition).normalized.magnitude);
 							Debug.Log((newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
 							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 1], _fuelGaugeRots[_currentFuel], (newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
 						}
@@ -223,7 +234,14 @@ public class MazeController : MonoBehaviour
 
 							// Get the current cell the car is at.
 							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
-							MazeCell currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+							MazeCell currentCell = null;
+							if (currentCellPos.x < _maze.dimensions.x && currentCellPos.y < _maze.dimensions.y)
+								currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+							else
+							{
+								Debug.Log("Player is outside of map (maybe exiting?)", this);
+								return;
+							}
 
 							// Check if the cell has a fuel canister.
 							if (_fuelActive && currentCell._fuel == true && currentCell._fuelTaken == false)
@@ -264,20 +282,20 @@ public class MazeController : MonoBehaviour
 			GameObject.Destroy(_currentMapCanvas);
 			_currentMapCanvas = null;
 		}
+		// Destory the fuel cans each time a new maze is loaded.
+		foreach(GameObject can in _fuelCans)
+		{
+			GameObject.Destroy(can);
+		}
 
 		List<MazeData> mazes = _currentMazeLevels.GetMazes();
 		// Get a new map.
 		if (mapIndex < mazes.Count)
 			_maze = mazes[mapIndex];
-		else
-		{
-			Debug.Log("Last map reached!");
-			return;
-		}
 
 		// Set up the car for the start.
 		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
-		_carTransform.transform.rotation = Quaternion.Euler(-90, 0, 0);
+		_carTransform.transform.rotation = Quaternion.Euler(0, -90, 90);
 		_line.SetPosition(0, _carObject.transform.position);
 		_path.Clear();
 		_targetPosition = _maze.startLocation;
@@ -290,7 +308,7 @@ public class MazeController : MonoBehaviour
 
 		// Some misc setting up.
 		_line.positionCount = 1;
-		SetActiveArrows(Direction.South);
+		SetActiveArrows(Direction.East);
 		_currentMapCanvas = GameObject.Instantiate(_currentMazeLevels.GetMazeDecor()[mapIndex]);
 
 		if (_fuelActive)
@@ -302,6 +320,7 @@ public class MazeController : MonoBehaviour
 				{
 					cell._fuelTaken = false;
 					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position), Quaternion.identity, transform);
+					_fuelCans.Add(cell._fuelCanObject);
 				}
 			}
 
@@ -315,7 +334,7 @@ public class MazeController : MonoBehaviour
 		}
 
 		// Make sure these are off when starting a new map.
-		_victoryScreen.SetActive(false);
+		_levelCompleteScreen.SetActive(false);
 		_failureScreen.SetActive(false);
 
 		_isComplete = false;
@@ -339,7 +358,7 @@ public class MazeController : MonoBehaviour
 		_path.Enqueue(nextTile);
 
 		// Query based on open passages
-		if (_targetPosition.y < 0)
+		if (_targetPosition.x >= _currentMazeLevels.GetMazes()[_currentMap].dimensions.x)
 		{
 			// Map complete
 			_isComplete = true;
