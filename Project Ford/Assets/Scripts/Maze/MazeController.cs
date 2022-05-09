@@ -147,7 +147,7 @@ public class MazeController : MonoBehaviour
 				_victoryScreen.SetActive(true);
 
 			// Handling the start when the car is outside of the maze
-			if (_targetPosition.y >= _maze.dimensions.y)
+			if (_targetPosition.x < 0)
 				return;
 
 			// Queue is empty and car is no longer moving, show arrows for tile
@@ -277,7 +277,7 @@ public class MazeController : MonoBehaviour
 
 		// Set up the car for the start.
 		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
-		_carTransform.transform.rotation = Quaternion.Euler(-90, 0, 0);
+		_carTransform.transform.rotation = Quaternion.Euler(0, -90, 90);
 		_line.SetPosition(0, _carObject.transform.position);
 		_path.Clear();
 		_targetPosition = _maze.startLocation;
@@ -290,7 +290,7 @@ public class MazeController : MonoBehaviour
 
 		// Some misc setting up.
 		_line.positionCount = 1;
-		SetActiveArrows(Direction.South);
+		SetActiveArrows(Direction.East);
 		_currentMapCanvas = GameObject.Instantiate(_currentMazeLevels.GetMazeDecor()[mapIndex]);
 
 		if (_fuelActive)
@@ -339,7 +339,7 @@ public class MazeController : MonoBehaviour
 		_path.Enqueue(nextTile);
 
 		// Query based on open passages
-		if (_targetPosition.y < 0)
+		if (_targetPosition.x >= _currentMazeLevels.GetMazes()[_currentMap].dimensions.x)
 		{
 			// Map complete
 			_isComplete = true;

@@ -87,8 +87,8 @@ public class MazeReadWriter
 			// Need to crush this down to a 1D array, because of Unity serialization :rolling_eyes:
 			// Use MazeData.Cells2D to get back a usable 2D array
 			MazeCell[] squashedArray = new MazeCell[cellCount.x * cellCount.y];
-			Debug.Log(cellCount);
-			Debug.Log(cells.Length);
+			// Debug.Log(cellCount);
+			// Debug.Log(cells.Length);
 			int index = 0;
 			for (int i = 0; i < cellCount.y; i++)
 			{
@@ -104,11 +104,14 @@ public class MazeReadWriter
 			maze.cells = squashedArray;
 
 			// Check for start of maze by finding a gap along the west wall of the map.
-			for (int i = 0; i < cellCount.x; i++)
+			for (int i = 0; i < cellCount.y; i++)
 			{
-				if (!maze.cells2D[i, maze.dimensions.y - 1].walls.HasFlag(Direction.North))
+				if (!maze.cells2D[0, i].walls.HasFlag(Direction.West))
 				{
-					maze.startLocation = new Vector2Int(i, maze.dimensions.y);
+					maze.startLocation = new Vector2Int(-1, i);
+					// Debug.Log("Start location of " + maze.map.name + " found at: " + maze.startLocation.ToString());
+					// Debug.Log("Walls: " + maze.cells2D[maze.startLocation.x, maze.startLocation.y].walls);
+					// Debug.Log("-----------------------");
 					break;
 				}
 			}
