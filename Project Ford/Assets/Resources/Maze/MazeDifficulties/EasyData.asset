@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EasyData
   m_EditorClassIdentifier: 
   _mazes:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9721ec85e633d4e47bafc6c366322ef5, type: 2}
+  - {fileID: 11400000, guid: b23d34873b71d6f40be1052ea580e84c, type: 2}
   - {fileID: 11400000, guid: 5d2e51a1eff57bb4d944154836b26b26, type: 2}
   - {fileID: 11400000, guid: 76555071ae7c2824583faf14ece7613a, type: 2}
   _mazeDecor:

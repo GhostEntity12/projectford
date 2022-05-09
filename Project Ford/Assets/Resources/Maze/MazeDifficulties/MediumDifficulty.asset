@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mazes:
   - {fileID: 11400000, guid: e6eb43e00109d34469ff1fe4aa3d1104, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 786d5542e8521234ea57c56f992ee85f, type: 2}
+  - {fileID: 11400000, guid: 5d2e51a1eff57bb4d944154836b26b26, type: 2}
+  - {fileID: 11400000, guid: 76555071ae7c2824583faf14ece7613a, type: 2}
   _mazeDecor:
   - {fileID: 7875387502766546702, guid: 2482fd0ba9d73d44d94fa504340dc62d, type: 3}
   - {fileID: 7875387502766546702, guid: 2482fd0ba9d73d44d94fa504340dc62d, type: 3}
