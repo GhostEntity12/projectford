@@ -95,6 +95,8 @@ public class MazeController : MonoBehaviour
 
 	[SerializeField] private GameObject _failureScreen;
 
+	[SerializeField] private float _scaler = 2.0f;
+
 	// Movement stuff
 
 	/// <summary>
@@ -218,7 +220,7 @@ public class MazeController : MonoBehaviour
 					else
 					{
 						_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
-						Vector2 newPos = Vector2.MoveTowards(_carObject.transform.position, _currentPosition, _moveSpeed * Time.deltaTime);
+						Vector2 newPos = Vector2.MoveTowards(_carObject.transform.position, _currentPosition, (_moveSpeed * _scaler) * Time.deltaTime);
 						_carObject.transform.position = newPos;
 
 						if (_fuelActive)
@@ -294,18 +296,20 @@ public class MazeController : MonoBehaviour
 		if (mapIndex < mazes.Count)
 			_maze = mazes[mapIndex];
 
+		// Load the new map.
+		_mazeMaterial.mainTexture = _maze.map;
+		_mazeObject.transform.localScale = new Vector3(_maze.dimensions.x * _scaler, 1, _maze.dimensions.y * _scaler);
+		Camera.main.transform.position = new Vector3((_maze.dimensions.x * _scaler) / 4f, (_maze.dimensions.y * _scaler) / 4f, -10);
+
 		// Set up the car for the start.
-		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
+		Vector2 carPos = MazeCoordstoWorldCoords(_maze.startLocation);
+		_carObject.transform.position = new Vector2(carPos.x * (_scaler * 2f), carPos.y * (_scaler)); // These magic numbers put the car in the right position from the scaled maze.
 		_carTransform.transform.rotation = Quaternion.Euler(0, -90, 90);
+		_carObject.transform.localScale = new Vector3(_scaler * 2f, _scaler * 2f, 1f);
 		_line.SetPosition(0, _carObject.transform.position);
 		_path.Clear();
 		_targetPosition = _maze.startLocation;
 		_lastCellPos = _maze.startLocation;
-
-		// Load the new map.
-		_mazeMaterial.mainTexture = _maze.map;
-		_mazeObject.transform.localScale = new Vector3(_maze.dimensions.x, 1, _maze.dimensions.y);
-		Camera.main.transform.position = new Vector3(_maze.dimensions.x / 4f, _maze.dimensions.y / 4f, -10);
 
 		// Some misc setting up.
 		_line.positionCount = 1;
