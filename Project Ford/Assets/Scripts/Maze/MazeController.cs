@@ -200,7 +200,7 @@ public class MazeController : MonoBehaviour
 							{
 								Vector2Int cell = _path.Dequeue();
 								_lastCellPos = _currentPosition;
-								_currentPosition = MazeCoordstoWorldCoords(cell);
+								_currentPosition = MazeCoordstoWorldCoords(cell) * _scaler;
 								_isRotating = true;
 								_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
 								_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
@@ -210,7 +210,7 @@ public class MazeController : MonoBehaviour
 						else
 						{
 							Vector2Int cell = _path.Dequeue();
-							_currentPosition = MazeCoordstoWorldCoords(cell);
+							_currentPosition = MazeCoordstoWorldCoords(cell) * _scaler;
 							_isRotating = true;
 							_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
 							_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
@@ -239,7 +239,7 @@ public class MazeController : MonoBehaviour
 							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
 							MazeCell currentCell = null;
 							if (currentCellPos.x < _maze.dimensions.x && currentCellPos.y < _maze.dimensions.y)
-								currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+								currentCell = _maze.cells2D[_targetPosition.x, _targetPosition.y];
 							else
 							{
 								Debug.Log("Player is outside of map (maybe exiting?)", this);
@@ -298,12 +298,14 @@ public class MazeController : MonoBehaviour
 
 		// Load the new map.
 		_mazeMaterial.mainTexture = _maze.map;
-		_mazeObject.transform.localScale = new Vector3(_maze.dimensions.x * _scaler, 1, _maze.dimensions.y * _scaler);
-		Camera.main.transform.position = new Vector3((_maze.dimensions.x * _scaler) / 4f, (_maze.dimensions.y * _scaler) / 4f, -10);
+		Vector3 newMapScale = new Vector3(_maze.dimensions.x * _scaler, 1, _maze.dimensions.y * _scaler);
+		_mazeObject.transform.localScale = newMapScale;
+		// Move the camera to the centre of the map.
+		Camera.main.transform.position = new Vector3(newMapScale.x / 4f, newMapScale.z / 4f, -10f);
 
 		// Set up the car for the start.
-		Vector2 carPos = MazeCoordstoWorldCoords(_maze.startLocation);
-		_carObject.transform.position = new Vector2(carPos.x * (_scaler * 2f), carPos.y * (_scaler)); // These magic numbers put the car in the right position from the scaled maze.
+		Vector2 carPos = MazeCoordstoWorldCoords(_maze.startLocation) * _scaler;
+		_carObject.transform.position = new Vector2(carPos.x * 2f, carPos.y); // These magic numbers put the car in the right position from the scaled maze.
 		_carTransform.transform.rotation = Quaternion.Euler(0, -90, 90);
 		_carObject.transform.localScale = new Vector3(_scaler * 2f, _scaler * 2f, 1f);
 		_line.SetPosition(0, _carObject.transform.position);
@@ -324,7 +326,7 @@ public class MazeController : MonoBehaviour
 				if (cell._fuel == true)
 				{
 					cell._fuelTaken = false;
-					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position), Quaternion.identity, transform);
+					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position) * _scaler, Quaternion.Euler(Vector3.one * _scaler), transform);
 					_fuelCans.Add(cell._fuelCanObject);
 				}
 			}
@@ -349,11 +351,11 @@ public class MazeController : MonoBehaviour
 	{
 		Vector2Int newPosition = _targetPosition + cardinals[index];
 
-		if (newPosition.y < _maze.dimensions.x)
-		{
+		// if (newPosition.y < _maze.dimensions.x)
+		// {
 			SetPath(newPosition);
 			SetActiveArrows(0);
-		}
+		// }
 	}
 
 	void SetPath(Vector2Int nextTile)
@@ -382,7 +384,7 @@ public class MazeController : MonoBehaviour
 				if (cell.walls.HasFlag((Direction)Mathf.Pow(2, i))) continue;
 
 				// If it's not the previous tile, move there
-				Vector2Int newPos = _targetPosition + cardinals[i];
+				Vector2Int newPos = (_targetPosition + cardinals[i]);
 				if (newPos != _previousTargetPosition)
 				{
 					// Recurse until a dead end or junction
@@ -405,6 +407,7 @@ public class MazeController : MonoBehaviour
 		{
 			// No arrows if out of bounds
 			direction = 0;
+			Debug.LogError("Out of bounds!");
 		}
 
 		for (int i = 0; i < _arrows.Length; i++)
@@ -452,6 +455,13 @@ public class MazeController : MonoBehaviour
 	{
 		_currentMazeLevels = _hardMazeLevels;
 		_fuelActive = true;
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.yellow;
+
+		Gizmos.DrawCube(_currentPosition, Vector3.one);
 	}
 
 	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
