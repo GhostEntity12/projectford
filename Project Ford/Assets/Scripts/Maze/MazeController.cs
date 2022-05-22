@@ -225,8 +225,12 @@ public class MazeController : MonoBehaviour
 
 						if (_fuelActive)
 						{
-							Debug.Log((newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
-							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 1], _fuelGaugeRots[_currentFuel], (newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
+							_fuelGaugePointer.transform.rotation = Quaternion.Lerp
+							(
+								_fuelGaugeRots[_currentFuel - 1],
+								_fuelGaugeRots[_currentFuel],
+								(newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude
+							);
 						}
 
 						// Reached next cell in path.
@@ -236,10 +240,13 @@ public class MazeController : MonoBehaviour
 							// Debug.Log(currentDestination);
 
 							// Get the current cell the car is at.
-							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
+							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition) / _scaler;
 							MazeCell currentCell = null;
+							// Make sure the cell is within the bounds of the maze.
 							if (currentCellPos.x < _maze.dimensions.x && currentCellPos.y < _maze.dimensions.y)
-								currentCell = _maze.cells2D[_targetPosition.x, _targetPosition.y];
+							{
+								currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+							}
 							else
 							{
 								Debug.Log("Player is outside of map (maybe exiting?)", this);
@@ -326,7 +333,8 @@ public class MazeController : MonoBehaviour
 				if (cell._fuel == true)
 				{
 					cell._fuelTaken = false;
-					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position) * _scaler, Quaternion.Euler(Vector3.one * _scaler), transform);
+					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position) * _scaler, Quaternion.identity, transform);
+					cell._fuelCanObject.transform.localScale = Vector3.one * _scaler;
 					_fuelCans.Add(cell._fuelCanObject);
 				}
 			}
@@ -455,13 +463,6 @@ public class MazeController : MonoBehaviour
 	{
 		_currentMazeLevels = _hardMazeLevels;
 		_fuelActive = true;
-	}
-
-	void OnDrawGizmos()
-	{
-		Gizmos.color = Color.yellow;
-
-		Gizmos.DrawCube(_currentPosition, Vector3.one);
 	}
 
 	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
