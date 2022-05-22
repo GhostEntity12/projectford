@@ -95,6 +95,8 @@ public class MazeController : MonoBehaviour
 
 	[SerializeField] private GameObject _failureScreen;
 
+	[SerializeField] private float _scaler = 2.0f;
+
 	// Movement stuff
 
 	/// <summary>
@@ -198,7 +200,7 @@ public class MazeController : MonoBehaviour
 							{
 								Vector2Int cell = _path.Dequeue();
 								_lastCellPos = _currentPosition;
-								_currentPosition = MazeCoordstoWorldCoords(cell);
+								_currentPosition = MazeCoordstoWorldCoords(cell) * _scaler;
 								_isRotating = true;
 								_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
 								_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
@@ -208,7 +210,7 @@ public class MazeController : MonoBehaviour
 						else
 						{
 							Vector2Int cell = _path.Dequeue();
-							_currentPosition = MazeCoordstoWorldCoords(cell);
+							_currentPosition = MazeCoordstoWorldCoords(cell) * _scaler;
 							_isRotating = true;
 							_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
 							_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
@@ -218,13 +220,17 @@ public class MazeController : MonoBehaviour
 					else
 					{
 						_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
-						Vector2 newPos = Vector2.MoveTowards(_carObject.transform.position, _currentPosition, _moveSpeed * Time.deltaTime);
+						Vector2 newPos = Vector2.MoveTowards(_carObject.transform.position, _currentPosition, (_moveSpeed * _scaler) * Time.deltaTime);
 						_carObject.transform.position = newPos;
 
 						if (_fuelActive)
 						{
-							Debug.Log((newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
-							_fuelGaugePointer.transform.rotation = Quaternion.Lerp(_fuelGaugeRots[_currentFuel - 1], _fuelGaugeRots[_currentFuel], (newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude);
+							_fuelGaugePointer.transform.rotation = Quaternion.Lerp
+							(
+								_fuelGaugeRots[_currentFuel - 1],
+								_fuelGaugeRots[_currentFuel],
+								(newPos - _currentPosition).magnitude / (_lastCellPos - _currentPosition).magnitude
+							);
 						}
 
 						// Reached next cell in path.
@@ -234,10 +240,13 @@ public class MazeController : MonoBehaviour
 							// Debug.Log(currentDestination);
 
 							// Get the current cell the car is at.
-							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition);
+							Vector2 currentCellPos = WorldCoordsToMazeCoords(_currentPosition) / _scaler;
 							MazeCell currentCell = null;
+							// Make sure the cell is within the bounds of the maze.
 							if (currentCellPos.x < _maze.dimensions.x && currentCellPos.y < _maze.dimensions.y)
+							{
 								currentCell = _maze.cells2D[(int)currentCellPos.x, (int)currentCellPos.y];
+							}
 							else
 							{
 								Debug.Log("Player is outside of map (maybe exiting?)", this);
@@ -294,18 +303,22 @@ public class MazeController : MonoBehaviour
 		if (mapIndex < mazes.Count)
 			_maze = mazes[mapIndex];
 
+		// Load the new map.
+		_mazeMaterial.mainTexture = _maze.map;
+		Vector3 newMapScale = new Vector3(_maze.dimensions.x * _scaler, 1, _maze.dimensions.y * _scaler);
+		_mazeObject.transform.localScale = newMapScale;
+		// Move the camera to the centre of the map.
+		Camera.main.transform.position = new Vector3(newMapScale.x / 4f, newMapScale.z / 4f, -10f);
+
 		// Set up the car for the start.
-		_carObject.transform.position = MazeCoordstoWorldCoords(_maze.startLocation);
+		Vector2 carPos = MazeCoordstoWorldCoords(_maze.startLocation) * _scaler;
+		_carObject.transform.position = new Vector2(carPos.x * 2f, carPos.y); // These magic numbers put the car in the right position from the scaled maze.
 		_carTransform.transform.rotation = Quaternion.Euler(0, -90, 90);
+		_carObject.transform.localScale = new Vector3(_scaler * 2f, _scaler * 2f, 1f);
 		_line.SetPosition(0, _carObject.transform.position);
 		_path.Clear();
 		_targetPosition = _maze.startLocation;
 		_lastCellPos = _maze.startLocation;
-
-		// Load the new map.
-		_mazeMaterial.mainTexture = _maze.map;
-		_mazeObject.transform.localScale = new Vector3(_maze.dimensions.x, 1, _maze.dimensions.y);
-		Camera.main.transform.position = new Vector3(_maze.dimensions.x / 4f, _maze.dimensions.y / 4f, -10);
 
 		// Some misc setting up.
 		_line.positionCount = 1;
@@ -320,7 +333,8 @@ public class MazeController : MonoBehaviour
 				if (cell._fuel == true)
 				{
 					cell._fuelTaken = false;
-					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position), Quaternion.identity, transform);
+					cell._fuelCanObject = GameObject.Instantiate(_fuelCanPrefab, MazeCoordstoWorldCoords(cell._position) * _scaler, Quaternion.identity, transform);
+					cell._fuelCanObject.transform.localScale = Vector3.one * _scaler;
 					_fuelCans.Add(cell._fuelCanObject);
 				}
 			}
@@ -345,11 +359,11 @@ public class MazeController : MonoBehaviour
 	{
 		Vector2Int newPosition = _targetPosition + cardinals[index];
 
-		if (newPosition.y < _maze.dimensions.x)
-		{
+		// if (newPosition.y < _maze.dimensions.x)
+		// {
 			SetPath(newPosition);
 			SetActiveArrows(0);
-		}
+		// }
 	}
 
 	void SetPath(Vector2Int nextTile)
@@ -378,7 +392,7 @@ public class MazeController : MonoBehaviour
 				if (cell.walls.HasFlag((Direction)Mathf.Pow(2, i))) continue;
 
 				// If it's not the previous tile, move there
-				Vector2Int newPos = _targetPosition + cardinals[i];
+				Vector2Int newPos = (_targetPosition + cardinals[i]);
 				if (newPos != _previousTargetPosition)
 				{
 					// Recurse until a dead end or junction
@@ -401,6 +415,7 @@ public class MazeController : MonoBehaviour
 		{
 			// No arrows if out of bounds
 			direction = 0;
+			Debug.LogError("Out of bounds!");
 		}
 
 		for (int i = 0; i < _arrows.Length; i++)
