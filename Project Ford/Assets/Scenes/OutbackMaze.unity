@@ -4710,7 +4710,7 @@ PrefabInstance:
       objectReference: {fileID: 2099038287}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: _scaler
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8767609360612974574, guid: 75928f02a717f2441aa53a7c12d18b69, type: 3}
       propertyPath: _carMesh
