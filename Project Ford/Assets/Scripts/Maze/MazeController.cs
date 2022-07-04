@@ -6,6 +6,13 @@ using UnityEngine.UI;
 
 public class MazeController : MonoBehaviour
 {
+	public enum MazeDifficulty
+	{
+		Easy,
+		Medium,
+		Hard,
+		Count
+	}
 	// Constansts
 	/// <summary>
 	/// Whether the car should continue moving or query for a new command based on the number of walls
@@ -127,6 +134,8 @@ public class MazeController : MonoBehaviour
 
 	private List<GameObject> _fuelCans = new List<GameObject>();
 
+	private MazeDifficulty _currentDifficulty;
+
 	void Start()
 	{
 		// Caching
@@ -150,9 +159,10 @@ public class MazeController : MonoBehaviour
 		// Make sure maze is set.
 		if (_maze != null)
 		{
+#if UNITY_EDITOR
 			if (Input.GetKey(KeyCode.Alpha1))
-				_levelCompleteScreen.SetActive(true);
-
+				EndLevel();
+#endif
 			// Handling the start when the car is outside of the maze
 			if (_targetPosition.x < 0)
 				return;
@@ -165,15 +175,7 @@ public class MazeController : MonoBehaviour
 
 				if (_isComplete)
 				{
-					// If this is the last map of the difficulty display the victory screen.
-					if (_currentMap + 1 >= _currentMazeLevels.GetMazes().Count)
-						_victoryScreen.SetActive(true);
-					// Else display the level complete screen.
-					else
-						_levelCompleteScreen.SetActive(true);
-
-					// No need to keep updating the game now.
-					_maze = null;
+					EndLevel();
 				}
 			}
 			else
@@ -439,7 +441,26 @@ public class MazeController : MonoBehaviour
 
 	public void LoadNextMap()
 	{
-		LoadMaze(++_currentMap);
+		if (_currentMap < _currentMazeLevels.GetMazes().Count - 1)
+			LoadMaze(++_currentMap);
+		else
+		{
+			if ((int)_currentDifficulty < (int)MazeDifficulty.Count - 1)
+			{
+				switch(++_currentDifficulty)
+				{
+					// Can't go up to easy difficulty.
+
+					case MazeDifficulty.Medium:
+					SetDifficultyMedium();
+					break;
+
+					case MazeDifficulty.Hard:
+					SetDifficultyHard();
+					break;
+				}
+			}
+		}
 	}
 
 	public void LoadCurrentMap()
@@ -451,18 +472,40 @@ public class MazeController : MonoBehaviour
 	{
 		_currentMazeLevels = _easyMazeLevels;
 		_fuelActive = false;
+		_currentDifficulty = MazeDifficulty.Easy;
+		_currentMap = 0;
+		LoadCurrentMap();
 	}
 
 	public void SetDifficultyMedium()
 	{
 		_currentMazeLevels = _mediumMazeLevels;
 		_fuelActive = true;
+		_currentDifficulty = MazeDifficulty.Medium;
+		_currentMap = 0;
+		LoadCurrentMap();
 	}
 
 	public void SetDifficultyHard()
 	{
 		_currentMazeLevels = _hardMazeLevels;
 		_fuelActive = true;
+		_currentDifficulty = MazeDifficulty.Hard;
+		_currentMap = 0;
+		LoadCurrentMap();
+	}
+
+	private void EndLevel()
+	{
+		// If this is the last map display the victory screen.
+		if (_currentMap >= _currentMazeLevels.GetMazes().Count - 1 && (int)_currentDifficulty >= (int)MazeDifficulty.Count - 1)
+			_victoryScreen.SetActive(true);
+		// Else display the level complete screen.
+		else
+			_levelCompleteScreen.SetActive(true);
+
+		// No need to keep updating the game now.
+		_maze = null;
 	}
 
 	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
