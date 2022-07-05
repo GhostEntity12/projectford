@@ -7,14 +7,14 @@ public class MazeLevelsData : ScriptableObject
 {
 	[SerializeField] private List<MazeData> _mazes = new List<MazeData>();
 
-	[SerializeField] private List<GameObject> _mazeDecor = new List<GameObject>();
+	[SerializeField] private List<MazeDecor> _mazeDecor = new List<MazeDecor>();
 
 	public List<MazeData> GetMazes()
 	{
 		return _mazes;
 	}
 
-	public List<GameObject> GetMazeDecor()
+	public List<MazeDecor> GetMazeDecor()
 	{
 		return _mazeDecor;
 	}

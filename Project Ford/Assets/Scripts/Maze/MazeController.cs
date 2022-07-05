@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MazeController : MonoBehaviour
 {
@@ -135,6 +136,8 @@ public class MazeController : MonoBehaviour
 	private List<GameObject> _fuelCans = new List<GameObject>();
 
 	private MazeDifficulty _currentDifficulty;
+
+	private bool _decorSpawned = false;
 
 	void Start()
 	{
@@ -288,13 +291,24 @@ public class MazeController : MonoBehaviour
 	/// </summary>
 	public void LoadMaze(int mapIndex)
 	{
-		// Turn off the current decoration canvas.
-		if (_currentMapCanvas != null)
+		// Spawn decor if it hasn't spawned yet.
+		if (!_decorSpawned)
 		{
-			GameObject.Destroy(_currentMapCanvas);
-			_currentMapCanvas = null;
+			// Destroy old decor if it exists.
+			if (_currentMapCanvas != null)
+			{
+				GameObject.Destroy(_currentMapCanvas);
+				_currentMapCanvas = null;
+			}
+
+			MazeDecor decor = _currentMazeLevels.GetMazeDecor()[mapIndex];
+			if (decor != null)
+				_currentMapCanvas = GameObject.Instantiate(decor.gameObject);
+
+			_decorSpawned = true;
 		}
-		// Destory the fuel cans each time a new maze is loaded.
+		
+		// Destroy the fuel cans each time a new maze is loaded.
 		foreach(GameObject can in _fuelCans)
 		{
 			GameObject.Destroy(can);
@@ -325,7 +339,6 @@ public class MazeController : MonoBehaviour
 		// Some misc setting up.
 		_line.positionCount = 1;
 		SetActiveArrows(Direction.East);
-		_currentMapCanvas = GameObject.Instantiate(_currentMazeLevels.GetMazeDecor()[mapIndex]);
 
 		if (_fuelActive)
 		{
@@ -441,6 +454,7 @@ public class MazeController : MonoBehaviour
 
 	public void LoadNextMap()
 	{
+		_decorSpawned = false;
 		if (_currentMap < _currentMazeLevels.GetMazes().Count - 1)
 			LoadMaze(++_currentMap);
 		else
@@ -474,7 +488,7 @@ public class MazeController : MonoBehaviour
 		_fuelActive = false;
 		_currentDifficulty = MazeDifficulty.Easy;
 		_currentMap = 0;
-		LoadCurrentMap();
+		LoadMaze(_currentMap);
 	}
 
 	public void SetDifficultyMedium()
@@ -483,7 +497,7 @@ public class MazeController : MonoBehaviour
 		_fuelActive = true;
 		_currentDifficulty = MazeDifficulty.Medium;
 		_currentMap = 0;
-		LoadCurrentMap();
+		LoadMaze(_currentMap);
 	}
 
 	public void SetDifficultyHard()
@@ -492,7 +506,7 @@ public class MazeController : MonoBehaviour
 		_fuelActive = true;
 		_currentDifficulty = MazeDifficulty.Hard;
 		_currentMap = 0;
-		LoadCurrentMap();
+		LoadMaze(_currentMap);
 	}
 
 	private void EndLevel()
