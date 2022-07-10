@@ -53,6 +53,12 @@ public class MazeController : MonoBehaviour
 
 	[SerializeField] private Transform _carTransform;
 
+	[SerializeField] private SpriteRenderer _carSpriteRenderer;
+
+	[SerializeField] private Sprite _carRightSprite;
+
+	[SerializeField] private Sprite _carLeftSprite;
+
 	[SerializeField] private GameObject[] _arrows;
 
 	[SerializeField] private float _moveSpeed = 1f;
@@ -206,6 +212,13 @@ public class MazeController : MonoBehaviour
 								Vector2Int cell = _path.Dequeue();
 								_lastCellPos = _currentPosition;
 								_currentPosition = MazeCoordstoWorldCoords(cell) * _scaler;
+
+								// Check if car is going left or right.
+								if (_currentPosition.x < _carObject.transform.position.x)
+									_carSpriteRenderer.sprite = _carLeftSprite;
+								else
+									_carSpriteRenderer.sprite = _carRightSprite;
+								
 								_isRotating = true;
 								_line.SetPosition(_line.positionCount++ - 1, _carObject.transform.position);
 								_line.SetPosition(_line.positionCount - 1, _carObject.transform.position);
@@ -335,6 +348,7 @@ public class MazeController : MonoBehaviour
 		_path.Clear();
 		_targetPosition = _maze.startLocation;
 		_lastCellPos = _maze.startLocation;
+		_carSpriteRenderer.sprite = _carRightSprite;
 
 		// Some misc setting up.
 		_line.positionCount = 1;

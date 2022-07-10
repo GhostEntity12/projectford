@@ -721,21 +721,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0d68721134142429ecf737d45945e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carObject: {fileID: 8767609359670144422}
-  carMesh: {fileID: 6237791269534237982}
-  arrows:
-  - {fileID: 8767609361093936523}
-  - {fileID: 8767609360004442381}
-  - {fileID: 8767609361147123486}
-  - {fileID: 8767609360136182817}
-  moveSpeed: 1
-  rotSpeed: 1
-  line: {fileID: 5438748252315256508}
-  mazeObject: {fileID: 8767609360513776818}
-  colors:
-  - {r: 0.5943396, g: 0.17661978, b: 0.17661978, a: 1}
-  - {r: 0.18727604, g: 0.4716981, b: 0.1713243, a: 1}
-  - {r: 0.1533019, g: 0.2997016, b: 0.6132076, a: 1}
+  _carObject: {fileID: 0}
+  _carTransform: {fileID: 0}
+  _carSpriteRenderer: {fileID: 1863688194288008898}
+  _carRightSprite: {fileID: 21300000, guid: e131a1e5a0b03ee4dbf445685c838755, type: 3}
+  _carLeftSprite: {fileID: 21300000, guid: 29b65d84896b33342b6517e26d590fb2, type: 3}
+  _arrows: []
+  _moveSpeed: 1
+  _rotSpeed: 0.2
+  _line: {fileID: 0}
+  _startingFuel: 10
+  _maximumFuel: 10
+  _fuelGaugeObject: {fileID: 0}
+  _fuelGaugePointer: {fileID: 0}
+  _pointerMax: {fileID: 0}
+  _pointerMin: {fileID: 0}
+  _fuelCanPrefab: {fileID: 0}
+  _mazeObject: {fileID: 0}
+  _easyMazeLevels: {fileID: 0}
+  _mediumMazeLevels: {fileID: 0}
+  _hardMazeLevels: {fileID: 0}
+  _levelCompleteScreen: {fileID: 0}
+  _victoryScreen: {fileID: 0}
+  _failureScreen: {fileID: 0}
+  _scaler: 2
 --- !u!120 &5438748252315256508
 LineRenderer:
   m_ObjectHideFlags: 0
