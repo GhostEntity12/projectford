@@ -92,8 +92,6 @@ public class MazeController : MonoBehaviour
 
 	private MazeLevelsData _currentMazeLevels = null;
 
-	// private GameObject[] _mazeDecor;
-
 	private Material _mazeMaterial;
 
 	private MazeData _maze;
@@ -144,6 +142,18 @@ public class MazeController : MonoBehaviour
 	private MazeDifficulty _currentDifficulty;
 
 	private bool _decorSpawned = false;
+
+	private static MazeController _instance;
+
+	public static MazeController Instance => _instance;
+
+	void Awake()
+	{
+		if (MazeController.Instance == null)
+			_instance = this;
+		else
+			Destroy(gameObject);
+	}
 
 	void Start()
 	{
@@ -502,6 +512,9 @@ public class MazeController : MonoBehaviour
 		_fuelActive = false;
 		_currentDifficulty = MazeDifficulty.Easy;
 		_currentMap = 0;
+
+		TutorialController.Instance.InitialiseTutorial(this);
+
 		LoadMaze(_currentMap);
 	}
 
@@ -511,6 +524,9 @@ public class MazeController : MonoBehaviour
 		_fuelActive = true;
 		_currentDifficulty = MazeDifficulty.Medium;
 		_currentMap = 0;
+
+		TutorialController.Instance.InitialiseTutorial(this);
+
 		LoadMaze(_currentMap);
 	}
 
@@ -520,6 +536,9 @@ public class MazeController : MonoBehaviour
 		_fuelActive = true;
 		_currentDifficulty = MazeDifficulty.Hard;
 		_currentMap = 0;
+
+		TutorialController.Instance.InitialiseTutorial(this);
+
 		LoadMaze(_currentMap);
 	}
 
@@ -534,6 +553,11 @@ public class MazeController : MonoBehaviour
 
 		// No need to keep updating the game now.
 		_maze = null;
+	}
+
+	public bool GetFuelEnabled()
+	{
+		return _fuelActive;
 	}
 
 	public static Vector2 MazeCoordstoWorldCoords(Vector2 mazeCoords) => new Vector2(mazeCoords.x * 0.5f + 0.25f, mazeCoords.y * 0.5f + 0.25f);
