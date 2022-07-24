@@ -418,7 +418,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8839740682161432458}
   - component: {fileID: 1471401556915636938}
-  - component: {fileID: 5033144515783829326}
   m_Layer: 0
   m_Name: HardMap1 - Sydney to BigBanana
   m_TagString: Untagged
@@ -442,21 +441,6 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1471401556915636938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4881614175532506110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb30e7fc080ca44fb733314de2f6ca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _decorText:
-  - {fileID: 1176176226333700293}
-  _lerpTime: 0.2
---- !u!114 &5033144515783829326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
