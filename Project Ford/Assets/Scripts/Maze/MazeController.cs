@@ -83,6 +83,7 @@ public class MazeController : MonoBehaviour
 
 	[Header("Maze Data")]
 	[SerializeField] private GameObject _mazeObject;
+	[SerializeField] private Image _backgroundImage;
 	
 	[SerializeField] private MazeLevelsData _easyMazeLevels = null;
 
@@ -326,7 +327,19 @@ public class MazeController : MonoBehaviour
 
 			MazeDecor decor = _currentMazeLevels.GetMazeDecor()[mapIndex];
 			if (decor != null)
+			{
 				_currentMapCanvas = GameObject.Instantiate(decor.gameObject);
+				Sprite background = decor.BackgroundSprite;
+				if (background != null)
+				{
+					if (!_backgroundImage.gameObject.activeSelf)
+						_backgroundImage.gameObject.SetActive(true);
+					
+					_backgroundImage.sprite = background;
+				}
+				else
+					_backgroundImage.gameObject.SetActive(false);
+			}
 
 			_decorSpawned = true;
 		}
