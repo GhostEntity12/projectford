@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class MazeDecor : MonoBehaviour
 {
+	[Header("Text")]
 	[SerializeField] private List<GameObject> _decorText = new List<GameObject>();
 	[SerializeField] private float _lerpTime = 0.2f;
-	public List<GameObject> DecorText => _decorText;
+
+	[Header("Background")]
+	[SerializeField] private Sprite _backgroundSprite;
+
+	public Sprite BackgroundSprite => _backgroundSprite;
 	private Dictionary<GameObject, Vector3> _textStartPositions = new Dictionary<GameObject, Vector3>();
 	private Dictionary<GameObject, Vector3> _textEndPositions = new Dictionary<GameObject, Vector3>();
 	private bool _textShowing = false;
