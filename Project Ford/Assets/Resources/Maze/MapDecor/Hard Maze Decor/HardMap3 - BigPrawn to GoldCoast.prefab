@@ -122,7 +122,7 @@ MonoBehaviour:
   _decorText:
   - {fileID: 8699627867187985783}
   _lerpTime: 0.2
-  _backgroundSprite: {fileID: 0}
+  _backgroundSprite: {fileID: 21300000, guid: b4a53a0690e5ee344a2d60f81eb00b54, type: 3}
 --- !u!1 &7657259623663588674
 GameObject:
   m_ObjectHideFlags: 0
