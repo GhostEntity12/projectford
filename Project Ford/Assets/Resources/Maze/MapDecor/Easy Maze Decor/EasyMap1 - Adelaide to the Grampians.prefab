@@ -168,8 +168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.125, y: 0.7466662}
   m_AnchorMax: {x: 0.125, y: 0.7466662}
-  m_AnchoredPosition: {x: 0.5000305, y: -18.700073}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 21, y: -18.700073}
+  m_SizeDelta: {x: 240, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1436738576010109621
 CanvasRenderer:
@@ -201,7 +201,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    aaaaa'
+    Establishd in 1836
+
+    The Opal Capital of Australia
+
+    There
+    is a church on nearly every street corner
+
+    It only takes 20 minutes to go
+    anywhere in the city'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abf4be7efdb110c4e81a8d2371a0e4df, type: 2}
   m_sharedMaterial: {fileID: 6381084382281884889, guid: abf4be7efdb110c4e81a8d2371a0e4df, type: 2}
