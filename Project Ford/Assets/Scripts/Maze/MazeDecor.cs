@@ -31,7 +31,6 @@ public class MazeDecor : MonoBehaviour
 			// It does this by working out which side of the screen the text is on (assuming 0,0 is the centre of the screen)
 			Vector3 offScreenPosition = textWorldPosition + (Vector3.right * ((textLocalPosition.x / Mathf.Abs(textLocalPosition.x)))) * Mathf.Abs(Mathf.Abs(textWorldPosition.x) - Screen.width / 2f);
 			textObject.transform.position = offScreenPosition;
-			Debug.Log(textObject.name + offScreenPosition);
 			_textStartPositions.Add(textObject, textObject.transform.position);
 
 			_textShowing = false;
