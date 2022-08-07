@@ -58,6 +58,7 @@ public class CarEntity : MonoBehaviour
 
 	private InputController _inputController;
 	private MazeController _mazeController;
+	private TutorialController _tutorialController;
 
 	private bool _movementComplete = false;
 
@@ -66,6 +67,7 @@ public class CarEntity : MonoBehaviour
     {
         _inputController = InputController.Instance;
 		_mazeController = MazeController.Instance;
+		_tutorialController = TutorialController.Instance;
 
 		_fuelGaugeRots.Add(_pointerMin.rotation);
 		for(int i = 0; i < _maximumFuel; ++i)
@@ -117,12 +119,15 @@ public class CarEntity : MonoBehaviour
 				float currentRotationTime = 0f;
 				while (currentRotationTime <= _rotationTime)
 				{
-					transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, currentRotationTime / _rotationTime);
-					// Match the sprite's z rotation with the transform's x rotation (just rotation things)
-					_carSpriteRenderer.transform.rotation = Quaternion.Euler(spriteRotEuler.x, spriteRotEuler.y, -transform.rotation.eulerAngles.x);
-					
-					currentRotationTime += Time.time - previousTime;
-					previousTime = Time.time;
+					if (!_tutorialController.ScreenOpen)
+					{
+						transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, currentRotationTime / _rotationTime);
+						// Match the sprite's z rotation with the transform's x rotation (just rotation things)
+						_carSpriteRenderer.transform.rotation = Quaternion.Euler(spriteRotEuler.x, spriteRotEuler.y, -transform.rotation.eulerAngles.x);
+						
+						currentRotationTime += Time.time - previousTime;
+						previousTime = Time.time;
+					}
 
 					yield return null;
 				}
@@ -135,20 +140,23 @@ public class CarEntity : MonoBehaviour
 			float currentMoveTime = 0f;
 			while (currentMoveTime <= _moveTime)
 			{
-				base.transform.position = Vector3.Lerp(startPosition, _currentTargetPosition, currentMoveTime / _moveTime);
-
-				if (_fuelEnabled)
+				if (!_tutorialController.ScreenOpen)
 				{
-					_fuelGaugePointer.transform.rotation = Quaternion.Lerp
-					(
-						_fuelGaugeRots[_currentFuel],
-						_fuelGaugeRots[_currentFuel - 1],
-						currentMoveTime / _moveTime
-					);
+					base.transform.position = Vector3.Lerp(startPosition, _currentTargetPosition, currentMoveTime / _moveTime);
+
+					if (_fuelEnabled)
+					{
+						_fuelGaugePointer.transform.rotation = Quaternion.Lerp
+						(
+							_fuelGaugeRots[_currentFuel],
+							_fuelGaugeRots[_currentFuel - 1],
+							currentMoveTime / _moveTime
+						);
+					}
+					currentMoveTime += Time.time - previousTime;
+					previousTime = Time.time;
+					_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, base.transform.position);
 				}
-				currentMoveTime += Time.time - previousTime;
-				previousTime = Time.time;
-				_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, base.transform.position);
 
 				yield return null;
 			}

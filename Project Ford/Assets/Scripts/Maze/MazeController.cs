@@ -301,7 +301,7 @@ public class MazeController : MonoBehaviour
 		_currentDifficulty = MazeDifficulty.Easy;
 		_currentMap = 0;
 
-		TutorialController.Instance.InitialiseTutorial(this);
+		TutorialController.Instance.InitialiseTutorial();
 
 		LoadMaze(_currentMap);
 	}
@@ -313,7 +313,7 @@ public class MazeController : MonoBehaviour
 		_currentDifficulty = MazeDifficulty.Medium;
 		_currentMap = 0;
 
-		TutorialController.Instance.InitialiseTutorial(this);
+		TutorialController.Instance.InitialiseTutorial();
 
 		LoadMaze(_currentMap);
 	}
@@ -325,7 +325,7 @@ public class MazeController : MonoBehaviour
 		_currentDifficulty = MazeDifficulty.Hard;
 		_currentMap = 0;
 
-		TutorialController.Instance.InitialiseTutorial(this);
+		TutorialController.Instance.InitialiseTutorial();
 
 		LoadMaze(_currentMap);
 	}
