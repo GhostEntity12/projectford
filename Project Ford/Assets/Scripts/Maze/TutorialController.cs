@@ -15,6 +15,8 @@ public class TutorialController : MonoBehaviour
 	private static TutorialController _instance;
 	public static TutorialController Instance => _instance;
 
+	public bool ScreenOpen => _currentScreen != null;
+
 	void Awake()
 	{
 		if (TutorialController.Instance == null)
@@ -28,7 +30,7 @@ public class TutorialController : MonoBehaviour
 		_starting = true;
 	}
 
-	public void InitialiseTutorial(MazeController mazeController)
+	public void InitialiseTutorial()
 	{
 		if (_starting)
 		{
@@ -36,7 +38,7 @@ public class TutorialController : MonoBehaviour
 			_starting = false;
 		}
 
-		if (mazeController.GetFuelEnabled())
+		if (MazeController.Instance.GetFuelEnabled())
 			_tutorialQueue.Enqueue(_fuelTutorial);
 
 		DisplayNextScreen();
@@ -56,5 +58,12 @@ public class TutorialController : MonoBehaviour
 			_currentScreen.SetNextButtonText(_lastScreenText);
 			_currentScreen.SetNextButtonAction(() => { Destroy(_currentScreen.gameObject); });
 		}
+	}
+
+	public void HelpButtonPressed()
+	{
+		_starting = true;
+
+		InitialiseTutorial();
 	}
 }
