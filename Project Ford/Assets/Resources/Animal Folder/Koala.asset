@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Koala
   m_EditorClassIdentifier: 
   _weight: 5
-  _animalSprite: {fileID: 21300000, guid: 507836a2f0c49a5449d42c896b0d71a8, type: 3}
+  _animalSprite: {fileID: 21300000, guid: 0201437e57fed4a458ef6bcc8ff2d509, type: 3}
   _animalPhysicsObject: {fileID: 8085035980605296472, guid: 6fa75e0bc54a17c44922f78db2492745, type: 3}
