@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ae17404148eb6164db1977b8a81b4196, type: 2}
   - {fileID: 11400000, guid: e3682d65af9d0f042910fc24130e2070, type: 2}
   _mazeDecor:
-  - {fileID: 1339237564419457345, guid: 2482fd0ba9d73d44d94fa504340dc62d, type: 3}
+  - {fileID: 7739770589031522092, guid: a90acfb1d0842ee419962eb96e98bf5a, type: 3}
   - {fileID: 7739770589031522092, guid: eaaddd1bb90605d4f91c2c549ecfb42d, type: 3}
   - {fileID: 6697527192244950872, guid: b07d2b5f203967e468e6f84b4bd0a801, type: 3}
   - {fileID: 4714360393408767213, guid: 336479f22f622a544b2ef812c59dc3ca, type: 3}
