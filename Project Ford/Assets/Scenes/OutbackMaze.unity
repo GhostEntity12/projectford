@@ -5346,6 +5346,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 96c1791220c8707458893aaa2ab05da0, type: 3}
+    - target: {fileID: 5452619521482310325, guid: 57e7b772622aff74cb7d6d8e90013451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1673215237}
+    - target: {fileID: 5452619521482310325, guid: 57e7b772622aff74cb7d6d8e90013451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HelpButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5452619521482310325, guid: 57e7b772622aff74cb7d6d8e90013451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TutorialController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5452619521482310327, guid: 57e7b772622aff74cb7d6d8e90013451, type: 3}
       propertyPath: m_RootOrder
       value: 0
