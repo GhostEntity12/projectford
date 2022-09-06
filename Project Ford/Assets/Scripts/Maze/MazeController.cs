@@ -205,6 +205,10 @@ public class MazeController : MonoBehaviour
 			path.Enqueue(startingCellPosition);
 			return new Path(path, () => { EndLevel(true); });
 		}
+		else if (startingCellPosition.x < 0) // Tring to leave through entrance.
+		{
+			return new Path(path, null);
+		}
 
 		Vector2Int currentCellPosition = startingCellPosition;
 		Vector2Int prevCellPosition = _playerCar.CurrentCellPosition;
@@ -230,7 +234,9 @@ public class MazeController : MonoBehaviour
 						break;
 					}
 					else
+					{
 						continue;
+					}
 				}
 
 				// This direction is valid, add to path.
@@ -240,7 +246,9 @@ public class MazeController : MonoBehaviour
 
 			// If at dead end or has multiple possible directions then end path here.
 			if (!QueryWalls[(int)currentCell.walls])
+			{
 				return new Path(path, null);
+			}
 			else
 			{
 				prevCellPosition = currentCellPosition;
@@ -252,9 +260,14 @@ public class MazeController : MonoBehaviour
 					path.Enqueue(currentCellPosition);
 					return new Path(path, () => { EndLevel(true); });
 				}
-				// Else move on to checking next cell.
-				else
+				else if (currentCellPosition.x > -1) // Else move on to checking next cell (so long as it's still in map). 
+				{
 					currentCell = _currentMaze.cells2D[currentCellPosition.x, currentCellPosition.y];
+				}
+				else // Trying to go back to start, just return path as is now.
+				{
+					return new Path(path, null);
+				}
 			}
 
 			loopCount++;

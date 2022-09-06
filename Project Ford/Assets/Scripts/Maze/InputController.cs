@@ -41,7 +41,10 @@ public class InputController : MonoBehaviour
 	{
 		Vector2Int newPosition = _playerCar.CurrentCellPosition + cardinals[input];
 		_playerCar.SetPath(_mazeController.SetPath(newPosition));
-		SetActiveArrows(0);
+		if (_playerCar.IsMoving)
+		{
+			SetActiveArrows(0);
+		}
 	}
 
 	public void SetActiveArrows()
