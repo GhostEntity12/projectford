@@ -53,6 +53,7 @@ public class CarEntity : MonoBehaviour
 	private float _mazeScaler;
 
 	public Vector2Int CurrentCellPosition => _currentMazeCell;
+	public bool IsMoving => _currentPath._pathCells.Count > 0;
 	public new Transform transform => _carTransform;
 	// If you want specifically this gameObject's transform (e.g. you want it without rotation) use base.transform
 
@@ -91,6 +92,8 @@ public class CarEntity : MonoBehaviour
 
 	private IEnumerator ProcessMovement()
 	{
+		if (_currentPath == null) yield break;
+
 		// Get first cell.
 		_currentCellTarget = _currentPath._pathCells.Dequeue();
 		_currentTargetPosition = MazeController.MazeToWorldCoords(_currentCellTarget);
@@ -102,9 +105,13 @@ public class CarEntity : MonoBehaviour
 		while (!_movementComplete)
 		{
 			if (_currentCellTarget.x < _currentMazeCell.x)
+			{
 				_carSpriteRenderer.sprite = _carLeftSprite;
+			}
 			else // Want right facing sprite for moving up and down.
+			{
 				_carSpriteRenderer.sprite = _carRightSprite;
+			}
 
 			float targetDot = Vector3.Dot(transform.forward, (_currentTargetPosition - transform.position).normalized);
 
@@ -164,13 +171,6 @@ public class CarEntity : MonoBehaviour
 
 			if (_fuelEnabled)
 			{
-				DecrementFuel();
-
-				if (_currentFuel < 1)
-				{
-					_mazeController.EndLevel(false);
-					yield break;
-				}
 			}
 
 			// Reached target cell.
@@ -178,33 +178,45 @@ public class CarEntity : MonoBehaviour
 			_currentMazeCellPosition = _currentTargetPosition;
 			_lineRenderer.SetPosition(++_lineRenderer.positionCount - 1, _currentMazeCellPosition);
 
+			if (_fuelEnabled && _currentMazeCell.x < _mazeController.CurrentMazeDimensions.x && _currentMazeCell.y < _mazeController.CurrentMazeDimensions.y)
+			{
+				DecrementFuel();
+
+				MazeCell currentMazeCell = _mazeController.GetCurrentMaze().cells2D[_currentMazeCell.x, _currentMazeCell.y];
+				if (currentMazeCell._fuel && !currentMazeCell._fuelTaken)
+				{
+					ResetFuel();
+					currentMazeCell._fuelCanObject.SetActive(false);
+					currentMazeCell._fuelTaken = true;
+				}
+			}
+
+			if (_fuelEnabled && _currentFuel < 1)
+			{
+				_mazeController.EndLevel(false);
+				yield break;
+			}
+
 			if (_currentPath._pathCells.Count > 0)
 			{
 				_currentCellTarget = _currentPath._pathCells.Dequeue();
 				_currentTargetPosition = MazeController.MazeToWorldCoords(_currentCellTarget);
-
-				if (_fuelEnabled)
-				{
-					MazeCell currentMazeCell = _mazeController.GetCurrentMaze().cells2D[_currentMazeCell.x, _currentMazeCell.y];
-					if (currentMazeCell._fuel && !currentMazeCell._fuelTaken)
-					{
-						ResetFuel();
-						currentMazeCell._fuelCanObject.SetActive(false);
-					}
-				}
 			}
 			else
 			{
 				_movementComplete = true;
 				break;
 			}
-
 		}
 
 		if (_currentPath._endAction != null)
+		{
 			_currentPath._endAction.Invoke();
+		}
 		else
+		{
 			_inputController.SetActiveArrows();
+		}
 
 		yield return null;
 	}
@@ -215,7 +227,9 @@ public class CarEntity : MonoBehaviour
 		_movementComplete = false;
 
 		if (_currentPath._pathCells.Count > 0)
+		{
 			StartCoroutine(ProcessMovement());
+		}
 	}
 
 	public void Reset()
@@ -232,6 +246,8 @@ public class CarEntity : MonoBehaviour
 		base.transform.position = _currentMazeCellPosition;
 		base.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
 		base.transform.localScale = new Vector3(1f, _mazeScaler, _mazeScaler);
+		transform.rotation = Quaternion.identity;
+		_carSpriteRenderer.transform.rotation = Quaternion.identity;
 
 		_lineRenderer.SetPositions(new Vector3[]{_currentMazeCellPosition});
 		_currentPath = null;
