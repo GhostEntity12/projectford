@@ -175,8 +175,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21.3, y: -48.9}
-  m_SizeDelta: {x: 250, y: 105}
+  m_AnchoredPosition: {x: 21.3, y: -113.3}
+  m_SizeDelta: {x: 250, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &291218594422053516
 CanvasRenderer:
@@ -326,7 +326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1525, y: 0.82666624}
   m_AnchorMax: {x: 0.1525, y: 0.82666624}
-  m_AnchoredPosition: {x: 2.1999712, y: 36}
+  m_AnchoredPosition: {x: 2.1999817, y: 36}
   m_SizeDelta: {x: 256, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2427964749977943958
@@ -809,12 +809,21 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    -The largest tram system in the world
+    -Home to the 4th largest tram system in the world
 
-    -Used to be called Batmania
+    -Used to
+    be called Batmania
 
-    -Known
-    for very unpredictable weather'
+    -Known for its very unpredictable weather
+
+    -Considered
+    to be Australia''s unofficial sporting capital
+
+    -Won the award for "most
+    liveable city in the world" 7 years in a row from 2011-2017
+
+    -Over a third
+    of people living in Melbourne were born overseas'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abf4be7efdb110c4e81a8d2371a0e4df, type: 2}
   m_sharedMaterial: {fileID: 6381084382281884889, guid: abf4be7efdb110c4e81a8d2371a0e4df, type: 2}

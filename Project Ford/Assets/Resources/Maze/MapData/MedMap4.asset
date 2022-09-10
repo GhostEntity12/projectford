@@ -195,4 +195,4 @@ MonoBehaviour:
     _fuelTaken: 0
     _position: {x: 5, y: 5}
     _fuelCanObject: {fileID: 0}
-  startLocation: {x: -1, y: 3}
+  startLocation: {x: -1, y: 2}
