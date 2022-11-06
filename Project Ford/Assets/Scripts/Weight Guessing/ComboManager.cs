@@ -66,6 +66,8 @@ public class ComboManager : MonoBehaviour
 
 	private int _currentQuestionCount = 0;
 
+	public bool EndlessMode => _endlessMode;
+
 	/// <summary>
 	/// On startup.
 	/// </summary>
