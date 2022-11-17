@@ -36,6 +36,7 @@ public class CarEntity : MonoBehaviour
 
 	[Header("Misc.")]
 	[SerializeField] private LineRenderer _lineRenderer;
+	[SerializeField] private LineRenderer _movingLineRenderer;
 	[SerializeField] private SpriteRenderer _carSpriteRenderer;
 	[SerializeField] private Transform _carTransform;
 
@@ -78,6 +79,7 @@ public class CarEntity : MonoBehaviour
 		_fuelGaugeRots.Add(_pointerMax.rotation);
 
 		_mazeScaler = _mazeController.Scaler;
+		_movingLineRenderer.positionCount = 2;
     }
 
 	public void Initialise()
@@ -98,7 +100,9 @@ public class CarEntity : MonoBehaviour
 		_currentCellTarget = _currentPath._pathCells.Dequeue();
 		_currentTargetPosition = MazeController.MazeToWorldCoords(_currentCellTarget);
 		
-		_lineRenderer.SetPosition(++_lineRenderer.positionCount - 1, base.transform.position);
+		_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, _currentMazeCellPosition);
+		_movingLineRenderer.SetPosition(0, _currentMazeCellPosition);
+		_movingLineRenderer.SetPosition(1, _currentMazeCellPosition);
 
 		float previousTime = Time.time;
 
@@ -118,6 +122,11 @@ public class CarEntity : MonoBehaviour
 			// Rotate towards target cell.
 			if (targetDot < 0.5f)
 			{
+				_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, _currentMazeCellPosition);
+				_lineRenderer.positionCount++;
+				_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, _currentMazeCellPosition);
+				_movingLineRenderer.SetPosition(0, _currentMazeCellPosition);
+
 				Quaternion targetRotation = Quaternion.LookRotation(_currentTargetPosition - transform.position, Vector3.forward);
 				Quaternion startRotation = transform.rotation;
 
@@ -162,7 +171,7 @@ public class CarEntity : MonoBehaviour
 					}
 					currentMoveTime += Time.time - previousTime;
 					previousTime = Time.time;
-					_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, base.transform.position);
+					_movingLineRenderer.SetPosition(1, base.transform.position);
 				}
 
 				yield return null;
@@ -176,7 +185,6 @@ public class CarEntity : MonoBehaviour
 			// Reached target cell.
 			_currentMazeCell = _currentCellTarget;
 			_currentMazeCellPosition = _currentTargetPosition;
-			_lineRenderer.SetPosition(++_lineRenderer.positionCount - 1, _currentMazeCellPosition);
 
 			if (_fuelEnabled && _currentMazeCell.x < _mazeController.CurrentMazeDimensions.x && _currentMazeCell.y < _mazeController.CurrentMazeDimensions.y)
 			{
