@@ -243,7 +243,6 @@ public class CarEntity : MonoBehaviour
 		_currentMazeCellPosition = MazeController.MazeToWorldCoords(_currentMazeCell);
 		_currentTargetPosition = _currentMazeCellPosition;
 
-		Debug.Log($"Maze start position {_currentMazeCell} converts to world position = {_currentMazeCellPosition}", gameObject);
 		base.transform.position = _currentMazeCellPosition;
 		base.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
 		base.transform.localScale = new Vector3(1f, _mazeScaler, _mazeScaler);

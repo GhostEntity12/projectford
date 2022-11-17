@@ -180,10 +180,6 @@ public class MazeController : MonoBehaviour
 		_mazeObject.transform.localScale = newMapScale;
 		// Move the camera to the centre of the map.
 		Camera.main.transform.position = new Vector3(newMapScale.x / 4f, newMapScale.z / 4f, -10f);
-		Debug.Log($"ScaledX = {ScaledX}");
-		Debug.Log($"ScaledY = {ScaledY}");
-		Debug.Log($"ScaledZ = {ScaledZ}");
-		Debug.Log($"Maze dimensions = {_currentMaze.dimensions}");
 
 		_inputController.SetActiveArrows(Direction.East);
 
@@ -396,6 +392,4 @@ public class MazeController : MonoBehaviour
 	}
 	public static Vector2 MazeToWorldCoords(Vector2 mazeCoords) => mazeCoords * (MazeController.Instance._scaler / 2f) + Vector2.one * (MazeController.Instance._scaler / 4f);
 	public static Vector2 WorldToMazeCoords(Vector2 worldCoords) => worldCoords / (MazeController.Instance._scaler / 2f) + Vector2.one * (MazeController.Instance._scaler / 4f);
-	//public static Vector2 MazeToWorldCoords(Vector2 mazeCoords) => new Vector2(((mazeCoords.x + 1) - MazeController.Instance.ScaledX) + (mazeCoords.x * MazeController.Instance.ScaledX), ((mazeCoords.y + 1) - MazeController.Instance.ScaledZ) + (mazeCoords.y * MazeController.Instance.ScaledZ));
-	//public static Vector2 WorldToMazeCoords(Vector2 worldCoords) => new Vector2((worldCoords.x - 1) + MazeController.Instance.ScaledX, (worldCoords.y - 1) + MazeController.Instance.ScaledZ);
 }
