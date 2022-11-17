@@ -98,9 +98,13 @@ public class MazeController : MonoBehaviour
 	void Awake()
 	{
 		if (MazeController.Instance == null)
+		{
 			_instance = this;
+		}
 		else
+		{
 			Destroy(gameObject);
+		}
 	}
 
 	void Start()
@@ -142,12 +146,16 @@ public class MazeController : MonoBehaviour
 				if (background != null)
 				{
 					if (!_backgroundImage.gameObject.activeSelf)
+					{
 						_backgroundImage.gameObject.SetActive(true);
+					}
 					
 					_backgroundImage.sprite = background;
 				}
 				else
+				{
 					_backgroundImage.gameObject.SetActive(false);
+				}
 			}
 
 			_decorSpawned = true;
@@ -162,7 +170,9 @@ public class MazeController : MonoBehaviour
 		List<MazeData> mazes = _currentMazeLevels.GetMazes();
 		// Get a new map.
 		if (mapIndex < mazes.Count)
+		{
 			_currentMaze = mazes[mapIndex];
+		}
 
 		// Load the new map.
 		_mazeMaterial.mainTexture = _currentMaze.map;
@@ -281,7 +291,9 @@ public class MazeController : MonoBehaviour
 	{
 		_decorSpawned = false;
 		if (_currentMap < _currentMazeLevels.GetMazes().Count - 1)
+		{
 			LoadMaze(++_currentMap);
+		}
 		else
 		{
 			if ((int)_currentDifficulty < (int)MazeDifficulty.Count - 1)
@@ -378,7 +390,6 @@ public class MazeController : MonoBehaviour
 	{
 		return _currentMaze.startLocation;
 	}
-
-	public static Vector2 MazeToWorldCoords(Vector2 mazeCoords) => new Vector2(((mazeCoords.x + 1) - MazeController.Instance.ScaledX) + (mazeCoords.x * MazeController.Instance.ScaledX), ((mazeCoords.y + 1) - MazeController.Instance.ScaledZ) + (mazeCoords.y * MazeController.Instance.ScaledZ));
-	public static Vector2 WorldToMazeCoords(Vector2 worldCoords) => new Vector2((worldCoords.x - 1) + MazeController.Instance.ScaledX, (worldCoords.y - 1) + MazeController.Instance.ScaledZ);
+	public static Vector2 MazeToWorldCoords(Vector2 mazeCoords) => mazeCoords * (MazeController.Instance._scaler / 2f) + Vector2.one * (MazeController.Instance._scaler / 4f);
+	public static Vector2 WorldToMazeCoords(Vector2 worldCoords) => worldCoords / (MazeController.Instance._scaler / 2f) + Vector2.one * (MazeController.Instance._scaler / 4f);
 }
