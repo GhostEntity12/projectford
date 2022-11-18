@@ -47,6 +47,7 @@ public class CarEntity : MonoBehaviour
 	private Vector2Int _currentCellTarget;
 	private Vector3 _currentTargetPosition;
 	private Vector3 _currentMazeCellPosition;
+	private Vector3 _prevMazeCellPosition;
 	
 	private List<Quaternion> _fuelGaugeRots = new List<Quaternion>();
 
@@ -79,7 +80,7 @@ public class CarEntity : MonoBehaviour
 		_fuelGaugeRots.Add(_pointerMax.rotation);
 
 		_mazeScaler = _mazeController.Scaler;
-		_movingLineRenderer.positionCount = 2;
+		_movingLineRenderer.positionCount = 3;
     }
 
 	public void Initialise()
@@ -125,7 +126,8 @@ public class CarEntity : MonoBehaviour
 				_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, _currentMazeCellPosition);
 				_lineRenderer.positionCount++;
 				_lineRenderer.SetPosition(_lineRenderer.positionCount - 1, _currentMazeCellPosition);
-				_movingLineRenderer.SetPosition(0, _currentMazeCellPosition);
+				_movingLineRenderer.SetPosition(0, _prevMazeCellPosition);
+				_movingLineRenderer.SetPosition(1, _currentMazeCellPosition);
 
 				Quaternion targetRotation = Quaternion.LookRotation(_currentTargetPosition - transform.position, Vector3.forward);
 				Quaternion startRotation = transform.rotation;
@@ -171,7 +173,7 @@ public class CarEntity : MonoBehaviour
 					}
 					currentMoveTime += Time.time - previousTime;
 					previousTime = Time.time;
-					_movingLineRenderer.SetPosition(1, base.transform.position);
+					_movingLineRenderer.SetPosition(_movingLineRenderer.positionCount - 1, base.transform.position);
 				}
 
 				yield return null;
@@ -184,6 +186,7 @@ public class CarEntity : MonoBehaviour
 
 			// Reached target cell.
 			_currentMazeCell = _currentCellTarget;
+			_prevMazeCellPosition = _currentMazeCellPosition;
 			_currentMazeCellPosition = _currentTargetPosition;
 
 			if (_fuelEnabled && _currentMazeCell.x < _mazeController.CurrentMazeDimensions.x && _currentMazeCell.y < _mazeController.CurrentMazeDimensions.y)
@@ -250,6 +253,7 @@ public class CarEntity : MonoBehaviour
 
 		_currentMazeCellPosition = MazeController.MazeToWorldCoords(_currentMazeCell);
 		_currentTargetPosition = _currentMazeCellPosition;
+		_prevMazeCellPosition = _currentMazeCellPosition;
 
 		base.transform.position = _currentMazeCellPosition;
 		base.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
