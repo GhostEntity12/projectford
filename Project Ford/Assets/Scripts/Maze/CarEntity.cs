@@ -262,6 +262,10 @@ public class CarEntity : MonoBehaviour
 		_carSpriteRenderer.transform.rotation = Quaternion.identity;
 
 		_lineRenderer.SetPositions(new Vector3[]{_currentMazeCellPosition});
+		for (int i = 0; i < _movingLineRenderer.positionCount; ++i)
+		{
+			_movingLineRenderer.SetPosition(i, _currentMazeCellPosition);
+		}
 		_currentPath = null;
 		_carSpriteRenderer.sprite = _carRightSprite;
 
