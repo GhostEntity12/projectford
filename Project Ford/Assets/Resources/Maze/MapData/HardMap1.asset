@@ -197,7 +197,7 @@ MonoBehaviour:
     _fuelCanObject: {fileID: 0}
   - walls: 8
     _fuel: 1
-    _fuelTaken: 0
+    _fuelTaken: 1
     _position: {x: 1, y: 5}
     _fuelCanObject: {fileID: 0}
   - walls: 6
