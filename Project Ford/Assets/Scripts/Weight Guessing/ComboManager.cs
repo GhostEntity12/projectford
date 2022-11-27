@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DifficultyEnum = DifficultyManager.DifficultyEnum;
 
 public class ComboManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class ComboManager : MonoBehaviour
 	[SerializeField] private GameObject _finishScreen = null;
 
 	[SerializeField] private StreakCounterManager _counterManager = null;
+
+	[SerializeField] private GameObject _difficultyFinishScreen;
 
 	/// <summary>
 	/// Instance of the combo manager.
@@ -141,8 +144,19 @@ public class ComboManager : MonoBehaviour
 		{
 			if (_currentQuestionCount >= _finishQuestionsAmount)
 			{
-				Debug.Log("Questions finished!");
-				_finishScreen.SetActive(true);
+				DifficultyManager dmInstance = DifficultyManager.GetInstance();
+				if (dmInstance == null) return;
+
+				int currentDifficultyInt = (int)dmInstance.GetDifficulty();
+
+				if (currentDifficultyInt < (int)DifficultyEnum.Count - 1)
+				{
+					_difficultyFinishScreen.SetActive(true);
+				}
+				else
+				{
+					_finishScreen.SetActive(true);
+				}
 				return;
 			}
 		}
@@ -190,6 +204,23 @@ public class ComboManager : MonoBehaviour
 			_counterManager.gameObject.SetActive(true);
 			_progInstance.gameObject.SetActive(false);
 		}
+	}
+
+	public void ResetCurrentQuestionCount()
+	{
+		_currentQuestionCount = 0;
+	}
+
+	public void IncrementDifficulty()
+	{
+		DifficultyManager dmInstance = DifficultyManager.GetInstance();
+		if (dmInstance == null) return;
+		
+		dmInstance.SetDifficulty((int)dmInstance.GetDifficulty() + 1);
+
+		AnimalManager.GetInstance()?.GetDifficultyFromManagerNoTutorial();
+		ProgressManager.GetInstance()?.ResetProgressBar();
+		ComboManager.GetInstance()?.ResetCurrentQuestionCount();
 	}
 
 	/// <summary>

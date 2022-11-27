@@ -57,6 +57,12 @@ public class ProgressManager : MonoBehaviour
 		_maxQuestionCounter.text = _maxQuestionCount.ToString();
 	}
 
+	public void ResetProgressBar()
+	{
+		_progressIndicator.position = _rectTransform.TransformPoint(Vector3.Lerp(_startPosVec, _endPosVec, 0f));
+		_currentQuestionCounter.text = "0";
+	}
+
 	public static ProgressManager GetInstance()
 	{
 		return _instance;
