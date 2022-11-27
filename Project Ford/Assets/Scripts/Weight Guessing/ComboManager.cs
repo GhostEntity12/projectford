@@ -30,6 +30,8 @@ public class ComboManager : MonoBehaviour
 
 	[SerializeField] private StreakCounterManager _counterManager = null;
 
+	[SerializeField] private GameObject _difficultyFinishScreen;
+
 	/// <summary>
 	/// Instance of the combo manager.
 	/// </summary>
@@ -149,11 +151,7 @@ public class ComboManager : MonoBehaviour
 
 				if (currentDifficultyInt < (int)DifficultyEnum.Count - 1)
 				{
-					dmInstance.SetDifficulty(++currentDifficultyInt);
-
-					AnimalManager.GetInstance()?.GetDifficultyFromManagerNoTutorial();
-					ProgressManager.GetInstance()?.ResetProgressBar();
-					ComboManager.GetInstance()?.ResetCurrentQuestionCount();
+					_difficultyFinishScreen.SetActive(true);
 				}
 				else
 				{
@@ -211,6 +209,18 @@ public class ComboManager : MonoBehaviour
 	public void ResetCurrentQuestionCount()
 	{
 		_currentQuestionCount = 0;
+	}
+
+	public void IncrementDifficulty()
+	{
+		DifficultyManager dmInstance = DifficultyManager.GetInstance();
+		if (dmInstance == null) return;
+		
+		dmInstance.SetDifficulty((int)dmInstance.GetDifficulty() + 1);
+
+		AnimalManager.GetInstance()?.GetDifficultyFromManagerNoTutorial();
+		ProgressManager.GetInstance()?.ResetProgressBar();
+		ComboManager.GetInstance()?.ResetCurrentQuestionCount();
 	}
 
 	/// <summary>
