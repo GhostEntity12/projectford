@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DifficultyEnum = DifficultyManager.DifficultyEnum;
 
 public class ComboManager : MonoBehaviour
 {
@@ -141,8 +142,23 @@ public class ComboManager : MonoBehaviour
 		{
 			if (_currentQuestionCount >= _finishQuestionsAmount)
 			{
-				Debug.Log("Questions finished!");
-				_finishScreen.SetActive(true);
+				DifficultyManager dmInstance = DifficultyManager.GetInstance();
+				if (dmInstance == null) return;
+
+				int currentDifficultyInt = (int)dmInstance.GetDifficulty();
+
+				if (currentDifficultyInt < (int)DifficultyEnum.Count - 1)
+				{
+					dmInstance.SetDifficulty(++currentDifficultyInt);
+
+					AnimalManager.GetInstance()?.GetDifficultyFromManagerNoTutorial();
+					ProgressManager.GetInstance()?.ResetProgressBar();
+					ComboManager.GetInstance()?.ResetCurrentQuestionCount();
+				}
+				else
+				{
+					_finishScreen.SetActive(true);
+				}
 				return;
 			}
 		}
@@ -190,6 +206,11 @@ public class ComboManager : MonoBehaviour
 			_counterManager.gameObject.SetActive(true);
 			_progInstance.gameObject.SetActive(false);
 		}
+	}
+
+	public void ResetCurrentQuestionCount()
+	{
+		_currentQuestionCount = 0;
 	}
 
 	/// <summary>

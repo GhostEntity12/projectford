@@ -239,6 +239,12 @@ public class AnimalManager : MonoBehaviour
 
 	public void GetDifficultyFromManager()
 	{
+		GetDifficultyFromManagerNoTutorial();
+		TutorialScreenController.Instance.InitialiseTutorial();
+	}
+
+	public void GetDifficultyFromManagerNoTutorial()
+	{
 		DifficultyManager dmInstance = DifficultyManager.GetInstance();
 		DifficultyManager.DifficultyEnum selectedDifficulty = dmInstance.GetDifficulty();
 		DifficultyManager.DifficultySettings settings = new DifficultyManager.DifficultySettings(0, 0);
@@ -281,8 +287,6 @@ public class AnimalManager : MonoBehaviour
 
 		_comboManager.SetFinishQuestionAmount(settings._finishQuestionsAmount);
 		_comboManager.SetEndlessMode(_endlessModeToggle.isOn);
-
-		TutorialScreenController.Instance.InitialiseTutorial();
 
 		// Spawn the weight text.
 		_currentAnimalVariety.ForEach(animal => Instantiate(_weightPrefab, _weightList).GetComponent<AnimalWeightInfo>().SetValues(animal));
